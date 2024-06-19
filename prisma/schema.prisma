@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String @id  @default(auto()) @map("_id") @db.ObjectId
+  email         String    @unique
+  name          String
+  password      String
+  whatsapp      String?
+  colonia       String?
+  municipio     String?
+  role          Role     @default(USER)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  peludos       Peludo[]
+  cupones       Cupon[]
+  ofertas       Oferta[]
+  etiquetas     Etiqueta[]
+  categorias    Categoria[]
+  formulas      Formula[]
+  puntos        String? @default("0")
+  isActive         Boolean  @default(false)
+  activationToken  String?  
+  tokenExpiry      DateTime?
+  passwordResetToken String? 
+}
+
+enum Role {
+  USER
+  ADMIN
+  SUPERADMIN
+}
+
+
+model Peludo {
+  id            String @id  @default(auto()) @map("_id") @db.ObjectId
+  fecha         DateTime @default(now())
+  nombre        String
+  raza          String
+  nacimiento    String
+  usuario       User @relation(fields: [usuarioId], references: [id])
+  usuarioId     String @db.ObjectId
+  foto          String
+  amigos        String
+  qrCode        String
+  instagram     String?
+  used          Used[]
+  fotos         Foto[]
+}
+
+model Foto {
+  id            String @id  @default(auto()) @map("_id") @db.ObjectId
+  url           String
+  peludo        Peludo @relation(fields: [peludoId], references: [id])
+  peludoId     String @db.ObjectId
+}
+
+
+model Cupon {
+  id                String @id  @default(auto()) @map("_id") @db.ObjectId
+  fecha             DateTime @default(now())
+  nombre            String
+  usuario           User @relation(fields: [usuarioId], references: [id])
+  usuarioId         String @db.ObjectId
+  oferta            String
+  categoria         String
+  servicio          String
+  formulaData       String?
+  activo            Boolean
+  visitsRequired    Int?
+  visitsRemaining   Int?
+  used              Used[]
+  descripcion       String?
+  formula           Formula[]
+}
+
+model Categoria{
+  id            String @id  @default(auto()) @map("_id") @db.ObjectId
+  fecha         DateTime @default(now())
+  nombre        String
+  usuario       User @relation(fields: [usuarioId], references: [id])
+  usuarioId     String @db.ObjectId
+}
+
+
+model Etiqueta{
+  id            String @id  @default(auto()) @map("_id") @db.ObjectId
+  fecha         DateTime @default(now())
+  nombre        String
+  usuario       User @relation(fields: [usuarioId], references: [id])
+  usuarioId     String @db.ObjectId
+}
+
+
+model Oferta{
+  id            String @id  @default(auto()) @map("_id") @db.ObjectId
+  fecha         DateTime @default(now())
+  usuario       User @relation(fields: [usuarioId], references: [id])
+  usuarioId     String @db.ObjectId
+  nombre        String
+  servicio      String?
+  // cupones       Cupon @relation(fields: [cuponId], references: [id])
+  // cuponId       String @db.ObjectId
+}
+
+model Formula{
+  id            String @id  @default(auto()) @map("_id") @db.ObjectId
+  fecha         DateTime @default(now())
+  nombre        String
+  formula       String
+  usuario       User @relation(fields: [usuarioId], references: [id])
+  usuarioId     String @db.ObjectId
+  cupon         Cupon @relation(fields: [cuponId], references: [id])
+  cuponId       String @db.ObjectId
+}
+
+
+model Used {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  peludo        Peludo @relation(fields: [peludoId], references: [id])
+  peludoId      String @db.ObjectId
+  cupon         Cupon @relation(fields: [cuponId], references: [id])
+  cuponId       String @db.ObjectId
+  timesUsed     Int?   @default(0) 
+  @@unique([peludoId, cuponId]) // Definición de la clave compuesta
+}
