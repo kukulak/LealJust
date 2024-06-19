@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
+    "build:tailwind": "tailwindcss build src/styles/tailwind.css -o src/styles/output.css",
+    "build:app": "webpack --config webpack.config.js",
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "netlify serve",
