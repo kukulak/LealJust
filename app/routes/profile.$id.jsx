@@ -1,20 +1,11 @@
-import { QRCode } from 'react-qrcode-logo'
-import Seccion from '../components/Seccion'
-import Modal from '../components/Modal'
-import UrlCreator from '../util/UrlCreator'
-import { useEffect, useState } from 'react'
-import { getCupones } from '../data/cupon.server'
-import ConfettiExplosion from 'react-confetti-explosion'
-import React from 'react'
-import {
-  CarouselProvider,
-  Slider,
-  Slide,
-  ButtonBack,
-  ButtonNext
-} from 'pure-react-carousel'
+import { QRCode } from "react-qrcode-logo";
+import Seccion from "../components/Seccion";
+import Modal from "../components/Modal";
+import UrlCreator from "../util/UrlCreator";
+import { useEffect, useState } from "react";
+import { getCupones } from "../data/cupon.server";
 
-import Carrusel from '../components/Carrusel'
+import Carrusel from "../components/Carrusel";
 
 import {
   Form,
@@ -23,14 +14,14 @@ import {
   useActionData,
   useOutletContext,
   useNavigate,
-  Link
-} from '@remix-run/react'
+  Link,
+} from "@remix-run/react";
 
-import { getPeludo } from '../data/peludo.server'
-import { upsertUsed } from '../data/used.server'
+import { getPeludo } from "../data/peludo.server";
+import { upsertUsed } from "../data/used.server";
 
-import { getUserFromSession, updatePuntos } from '../data/auth.server'
-import ImageFitFill from '../components/ImageFitFill'
+import { getUserFromSession, updatePuntos } from "../data/auth.server";
+import ImageFitFill from "../components/ImageFitFill";
 
 const largeProps = {
   zIndex: 100,
@@ -38,9 +29,9 @@ const largeProps = {
   duration: 2200,
   particleCount: 100,
   width: 1600,
-  height: '200vh',
-  colors: ['#041E43', '#1471BF', '#5BB4DC', '#FC027B', '#66D805']
-}
+  height: "200vh",
+  colors: ["#041E43", "#1471BF", "#5BB4DC", "#FC027B", "#66D805"],
+};
 
 const Profile = () => {
   // const url = 'https://github.com/gcoro/react-qrcode-logo'
@@ -53,8 +44,8 @@ const Profile = () => {
     cuponesDinamicas,
     cuponesEspeciales,
     peludo,
-    user
-  } = useLoaderData()
+    user,
+  } = useLoaderData();
 
   const settings = {
     dots: true,
@@ -63,36 +54,36 @@ const Profile = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000
-  }
+    autoplaySpeed: 3000,
+  };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // const userId = useActionData()
 
-  const { clienteId, changeClientId } = useOutletContext()
+  const { clienteId, changeClientId } = useOutletContext();
 
-  const [isExploding, setIsExploding] = useState(false)
+  const [isExploding, setIsExploding] = useState(false);
 
-  const fetcher = useFetcher()
-  const handleVisit = async couponId => {
+  const fetcher = useFetcher();
+  const handleVisit = async (couponId) => {
     // closeHandler()
     fetcher.submit(
       { clienteId, couponId },
-      { method: 'post', action: '/registrar-visita' } // Endpoint al que se enviará la solicitud
-    )
-  }
-  const actionClose = useActionData()
+      { method: "post", action: "/registrar-visita" }, // Endpoint al que se enviará la solicitud
+    );
+  };
+  const actionClose = useActionData();
 
-  const url = UrlCreator(peludo.id)
+  const url = UrlCreator(peludo.id);
 
-  const [estado, setEstado] = useState(false)
+  const [estado, setEstado] = useState(false);
 
   const [modalData, setModalData] = useState({
-    nombre: 'nombre',
-    formula: 'formula',
-    descripcion: 'descripcion',
-    cuponId: 'id'
-  })
+    nombre: "nombre",
+    formula: "formula",
+    descripcion: "descripcion",
+    cuponId: "id",
+  });
 
   // function deleteArtOfDream() {
   //   const proceed = confirm('Are you totally shure to delete this art?')
@@ -106,36 +97,36 @@ const Profile = () => {
   //   })
   // }
 
-  const [adminButtons, setAdminButtons] = useState(true)
+  const [adminButtons, setAdminButtons] = useState(true);
 
   useEffect(() => {
-    if (user.role !== 'ADMIN') {
-      setAdminButtons(false)
+    if (user.role !== "ADMIN") {
+      setAdminButtons(false);
     }
-  }, [user])
+  }, [user]);
 
   useEffect(() => {
     if (actionClose) {
-      setEstado(false)
+      setEstado(false);
     }
-  }, [actionClose])
+  }, [actionClose]);
 
   function closeHandler() {
     // console.log('cerrado')
     // setEstado(actionClose)
 
-    setEstado(false)
+    setEstado(false);
   }
 
   function submitHandler() {
-    setEstado(false)
+    setEstado(false);
   }
 
   function openCuponHandler(nombre, descripcion, cuponId, cuponVacio) {
-    setEstado(true)
-    const describe = descripcion
-    setModalData({ nombre, descripcion, cuponId, cuponVacio })
-    console.log(describe, 'modalDATa', cuponId)
+    setEstado(true);
+    const describe = descripcion;
+    setModalData({ nombre, descripcion, cuponId, cuponVacio });
+    console.log(describe, "modalDATa", cuponId);
   }
 
   return (
@@ -269,12 +260,12 @@ const Profile = () => {
             ))}
           </Slider> */}
 
-          {console.log('TODAS LAS FOTOS', peludo.fotos)}
+          {console.log("TODAS LAS FOTOS", peludo.fotos)}
 
           {/* <ImageFitFill src={peludo.foto} alt="Foto de tu perrito" /> */}
 
           <div className="pt-6 -mt-1 bg-gray-200 w-10/12  py-3 pl-4 pr-2 rounded-b-lg">
-            {' '}
+            {" "}
             <p className="text-center leading-none text-3xl font-thin -mt-4">
               ^
             </p>
@@ -296,21 +287,21 @@ const Profile = () => {
               </div>
             )}
             <div className=" -mt-16 flex items-end justify-between">
-              {user.role === 'ADMIN' ? (
+              {user.role === "ADMIN" ? (
                 <Link
                   className=" px-3 py-2 rounded-xl bg-[#F9AC19] text-sm"
                   to={`/editPeludo/${peludo.id}`}
                 >
-                  {' '}
-                  EDITAR{' '}
+                  {" "}
+                  EDITAR{" "}
                 </Link>
               ) : (
                 <Link
                   className=" px-3 py-2 rounded-xl bg-[#F9AC19] text-sm"
                   href="/invitar"
                 >
-                  {' '}
-                  Invitar Amigos{' '}
+                  {" "}
+                  Invitar Amigos{" "}
                 </Link>
               )}
               <QRCode
@@ -328,7 +319,7 @@ const Profile = () => {
                 eyeRadius={[
                   [5, 5, 5, 5], // top/left eye
                   [5, 5, 5, 5], // top/right eye
-                  [5, 5, 5, 5] // bottom/left
+                  [5, 5, 5, 5], // bottom/left
                 ]}
               />
             </div>
@@ -339,14 +330,14 @@ const Profile = () => {
         {cuponesEspeciales.length > 0 && (
           <Seccion
             user={user}
-            promociones={cuponesEspeciales.map(cupon => cupon.nombre)}
-            descripcion={cuponesEspeciales.map(cupon => cupon.descripcion)}
-            formula={cuponesEspeciales.map(cupon => cupon.formula)}
-            cuponId={cuponesEspeciales.map(cupon => cupon.id)}
+            promociones={cuponesEspeciales.map((cupon) => cupon.nombre)}
+            descripcion={cuponesEspeciales.map((cupon) => cupon.descripcion)}
+            formula={cuponesEspeciales.map((cupon) => cupon.formula)}
+            cuponId={cuponesEspeciales.map((cupon) => cupon.id)}
             titulo={cuponesEspeciales[0]?.categoria}
             onClick={openCuponHandler}
             visitsRemaining={cuponesEspeciales.map(
-              cupon => cupon.visitsRequired
+              (cupon) => cupon.visitsRequired,
             )}
           />
         )}
@@ -354,25 +345,27 @@ const Profile = () => {
         {cuponesEstetica.length > 0 && (
           <Seccion
             user={user}
-            promociones={cuponesEstetica.map(cupon => cupon.nombre)}
-            descripcion={cuponesEstetica.map(cupon => cupon.descripcion)}
-            formula={cuponesEstetica.map(cupon => cupon.formula)}
-            cuponId={cuponesEstetica.map(cupon => cupon.id)}
+            promociones={cuponesEstetica.map((cupon) => cupon.nombre)}
+            descripcion={cuponesEstetica.map((cupon) => cupon.descripcion)}
+            formula={cuponesEstetica.map((cupon) => cupon.formula)}
+            cuponId={cuponesEstetica.map((cupon) => cupon.id)}
             titulo={cuponesEstetica[0]?.categoria}
             onClick={openCuponHandler}
-            visitsRemaining={cuponesEstetica.map(cupon => cupon.visitsRequired)}
+            visitsRemaining={cuponesEstetica.map(
+              (cupon) => cupon.visitsRequired,
+            )}
           />
         )}
         {cuponesGuarderia.length > 0 && (
           <Seccion
             user={user}
-            promociones={cuponesGuarderia.map(cupon => cupon.nombre)}
-            descripcion={cuponesGuarderia.map(cupon => cupon.descripcion)}
-            cuponId={cuponesGuarderia.map(cupon => cupon.id)}
+            promociones={cuponesGuarderia.map((cupon) => cupon.nombre)}
+            descripcion={cuponesGuarderia.map((cupon) => cupon.descripcion)}
+            cuponId={cuponesGuarderia.map((cupon) => cupon.id)}
             titulo={cuponesGuarderia[0]?.categoria}
             // visitsRemaining={4}
             visitsRemaining={cuponesGuarderia.map(
-              cupon => cupon.visitsRequired
+              (cupon) => cupon.visitsRequired,
             )}
             onClick={openCuponHandler}
           />
@@ -380,59 +373,59 @@ const Profile = () => {
         {cuponesHotel.length > 0 && (
           <Seccion
             user={user}
-            promociones={cuponesHotel.map(nombre => nombre.nombre)}
-            descripcion={cuponesHotel.map(cupon => cupon.descripcion)}
-            cuponId={cuponesHotel.map(cupon => cupon.id)}
+            promociones={cuponesHotel.map((nombre) => nombre.nombre)}
+            descripcion={cuponesHotel.map((cupon) => cupon.descripcion)}
+            cuponId={cuponesHotel.map((cupon) => cupon.id)}
             titulo={cuponesHotel[0]?.categoria}
             // visitsRemaining={4}
-            visitsRemaining={cuponesHotel.map(cupon => cupon.visitsRequired)}
+            visitsRemaining={cuponesHotel.map((cupon) => cupon.visitsRequired)}
             onClick={openCuponHandler}
           />
         )}
         {cuponesAmigos.length > 0 && (
           <Seccion
             user={user}
-            promociones={cuponesAmigos.map(nombre => nombre.nombre)}
-            descripcion={cuponesAmigos.map(cupon => cupon.descripcion)}
-            cuponId={cuponesAmigos.map(cupon => cupon.id)}
+            promociones={cuponesAmigos.map((nombre) => nombre.nombre)}
+            descripcion={cuponesAmigos.map((cupon) => cupon.descripcion)}
+            cuponId={cuponesAmigos.map((cupon) => cupon.id)}
             titulo={cuponesAmigos[0]?.categoria}
             onClick={openCuponHandler}
-            visitsRemaining={cuponesAmigos.map(cupon => cupon.visitsRequired)}
+            visitsRemaining={cuponesAmigos.map((cupon) => cupon.visitsRequired)}
           />
         )}
 
         {cuponesDinamicas.length > 0 && (
           <Seccion
             user={user}
-            promociones={cuponesDinamicas.map(nombre => nombre.nombre)}
-            descripcion={cuponesDinamicas.map(cupon => cupon.descripcion)}
-            cuponId={cuponesDinamicas.map(cupon => cupon.id)}
+            promociones={cuponesDinamicas.map((nombre) => nombre.nombre)}
+            descripcion={cuponesDinamicas.map((cupon) => cupon.descripcion)}
+            cuponId={cuponesDinamicas.map((cupon) => cupon.id)}
             titulo={cuponesDinamicas[0]?.categoria}
             onClick={openCuponHandler}
             visitsRemaining={cuponesDinamicas.map(
-              cupon => cupon.visitsRrequired
+              (cupon) => cupon.visitsRrequired,
             )}
           />
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
 
 export async function loader({ params, request }) {
-  const peludoId = params.id
-  const user = await getUserFromSession(request)
-  const cuponesEstetica = await getCupones('Estética', peludoId)
-  const cuponesGuarderia = await getCupones('Guardería', peludoId)
-  const cuponesHotel = await getCupones('Hotel', peludoId)
-  const cuponesAmigos = await getCupones('Amigos', peludoId)
-  const cuponesDinamicas = await getCupones('Dinámicas', peludoId)
-  const cuponesEspeciales = await getCupones('Especiales', peludoId)
+  const peludoId = params.id;
+  const user = await getUserFromSession(request);
+  const cuponesEstetica = await getCupones("Estética", peludoId);
+  const cuponesGuarderia = await getCupones("Guardería", peludoId);
+  const cuponesHotel = await getCupones("Hotel", peludoId);
+  const cuponesAmigos = await getCupones("Amigos", peludoId);
+  const cuponesDinamicas = await getCupones("Dinámicas", peludoId);
+  const cuponesEspeciales = await getCupones("Especiales", peludoId);
 
-  const peludo = await getPeludo(peludoId)
-  console.log(cuponesGuarderia, 'CUPONESGUARDERIA')
+  const peludo = await getPeludo(peludoId);
+  console.log(cuponesGuarderia, "CUPONESGUARDERIA");
   return {
     cuponesEstetica,
     cuponesGuarderia,
@@ -441,23 +434,23 @@ export async function loader({ params, request }) {
     cuponesDinamicas,
     cuponesEspeciales,
     peludo,
-    user
-  }
+    user,
+  };
 }
 
 export async function action({ request }) {
-  const formData = await request.formData()
-  const { userId } = getUserFromSession(request)
-  const cuponData = Object.fromEntries(formData)
-  const cuponId = cuponData.cuponId
-  const peludoId = cuponData.peludoId
-  console.log('CUPON ID', cuponId)
-  console.log('PELUDO ID', peludoId)
+  const formData = await request.formData();
+  const { userId } = getUserFromSession(request);
+  const cuponData = Object.fromEntries(formData);
+  const cuponId = cuponData.cuponId;
+  const peludoId = cuponData.peludoId;
+  console.log("CUPON ID", cuponId);
+  console.log("PELUDO ID", peludoId);
   if (cuponId) {
-    await updatePuntos(peludoId, 10)
-    await upsertUsed(cuponId, peludoId)
+    await updatePuntos(peludoId, 10);
+    await upsertUsed(cuponId, peludoId);
     // await registerVisit(peludoId, cuponId)
-    return true
+    return true;
   }
-  return true
+  return true;
 }
