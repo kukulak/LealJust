@@ -1,6 +1,6 @@
 // import { QRCode } from "react-qrcode-logo";
 import Seccion from "../components/Seccion";
-// import Modal from "../components/Modal";
+import Modal from "../components/Modal";
 // import UrlCreator from "../util/UrlCreator";
 import { useEffect, useState } from "react";
 import { getCupones } from "../data/cupon.server";
@@ -8,7 +8,7 @@ import { getCupones } from "../data/cupon.server";
 // import Carrusel from "../components/Carrusel";
 import ImageFitFill from "../components/ImageFitFill";
 import {
-  // Form,
+  Form,
   useLoaderData,
   // useActionData,
   useNavigate,
@@ -47,7 +47,7 @@ const Perro = () => {
     cuponId: "id",
   });
 
-  // const [adminButtons, setAdminButtons] = useState(true);
+  const [adminButtons, setAdminButtons] = useState(true);
 
   // useEffect(() => {
   //   if (user.role !== "ADMIN") {
@@ -61,13 +61,13 @@ const Perro = () => {
   //   }
   // }, [actionClose]);
 
-  // function closeHandler() {
-  //   setEstado(false);
-  // }
+  function closeHandler() {
+    setEstado(false);
+  }
 
-  // function submitHandler() {
-  //   setEstado(false);
-  // }
+  function submitHandler() {
+    setEstado(false);
+  }
 
   function openCuponHandler(nombre, descripcion, cuponId, cuponVacio) {
     setEstado(true);
