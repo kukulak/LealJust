@@ -1,24 +1,24 @@
-import { QRCode } from "react-qrcode-logo";
-import Seccion from "../components/Seccion";
-import Modal from "../components/Modal";
-import UrlCreator from "../util/UrlCreator";
-import { useEffect, useState } from "react";
-import { getCupones } from "../data/cupon.server";
+// import { QRCode } from "react-qrcode-logo";
+// import Seccion from "../components/Seccion";
+// import Modal from "../components/Modal";
+// import UrlCreator from "../util/UrlCreator";
+// import { useEffect, useState } from "react";
+// import { getCupones } from "../data/cupon.server";
 
-// import Carrusel from "../components/Carrusel";
-import ImageFitFill from "../components/ImageFitFill";
-import {
-  Form,
-  useLoaderData,
-  useActionData,
-  useNavigate,
-  Link,
-} from "@remix-run/react";
+// // import Carrusel from "../components/Carrusel";
+// import ImageFitFill from "../components/ImageFitFill";
+// import {
+//   Form,
+//   useLoaderData,
+//   useActionData,
+//   useNavigate,
+//   Link,
+// } from "@remix-run/react";
 
-import { getPeludo } from "../data/peludo.server";
-import { upsertUsed } from "../data/used.server";
+// import { getPeludo } from "../data/peludo.server";
+// import { upsertUsed } from "../data/used.server";
 
-import { getUserFromSession, updatePuntos } from "../data/auth.server";
+// import { getUserFromSession, updatePuntos } from "../data/auth.server";
 
 const Perro = () => {
   // const {
