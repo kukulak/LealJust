@@ -3,7 +3,7 @@ import Seccion from "../components/Seccion";
 import Modal from "../components/Modal";
 import UrlCreator from "../util/UrlCreator";
 import { useEffect, useState } from "react";
-import { getCupones } from "../data/cupon.server";
+// import { getCupones } from "../data/cupon.server";
 
 // import Carrusel from "../components/Carrusel";
 import ImageFitFill from "../components/ImageFitFill";
@@ -15,10 +15,10 @@ import {
   Link,
 } from "@remix-run/react";
 
-import { getPeludo } from "../data/peludo.server";
+// import { getPeludo } from "../data/peludo.server";
 // import { upsertUsed } from "../data/used.server";
 
-import { getUserFromSession } from "../data/auth.server";
+// import { getUserFromSession } from "../data/auth.server";
 // import { getUserFromSession, updatePuntos } from "../data/auth.server";
 
 const Perro = () => {
@@ -300,29 +300,29 @@ const Perro = () => {
 
 export default Perro;
 
-export async function loader({ params, request }) {
-  const peludoId = params.id;
-  const user = await getUserFromSession(request);
-  const cuponesEstetica = await getCupones("Estética", peludoId);
-  const cuponesGuarderia = await getCupones("Guardería", peludoId);
-  const cuponesHotel = await getCupones("Hotel", peludoId);
-  const cuponesAmigos = await getCupones("Amigos", peludoId);
-  const cuponesDinamicas = await getCupones("Dinámicas", peludoId);
-  const cuponesEspeciales = await getCupones("Especiales", peludoId);
+// export async function loader({ params, request }) {
+//   const peludoId = params.id;
+//   const user = await getUserFromSession(request);
+//   const cuponesEstetica = await getCupones("Estética", peludoId);
+//   const cuponesGuarderia = await getCupones("Guardería", peludoId);
+//   const cuponesHotel = await getCupones("Hotel", peludoId);
+//   const cuponesAmigos = await getCupones("Amigos", peludoId);
+//   const cuponesDinamicas = await getCupones("Dinámicas", peludoId);
+//   const cuponesEspeciales = await getCupones("Especiales", peludoId);
 
-  const peludo = await getPeludo(peludoId);
-  // console.log(cuponesGuarderia, "CUPONESGUARDERIA");
-  return {
-    cuponesEstetica,
-    cuponesGuarderia,
-    cuponesHotel,
-    cuponesAmigos,
-    cuponesDinamicas,
-    cuponesEspeciales,
-    peludo,
-    user,
-  };
-}
+//   const peludo = await getPeludo(peludoId);
+//   // console.log(cuponesGuarderia, "CUPONESGUARDERIA");
+//   return {
+//     cuponesEstetica,
+//     cuponesGuarderia,
+//     cuponesHotel,
+//     cuponesAmigos,
+//     cuponesDinamicas,
+//     cuponesEspeciales,
+//     peludo,
+//     user,
+//   };
+// }
 
 // export async function action({ request }) {
 //   const formData = await request.formData();
