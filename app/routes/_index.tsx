@@ -2,27 +2,27 @@ import type {
   MetaFunction,
   LoaderFunctionArgs,
   LinksFunction,
-  ActionFunctionArgs
-} from '@remix-run/node'
-import Intro from '../components/Intro'
-import { Link, Links, useLoaderData, useNavigate } from '@remix-run/react'
-import { getUserFromSession } from '~/data/auth.server'
-import { useEffect } from 'react'
-import BurgerMenu from '~/components/BurgerMenu'
-import { getAllPeludosByUser } from '../data/peludo.server'
+  ActionFunctionArgs,
+} from "@remix-run/node";
+import Intro from "../components/Intro";
+import { Link, Links, useLoaderData, useNavigate } from "@remix-run/react";
+import { getUserFromSession } from "~/data/auth.server";
+import { useEffect } from "react";
+import BurgerMenu from "~/components/BurgerMenu";
+import { getAllPeludosByUser } from "../data/peludo.server";
 export const meta: MetaFunction = () => {
   return [
-    { title: 'Programa de Lealtad Just Like Home' },
-    { name: 'description', content: 'Programa de lealtad' }
-  ]
-}
+    { title: "Programa de Lealtad Just Like Home" },
+    { name: "description", content: "Programa de lealtad" },
+  ];
+};
 
-import loJLH from '/img/lo-JLH-hrz-big.png'
+import loJLH from "/img/lo-JLH-hrz-big.png";
 
 export default function Index() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { user, perritos } = useLoaderData()
+  const { user, perritos } = useLoaderData();
 
   // useEffect(() => {
   //   if (user?.userId) {
@@ -37,7 +37,7 @@ export default function Index() {
   return (
     <>
       {/* {user?.userId && <BurgerMenu userId={user?.userId} />} */}
-      <div className=" animate-buscador flex flex-col items-center content-center justify-center h-screen bg-gray-950 ">
+      <div className=" animate-buscador pt-20  flex flex-col items-center content-center justify-center h-screen bg-gray-950 ">
         {/* <Intro /> */}
         <section className=" -mt-52 flex flex-col gap-2 justify-center items-center">
           <h2 className="font-montserrat text-2xl ">Bienvenido </h2>
@@ -53,7 +53,7 @@ export default function Index() {
           />
           <p className="text-lg">El hub para tus perritos</p>
         </section>
-        {user?.role === 'USER' && (
+        {user?.role === "USER" && (
           <section className="mt-10 flex flex-col gap-5 items-center">
             {/* <Link to="/login">
               ¿Tienes cuenta?{' '}
@@ -64,7 +64,7 @@ export default function Index() {
             Mira los cupones de
             <div className="flex justify-center">
               <div className="flex ">
-                {perritos.map(perrito => (
+                {perritos.map((perrito) => (
                   <Link
                     to={`profile/${perrito.id}`}
                     key={perrito.id}
@@ -74,7 +74,7 @@ export default function Index() {
                       className=" object-fill w-36 h-36"
                       alt="perritos"
                       src={perrito.foto}
-                    />{' '}
+                    />{" "}
                   </Link>
                 ))}
               </div>
@@ -83,7 +83,7 @@ export default function Index() {
               className=" text-center mt-10 flex flex-col gap-5 items-center"
               to="/login"
             >
-              <br /> y empieza a recibir beneficios.{' '}
+              <br /> y empieza a recibir beneficios.{" "}
             </Link>
           </section>
         )}
@@ -91,7 +91,7 @@ export default function Index() {
         {!user?.role && (
           <section className="mt-10 flex flex-col gap-5 items-center">
             <Link to="/login">
-              ¿Tienes cuenta?{' '}
+              ¿Tienes cuenta?{" "}
               <span className=" decoration-solid underline">
                 pasa por aquí.
               </span>
@@ -102,15 +102,15 @@ export default function Index() {
             >
               Si quieres una cuenta <br />
               ven a Just Like Home
-              <br /> y empieza a recibir beneficios.{' '}
+              <br /> y empieza a recibir beneficios.{" "}
             </Link>
           </section>
         )}
 
-        {user?.role === 'ADMIN' && (
+        {user?.role === "ADMIN" && (
           <section className="mt-10 flex flex-col gap-5 items-center">
             <Link to="/login">
-              ¿Tienes cuenta?{' '}
+              ¿Tienes cuenta?{" "}
               <span className=" decoration-solid underline">
                 pasa por aquí.
               </span>
@@ -119,15 +119,15 @@ export default function Index() {
         )}
       </div>
     </>
-  )
+  );
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const user = await getUserFromSession(request)
+  const user = await getUserFromSession(request);
   // const userId = user.userId
-  let perritos = {}
+  let perritos = {};
   if (user?.userId) {
-    perritos = await getAllPeludosByUser(user.userId)
+    perritos = await getAllPeludosByUser(user.userId);
   }
-  return { user, perritos }
+  return { user, perritos };
 }

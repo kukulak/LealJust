@@ -1,8 +1,8 @@
-import { json, redirect } from '@remix-run/node'
-import { Form, useActionData } from '@remix-run/react'
+import { json, redirect } from "@remix-run/node";
+import { Form, useActionData } from "@remix-run/react";
 
 export default function Signup() {
-  const actionData = useActionData()
+  const actionData = useActionData();
   return (
     <Form method="post">
       <p>
@@ -17,30 +17,30 @@ export default function Signup() {
         ) : null}
       </p>
 
-      <button type="submit">Sign Up</button>
+      <button type="submit">Registrarme</button>
     </Form>
-  )
+  );
 }
 
 export async function action(request) {
-  const formData = await request.formData()
-  const email = String(formData.get('email'))
-  const password = String(formData.get('password'))
+  const formData = await request.formData();
+  const email = String(formData.get("email"));
+  const password = String(formData.get("password"));
 
-  const errors = {}
+  const errors = {};
 
-  if (!email.includes('@')) {
-    errors.email = 'Invalid email address'
+  if (!email.includes("@")) {
+    errors.email = "Invalid email address";
   }
 
   if (password.length < 12) {
-    errors.password = 'Password should be at least 12 characters'
+    errors.password = "Password should be at least 12 characters";
   }
 
   if (Object.keys(errors).length > 0) {
-    return json({ errors })
+    return json({ errors });
   }
 
   // Redirect to dashboard if validation is successful
-  return redirect('/dashboard')
+  return redirect("/");
 }

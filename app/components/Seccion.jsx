@@ -25,7 +25,7 @@ const Seccion = ({
                       <button
                         // disabled={i === 0 && index === 0 ? false : true}
                         disabled={false}
-                        key={index}
+                        key={index + promo}
                         onClick={() =>
                           onClick(
                             promo,
@@ -37,7 +37,7 @@ const Seccion = ({
                         className="flex flex-wrap justify-center gap-5 "
                       >
                         <Rewards
-                          key={visit}
+                          key={index + visit}
                           numero={visitsRemaining[index] - i - 1}
                           promocion={`para la siguiente promoción`}
                           style={
@@ -50,7 +50,7 @@ const Seccion = ({
                   <button
                     // disabled={index === 0 ? false : true}
                     disabled={false}
-                    key={index}
+                    key={index + promo}
                     onClick={() =>
                       onClick(promo, descripcion[index], cuponId[index])
                     }

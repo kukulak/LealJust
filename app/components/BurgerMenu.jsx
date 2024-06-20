@@ -1,28 +1,28 @@
-import { Form, Link } from '@remix-run/react'
-import { useRef, useState } from 'react'
-import useScrollBlock from '../util/useScrollBlock'
+import { Form, Link } from "@remix-run/react";
+import { useRef, useState } from "react";
+import useScrollBlock from "../util/useScrollBlock";
 
 const BurgerMenu = ({ userId, userName, role }) => {
-  const [blockScroll, allowScroll] = useScrollBlock()
-  const dialog = useRef()
+  const [blockScroll, allowScroll] = useScrollBlock();
+  const dialog = useRef();
 
   // console.log(userId)
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const manageOpen = () => {
-    setIsOpen(!isOpen)
+    setIsOpen(!isOpen);
     if (isOpen) {
-      console.log('cierra')
-      dialog.current.close()
-      console.log('ALLOW SCROLL')
-      allowScroll()
+      console.log("cierra");
+      dialog.current.close();
+      console.log("ALLOW SCROLL");
+      allowScroll();
     } else {
-      console.log('NO SCROLL')
+      console.log("NO SCROLL");
 
-      blockScroll()
+      blockScroll();
     }
-  }
+  };
 
   return (
     <div className="fixed w-full z-50">
@@ -33,7 +33,7 @@ const BurgerMenu = ({ userId, userName, role }) => {
         >
           <dialog
             ref={dialog}
-            onClick={event => event.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
             open
             className="m-0 text-gray-800 p-5  bg-gray-300 h-screen flex flex-col gap-1 justify-starts content-start flex-wrap text-left "
           >
@@ -54,7 +54,7 @@ const BurgerMenu = ({ userId, userName, role }) => {
 
               <div className=" pl-1 flex object-center items-center justify-center rounded-full w-7 h-7 bg-gray-800">
                 <h3 className=" text-md  text-gray-200 ">
-                  {' '}
+                  {" "}
                   {userName.substring(0, 1).toUpperCase()}.
                 </h3>
               </div>
@@ -63,7 +63,7 @@ const BurgerMenu = ({ userId, userName, role }) => {
               </Link>
             </div>
 
-            {role === 'ADMIN' && (
+            {role === "ADMIN" && (
               <Link onClick={manageOpen} to="/homeAdmin">
                 ADMIN HOME
               </Link>
@@ -75,7 +75,7 @@ const BurgerMenu = ({ userId, userName, role }) => {
               </Link>
             </div>
 
-            {role === 'ADMIN' && (
+            {role === "ADMIN" && (
               <div className="flex flex-row flex-wrap gap-3 items-center my-1">
                 <Link onClick={manageOpen} to={`/buscarCliente`}>
                   Buscar
@@ -114,7 +114,7 @@ const BurgerMenu = ({ userId, userName, role }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default BurgerMenu
+export default BurgerMenu;

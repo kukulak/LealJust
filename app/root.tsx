@@ -1,5 +1,4 @@
 import {
-  Link,
   Links,
   Meta,
   Outlet,
@@ -42,7 +41,7 @@ function Document({
         <section className=" pt-1 flex flex-col justify-center w-full items-center">
           {children}
         </section>
-        <MenuMobile userId={userId} />
+        {userId && <MenuMobile role={userRole} userId={userId} />}
         <ScrollRestoration />
         <Scripts />
         {/* 

@@ -1,8 +1,8 @@
-import { Form, useNavigation } from '@remix-run/react'
+import { Form, useNavigation } from "@remix-run/react";
 const PeludoForm = ({ imageUrl, usuarioId }) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
-  const isSubmitting = navigation.state !== 'idle'
+  const isSubmitting = navigation.state !== "idle";
 
   return (
     <div className="mt-10 w-full items-center flex flex-col gap-5">
@@ -66,12 +66,12 @@ const PeludoForm = ({ imageUrl, usuarioId }) => {
         </div>
         <div className="flex justify-center gap-5 flex-wrap align-baseline">
           <button className=" rounded-lg self-center flex justify-center items-center text-lg text-gray-100 text-center  p-4 border-spacing-1 border-gray-600 border-2 mt-10 mb-10">
-            {isSubmitting ? 'En ello...' : 'Dar de alta'}
+            {isSubmitting ? "En ello..." : "Dar de alta"}
           </button>
         </div>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default PeludoForm
+export default PeludoForm;
