@@ -1,80 +1,80 @@
-import { QRCode } from "react-qrcode-logo";
-import Seccion from "../components/Seccion";
-import Modal from "../components/Modal";
-import UrlCreator from "../util/UrlCreator";
-import { useEffect, useState } from "react";
+// import { QRCode } from "react-qrcode-logo";
+// import Seccion from "../components/Seccion";
+// import Modal from "../components/Modal";
+// import UrlCreator from "../util/UrlCreator";
+// import { useEffect, useState } from "react";
 import { getCupones } from "../data/cupon.server";
 
 // import Carrusel from "../components/Carrusel";
-import ImageFitFill from "../components/ImageFitFill";
-import {
-  Form,
-  useLoaderData,
-  useActionData,
-  useNavigate,
-  Link,
-} from "@remix-run/react";
+// import ImageFitFill from "../components/ImageFitFill";
+// import {
+//   Form,
+//   useLoaderData,
+//   useActionData,
+//   useNavigate,
+//   Link,
+// } from "@remix-run/react";
 
-import { getPeludo } from "../data/peludo.server";
-import { upsertUsed } from "../data/used.server";
+// import { getPeludo } from "../data/peludo.server";
+// import { upsertUsed } from "../data/used.server";
 
-import { getUserFromSession, updatePuntos } from "../data/auth.server";
+// import { getUserFromSession, updatePuntos } from "../data/auth.server";
 
 const Perro = () => {
-  const {
-    cuponesEstetica,
-    cuponesGuarderia,
-    cuponesHotel,
-    cuponesAmigos,
-    cuponesDinamicas,
-    cuponesEspeciales,
-    peludo,
-    user,
-  } = useLoaderData();
+  // const {
+  //   cuponesEstetica,
+  //   cuponesGuarderia,
+  //   cuponesHotel,
+  //   cuponesAmigos,
+  //   cuponesDinamicas,
+  //   cuponesEspeciales,
+  //   peludo,
+  //   user,
+  // } = useLoaderData();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const actionClose = useActionData();
+  // const actionClose = useActionData();
 
-  const url = UrlCreator(peludo.id);
+  // const url = UrlCreator(peludo.id);
 
-  const [estado, setEstado] = useState("");
+  // const [estado, setEstado] = useState("");
 
-  const [modalData, setModalData] = useState({
-    nombre: "nombre",
-    formula: "formula",
-    descripcion: "descripcion",
-    cuponId: "id",
-  });
+  // const [modalData, setModalData] = useState({
+  //   nombre: "nombre",
+  //   formula: "formula",
+  //   descripcion: "descripcion",
+  //   cuponId: "id",
+  // });
 
-  const [adminButtons, setAdminButtons] = useState(true);
+  // const [adminButtons, setAdminButtons] = useState(true);
 
-  useEffect(() => {
-    if (user.role !== "ADMIN") {
-      setAdminButtons(false);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user.role !== "ADMIN") {
+  //     setAdminButtons(false);
+  //   }
+  // }, [user]);
 
-  useEffect(() => {
-    if (actionClose) {
-      setEstado(false);
-    }
-  }, [actionClose]);
+  // useEffect(() => {
+  //   if (actionClose) {
+  //     setEstado(false);
+  //   }
+  // }, [actionClose]);
 
-  function closeHandler() {
-    setEstado(false);
-  }
+  // function closeHandler() {
+  //   setEstado(false);
+  // }
 
-  function submitHandler() {
-    setEstado(false);
-  }
+  // function submitHandler() {
+  //   setEstado(false);
+  // }
 
-  function openCuponHandler(nombre, descripcion, cuponId, cuponVacio) {
-    setEstado(true);
-    const describe = descripcion;
-    setModalData({ nombre, descripcion, cuponId, cuponVacio });
-    console.log(describe, "modalDATa", cuponId);
-  }
+  // function openCuponHandler(nombre, descripcion, cuponId, cuponVacio) {
+  //   setEstado(true);
+  //   const describe = descripcion;
+  //   setModalData({ nombre, descripcion, cuponId, cuponVacio });
+  //   console.log(describe, "modalDATa", cuponId);
+  // }
 
   return (
     // <div className="max-w-[720px]">
