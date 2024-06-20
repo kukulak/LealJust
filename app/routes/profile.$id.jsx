@@ -5,8 +5,8 @@ import UrlCreator from "../util/UrlCreator";
 import { useEffect, useState } from "react";
 import { getCupones } from "../data/cupon.server";
 
-import Carrusel from "../components/Carrusel";
-
+// import Carrusel from "../components/Carrusel";
+import ImageFitFill from "../components/ImageFitFill";
 import {
   Form,
   useLoaderData,
@@ -19,7 +19,6 @@ import { getPeludo } from "../data/peludo.server";
 import { upsertUsed } from "../data/used.server";
 
 import { getUserFromSession, updatePuntos } from "../data/auth.server";
-// import ImageFitFill from "../components/ImageFitFill";
 
 // const largeProps = {
 //   zIndex: 100,
@@ -215,7 +214,7 @@ const Profile = () => {
             <ButtonNext>Next</ButtonNext>
           </CarouselProvider> */}
 
-          <Carrusel images={peludo.fotos} />
+          {/* <Carrusel images={peludo.fotos} /> */}
 
           {/* <Slider {...settings}>
             {peludo.fotos.map((foto, index) => (
@@ -227,7 +226,7 @@ const Profile = () => {
           {/* 
           {console.log("TODAS LAS FOTOS", peludo.fotos)} */}
 
-          {/* <ImageFitFill src={peludo.foto} alt="Foto de tu perrito" /> */}
+          <ImageFitFill src={peludo.foto} alt="Foto de tu perrito" />
 
           <div className="pt-6 -mt-1 bg-gray-200 w-10/12  py-3 pl-4 pr-2 rounded-b-lg">
             {" "}
