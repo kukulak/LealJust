@@ -21,16 +21,16 @@ import { upsertUsed } from "../data/used.server";
 import { getUserFromSession, updatePuntos } from "../data/auth.server";
 
 const Perro = () => {
-  const {
-    cuponesEstetica,
-    cuponesGuarderia,
-    cuponesHotel,
-    cuponesAmigos,
-    cuponesDinamicas,
-    cuponesEspeciales,
-    peludo,
-    user,
-  } = useLoaderData();
+  // const {
+  //   cuponesEstetica,
+  //   cuponesGuarderia,
+  //   cuponesHotel,
+  //   cuponesAmigos,
+  //   cuponesDinamicas,
+  //   cuponesEspeciales,
+  //   peludo,
+  //   user,
+  // } = useLoaderData();
 
   // const navigate = useNavigate();
 
@@ -78,6 +78,7 @@ const Perro = () => {
 
   return (
     <div className="max-w-[720px]">
+      NO RTIENE NADA
       {/* <Modal estado={estado} onClose={closeHandler}>
         <div className="bg-gray-100 flex flex-col justify-center items-center p-3 rounded-2xl w-full md:w-1/2">
           <div className="rounded-xl p-5  w-[98%] bg-gray-300 ">
@@ -131,7 +132,6 @@ const Perro = () => {
           </div>
         </div>
       </Modal> */}
-
       <div className="text-gray-900 mt-10 ">
         <div className="mb-10  flex items-center flex-col">
           {/* <Link
@@ -200,32 +200,32 @@ const Perro = () => {
           {/* 
           {console.log("TODAS LAS FOTOS", peludo.fotos)} */}
 
-          <ImageFitFill src={peludo.foto} alt="Foto de tu perrito" />
+          {/* <ImageFitFill src={peludo.foto} alt="Foto de tu perrito" /> */}
 
           <div className="pt-6 -mt-1 bg-gray-200 w-10/12  py-3 pl-4 pr-2 rounded-b-lg">
             {" "}
             <p className="text-center leading-none text-3xl font-thin -mt-4">
               ^
             </p>
-            <p className=" first-letter:uppercase text-3xl">{peludo.nombre}</p>
-            <p className="first-letter:uppercase"> {peludo.raza} </p>
+            {/* <p className=" first-letter:uppercase text-3xl">{peludo.nombre}</p> */}
+            {/* <p className="first-letter:uppercase"> {peludo.raza} </p> */}
             <div className="  my-5">
-              <p className=" text-xs text-gray-700"> Activo desde</p>
-              <p className="text-xl"> {peludo.nacimiento} </p>
+              {/* <p className=" text-xs text-gray-700"> Activo desde</p> */}
+              {/* <p className="text-xl"> {peludo.nacimiento} </p> */}
             </div>
             <div className="my-5">
               <p className=" text-xs text-gray-700"> Amigos</p>
               <p className="text-xl"> 10</p>
             </div>
-            {peludo.instagram && (
+            {/* {peludo.instagram && (
               <div className="my-5">
                 <p className=" text-xs text-gray-700"> instagram</p>
 
                 <p className=" text-xl text-gray-700"> {peludo.instagram} </p>
               </div>
-            )}
+            )} */}
             <div className=" -mt-16 flex items-end justify-between">
-              {user.role === "ADMIN" ? (
+              {/* {user.role === "ADMIN" ? (
                 <Link
                   className=" px-3 py-2 rounded-xl bg-[#F9AC19] text-sm"
                   to={`/editPeludo/${peludo.id}`}
@@ -241,7 +241,7 @@ const Perro = () => {
                   {" "}
                   Invitar Amigos{" "}
                 </Link>
-              )}
+              )} */}
               {/* <QRCode
                 size="120"
                 removeQrCodeBehindLogo="true"
@@ -352,43 +352,43 @@ const Perro = () => {
 
 export default Perro;
 
-export async function loader({ params, request }) {
-  const peludoId = params.id;
-  const user = await getUserFromSession(request);
-  const cuponesEstetica = await getCupones("Estética", peludoId);
-  const cuponesGuarderia = await getCupones("Guardería", peludoId);
-  const cuponesHotel = await getCupones("Hotel", peludoId);
-  const cuponesAmigos = await getCupones("Amigos", peludoId);
-  const cuponesDinamicas = await getCupones("Dinámicas", peludoId);
-  const cuponesEspeciales = await getCupones("Especiales", peludoId);
+// export async function loader({ params, request }) {
+//   const peludoId = params.id;
+//   const user = await getUserFromSession(request);
+//   const cuponesEstetica = await getCupones("Estética", peludoId);
+//   const cuponesGuarderia = await getCupones("Guardería", peludoId);
+//   const cuponesHotel = await getCupones("Hotel", peludoId);
+//   const cuponesAmigos = await getCupones("Amigos", peludoId);
+//   const cuponesDinamicas = await getCupones("Dinámicas", peludoId);
+//   const cuponesEspeciales = await getCupones("Especiales", peludoId);
 
-  const peludo = await getPeludo(peludoId);
-  // console.log(cuponesGuarderia, "CUPONESGUARDERIA");
-  return {
-    cuponesEstetica,
-    cuponesGuarderia,
-    cuponesHotel,
-    cuponesAmigos,
-    cuponesDinamicas,
-    cuponesEspeciales,
-    peludo,
-    user,
-  };
-}
+//   const peludo = await getPeludo(peludoId);
+//   // console.log(cuponesGuarderia, "CUPONESGUARDERIA");
+//   return {
+//     cuponesEstetica,
+//     cuponesGuarderia,
+//     cuponesHotel,
+//     cuponesAmigos,
+//     cuponesDinamicas,
+//     cuponesEspeciales,
+//     peludo,
+//     user,
+//   };
+// }
 
-export async function action({ request }) {
-  const formData = await request.formData();
-  // const { userId } = getUserFromSession(request);
-  const cuponData = Object.fromEntries(formData);
-  const cuponId = cuponData.cuponId;
-  const peludoId = cuponData.peludoId;
-  console.log("CUPON ID", cuponId);
-  console.log("PELUDO ID", peludoId);
-  if (cuponId) {
-    await updatePuntos(peludoId, 10);
-    await upsertUsed(cuponId, peludoId);
-    // await registerVisit(peludoId, cuponId)
-    return true;
-  }
-  return true;
-}
+// export async function action({ request }) {
+//   const formData = await request.formData();
+//   // const { userId } = getUserFromSession(request);
+//   const cuponData = Object.fromEntries(formData);
+//   const cuponId = cuponData.cuponId;
+//   const peludoId = cuponData.peludoId;
+//   console.log("CUPON ID", cuponId);
+//   console.log("PELUDO ID", peludoId);
+//   if (cuponId) {
+//     await updatePuntos(peludoId, 10);
+//     await upsertUsed(cuponId, peludoId);
+//     // await registerVisit(peludoId, cuponId)
+//     return true;
+//   }
+//   return true;
+// }
