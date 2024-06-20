@@ -268,7 +268,7 @@ const Profile = () => {
                   Invitar Amigos{" "}
                 </Link>
               )}
-              <QRCode
+              {/* <QRCode
                 size="120"
                 removeQrCodeBehindLogo="true"
                 logoImage="/logo/lo-vert-JustLikeHome-small-black.png"
@@ -285,12 +285,12 @@ const Profile = () => {
                   [5, 5, 5, 5], // top/right eye
                   [5, 5, 5, 5], // bottom/left
                 ]}
-              />
+              /> */}
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col mb-20">
+      {/* <div className="flex flex-col mb-20">
         {cuponesEspeciales.length > 0 && (
           <Seccion
             user={user}
@@ -371,7 +371,7 @@ const Profile = () => {
             )}
           />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
