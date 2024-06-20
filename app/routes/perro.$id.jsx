@@ -1,8 +1,8 @@
 // import { QRCode } from "react-qrcode-logo";
-// import Seccion from "../components/Seccion";
+import Seccion from "../components/Seccion";
 // import Modal from "../components/Modal";
 // import UrlCreator from "../util/UrlCreator";
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCupones } from "../data/cupon.server";
 
 // import Carrusel from "../components/Carrusel";
@@ -22,7 +22,7 @@ import { getUserFromSession, updatePuntos } from "../data/auth.server";
 
 const Perro = () => {
   const {
-    // cuponesEstetica,
+    cuponesEstetica,
     // cuponesGuarderia,
     // cuponesHotel,
     // cuponesAmigos,
@@ -38,14 +38,14 @@ const Perro = () => {
 
   // const url = UrlCreator(peludo.id);
 
-  // const [estado, setEstado] = useState("");
+  const [estado, setEstado] = useState("");
 
-  // const [modalData, setModalData] = useState({
-  //   nombre: "nombre",
-  //   formula: "formula",
-  //   descripcion: "descripcion",
-  //   cuponId: "id",
-  // });
+  const [modalData, setModalData] = useState({
+    nombre: "nombre",
+    formula: "formula",
+    descripcion: "descripcion",
+    cuponId: "id",
+  });
 
   // const [adminButtons, setAdminButtons] = useState(true);
 
@@ -69,12 +69,12 @@ const Perro = () => {
   //   setEstado(false);
   // }
 
-  // function openCuponHandler(nombre, descripcion, cuponId, cuponVacio) {
-  //   setEstado(true);
-  //   const describe = descripcion;
-  //   setModalData({ nombre, descripcion, cuponId, cuponVacio });
-  //   console.log(describe, "modalDATa", cuponId);
-  // }
+  function openCuponHandler(nombre, descripcion, cuponId, cuponVacio) {
+    setEstado(true);
+    const describe = descripcion;
+    setModalData({ nombre, descripcion, cuponId, cuponVacio });
+    console.log(describe, "modalDATa", cuponId);
+  }
 
   return (
     // <div>
@@ -216,8 +216,8 @@ const Perro = () => {
           </div>
         </div>
       </div>
-      {/* <div className="flex flex-col mb-20">
-        {cuponesEspeciales.length > 0 && (
+      <div className="flex flex-col mb-20">
+        {/* {cuponesEspeciales.length > 0 && (
           <Seccion
             user={user}
             promociones={cuponesEspeciales.map((cupon) => cupon.nombre)}
@@ -230,7 +230,7 @@ const Perro = () => {
               (cupon) => cupon.visitsRequired,
             )}
           />
-        )}
+        )} */}
 
         {cuponesEstetica.length > 0 && (
           <Seccion
@@ -246,7 +246,7 @@ const Perro = () => {
             )}
           />
         )}
-        {cuponesGuarderia.length > 0 && (
+        {/* {cuponesGuarderia.length > 0 && (
           <Seccion
             user={user}
             promociones={cuponesGuarderia.map((cupon) => cupon.nombre)}
@@ -296,8 +296,8 @@ const Perro = () => {
               (cupon) => cupon.visitsRrequired,
             )}
           />
-        )}
-      </div> */}
+        )} */}
+      </div>
     </div>
   );
 };
