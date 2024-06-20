@@ -168,7 +168,7 @@ const Profile = () => {
           </Link> */}
           <button
             className="text-gray-300 border-2 border-gray-500 px-5 py-3 rounded-md"
-            // onClick={() => navigate(-1)}
+            onClick={() => navigate(-1)}
           >
             Volver
           </button>
