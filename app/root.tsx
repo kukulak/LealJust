@@ -5,26 +5,26 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData
-} from '@remix-run/react'
-import type { LoaderFunctionArgs, LinksFunction } from '@remix-run/node'
-import MenuMobile from './components/MenuMobile'
-import { getUserFromSession } from '../app/data/auth.server'
+  useLoaderData,
+} from "@remix-run/react";
+import type { LoaderFunctionArgs, LinksFunction } from "@remix-run/node";
+import MenuMobile from "./components/MenuMobile";
+import { getUserFromSession } from "../app/data/auth.server";
 
-import BurgerMenu from './components/BurgerMenu'
+import BurgerMenu from "./components/BurgerMenu";
 
-import styles from '~/tailwind.css?url'
-import { useEffect, useState } from 'react'
+import styles from "~/tailwind.css?url";
+import { useEffect, useState } from "react";
 
-export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }]
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 function Document({
   children,
   userId,
   userName,
-  userRole
+  userRole,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html className=" font-sans" lang="en">
@@ -51,30 +51,30 @@ function Document({
         </Form> */}
       </body>
     </html>
-  )
+  );
 }
 
 export default function App() {
-  const loaderData = useLoaderData()
+  const loaderData = useLoaderData();
 
-  const [userId, setUserId] = useState('')
-  const [userName, setUserName] = useState('')
-  const [userRole, setUserRole] = useState('')
+  const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
-    setUserId(loaderData?.userId)
-    setUserName(loaderData?.userName)
-    setUserRole(loaderData?.role)
-  }, [loaderData?.userId, loaderData?.userName, loaderData?.userRole])
+    setUserId(loaderData?.userId);
+    setUserName(loaderData?.userName);
+    setUserRole(loaderData?.role);
+  }, [loaderData?.userId, loaderData?.userName, loaderData?.userRole]);
 
   // clienteId peludoId
 
-  const [clienteId, setClienteId] = useState(loaderData?.userId)
-  const [peludoId, setPeludoId] = useState([])
+  const [clienteId, setClienteId] = useState(loaderData?.userId);
+  const [peludoId, setPeludoId] = useState([]);
 
-  const changeClientId = id => {
-    setClienteId(id)
-  }
+  const changeClientId = (id) => {
+    setClienteId(id);
+  };
 
   return (
     <Document userName={userName} userId={userId} userRole={userRole}>
@@ -84,11 +84,11 @@ export default function App() {
           clienteId,
           peludoId,
           changeClientId,
-          setClienteId
+          setClienteId,
         }}
       />
     </Document>
-  )
+  );
 }
 
 // export function ErrorBoundary() {
@@ -133,9 +133,9 @@ export default function App() {
 // }
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const user = getUserFromSession(request)
+  const user = getUserFromSession(request);
   // const userId = user.userId
-  return user
+  return user;
 }
 
 // export default function App() {
