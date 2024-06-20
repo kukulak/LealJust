@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import gsap from "gsap";
 
 const Carrusel = ({ images }) => {
@@ -8,37 +8,77 @@ const Carrusel = ({ images }) => {
   const startX = useRef(0);
   const endX = useRef(0);
 
+  const nextSlide = useCallback(() => {
+    setCurrent((current) => (current === length - 1 ? 0 : current + 1));
+  }, [length]);
+
+  const prevSlide = useCallback(() => {
+    setCurrent((current) => (current === 0 ? length - 1 : current - 1));
+  }, [length]);
+
   useEffect(() => {
-    const nextSlide = () => {
-      setCurrent((current) => (current === length - 1 ? 0 : current + 1));
-    };
+    // Log current state for diagnosis
+    console.log(`Current slide index: ${current}`);
 
-    timeoutRef.current = setTimeout(nextSlide, 5000); // Change the image every 3 seconds
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
 
-    return function () {
+    // Set a new timeout
+    timeoutRef.current = setTimeout(nextSlide, 5000);
+
+    // Clean up the timeout on unmount or when `current` changes
+    return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [current, length]);
+  }, [current, nextSlide]);
+
+  // useEffect(() => {
+  //   timeoutRef.current = setTimeout(nextSlide, 5000);
+
+  //   return () => {
+  //     if (timeoutRef.current) {
+  //       clearTimeout(timeoutRef.current);
+  //     }
+  //   };
+  // }, [nextSlide]);
+
+  // useEffect(() => {
+
+  //   const nextSlide = () => {
+  //     setCurrent((current) => (current === length - 1 ? 0 : current + 1));
+  //   };
+
+  //   timeoutRef.current = setTimeout(nextSlide, 5000); // Change the image every 3 seconds
+
+  //   return function () {
+  //     if (timeoutRef.current) {
+  //       clearTimeout(timeoutRef.current);
+  //     }
+  //   };
+  // }, [current, length]);
 
   useEffect(() => {
-    if (document.querySelector(".carousel-slide.active")) {
+    const activateSlide = document.querySelector(".carousel-slide.active");
+    if (activateSlide) {
       gsap.fromTo(
-        ".carousel-slide.active ",
+        activateSlide,
         { opacity: 0.3, scale: 1.1 },
         { opacity: 1, duration: 1.3, scale: 1 },
       );
     }
   }, [current]);
 
-  const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
-  };
+  // const nextSlide = () => {
+  //   setCurrent(current === length - 1 ? 0 : current + 1);
+  // };
 
-  const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
-  };
+  // const prevSlide = () => {
+  //   setCurrent(current === 0 ? length - 1 : current - 1);
+  // };
 
   const handleTouchStart = (e) => {
     console.log("Touch Start:", e.touches[0].clientX);
@@ -78,15 +118,13 @@ const Carrusel = ({ images }) => {
       <button className="right-arrow" onClick={nextSlide}>
         ❯
       </button> */}
-      <div className="carousel-wrapper  w-full rounded-xl overflow-hidden">
+      <div className="carousel-wrapper flex-col  w-full rounded-xl overflow-hidden">
         {images.map((image, index) => (
           <div
-            className={
-              index === current
-                ? "carousel-slide active w-full"
-                : "carousel-slide"
-            }
-            key={index}
+            className={` flex-col carousel-slide ${
+              index === current ? "active" : ""
+            } w-full`}
+            key={image.url}
           >
             {index === current && (
               <img
