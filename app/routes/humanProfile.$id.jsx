@@ -212,9 +212,11 @@ export async function action({ request, params }) {
   const userData = Object.fromEntries(formData);
 
   try {
-    if (user.userId === humanoId) {
-      console.log("USERIDACTION");
-      return redirect("/");
+    if (user.role !== "ADMIN") {
+      if (user.userId !== humanoId) {
+        console.log("USERIDACTION");
+        return redirect("/");
+      }
     }
   } catch (error) {
     console.log(error);

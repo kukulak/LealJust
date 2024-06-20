@@ -62,7 +62,7 @@ const Profile = () => {
 
   const url = UrlCreator(peludo.id);
 
-  const [estado, setEstado] = useState(false);
+  const [estado, setEstado] = useState("");
 
   const [modalData, setModalData] = useState({
     nombre: "nombre",
@@ -224,8 +224,8 @@ const Profile = () => {
               </div>
             ))}
           </Slider> */}
-
-          {console.log("TODAS LAS FOTOS", peludo.fotos)}
+          {/* 
+          {console.log("TODAS LAS FOTOS", peludo.fotos)} */}
 
           {/* <ImageFitFill src={peludo.foto} alt="Foto de tu perrito" /> */}
 
@@ -390,7 +390,7 @@ export async function loader({ params, request }) {
   const cuponesEspeciales = await getCupones("Especiales", peludoId);
 
   const peludo = await getPeludo(peludoId);
-  console.log(cuponesGuarderia, "CUPONESGUARDERIA");
+  // console.log(cuponesGuarderia, "CUPONESGUARDERIA");
   return {
     cuponesEstetica,
     cuponesGuarderia,

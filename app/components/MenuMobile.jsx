@@ -15,7 +15,6 @@ const MenuMobile = ({ userId, role }) => {
           <NavLink
             className=" mt-1 hover:scale-125 text-xs pointer-events-auto"
             to={`/`}
-            key="item"
           >
             {" "}
             <img className="w-4" src={goHome} alt="go" />
@@ -24,7 +23,6 @@ const MenuMobile = ({ userId, role }) => {
           <NavLink
             className=" mt-1 hover:scale-125 text-xs pointer-events-auto"
             to={`/humanProfile/${userId}`}
-            key="item"
           >
             {" "}
             <img className="w-4" src={goSettings} alt="go" />
@@ -35,7 +33,6 @@ const MenuMobile = ({ userId, role }) => {
             <NavLink
               className=" mt-1 hover:scale-125 text-xs pointer-events-auto"
               to={"/buscarCliente"}
-              key="item"
             >
               {" "}
               <img className="w-4" src={goSearch} alt="go" />
@@ -46,7 +43,6 @@ const MenuMobile = ({ userId, role }) => {
           <NavLink
             className=" mt-1 hover:scale-125 text-xs pointer-events-auto"
             to={"/explorar"}
-            key="item"
           >
             {" "}
             <img className="w-4" src={goProfile} alt="go" />
