@@ -1,4 +1,5 @@
-import Rewards from './Rewards'
+import React from "react";
+import Rewards from "./Rewards";
 const Seccion = ({
   titulo,
   promociones,
@@ -6,10 +7,9 @@ const Seccion = ({
   descripcion,
   cuponId,
   visitsRemaining,
-
-  user
+  user,
 }) => {
-  let firstClickableFound = false
+  let firstClickableFound = false;
 
   return (
     <div className=" bg-gray-500 rounded-2xl md:px-5 my-1 pt-10 pb-10 bg-opacity-10">
@@ -17,7 +17,7 @@ const Seccion = ({
         <div className="flex gap-5 flex-col mb-20">
           <p className="ml-10 text-2xl">{titulo}</p>
           <div className=" flex flex-wrap justify-center gap-5 ">
-            {user.role !== 'ADMIN' &&
+            {user.role !== "ADMIN" &&
               promociones?.map((promo, index) => (
                 <>
                   {visitsRemaining[index] >= 1 &&
@@ -31,7 +31,7 @@ const Seccion = ({
                             promo,
                             descripcion[index],
                             cuponId[index],
-                            visitsRemaining[index] - i
+                            visitsRemaining[index] - i,
                           )
                         }
                         className="flex flex-wrap justify-center gap-5 "
@@ -60,14 +60,14 @@ const Seccion = ({
                   </button>
                 </>
               ))}
-            {user.role === 'ADMIN' &&
+            {user.role === "ADMIN" &&
               promociones?.map((promo, index) => (
                 <React.Fragment key={`promo-${index}`}>
                   {visitsRemaining[index] >= 1 &&
                     [...Array(visitsRemaining[index] - 1)].map((visit, i) => {
-                      const isClickable = !firstClickableFound
+                      const isClickable = !firstClickableFound;
                       if (isClickable) {
-                        firstClickableFound = true
+                        firstClickableFound = true;
                       }
 
                       return (
@@ -80,7 +80,7 @@ const Seccion = ({
                               promo,
                               descripcion[index],
                               cuponId[index],
-                              visitsRemaining[index] - i
+                              visitsRemaining[index] - i,
                             )
                           }
                           className="flex flex-wrap justify-center gap-5"
@@ -95,7 +95,7 @@ const Seccion = ({
                             }
                           />
                         </button>
-                      )
+                      );
                     })}
                   <button
                     // Solo el primer botón en toda la lista será habilitado
@@ -116,7 +116,7 @@ const Seccion = ({
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Seccion
+export default Seccion;
