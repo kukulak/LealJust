@@ -21,7 +21,7 @@ const PeludoCard = ({
       className="flex flex-col gap-2 first-letter:uppercase  min-w-36 bg-[#101622]   pb-5 px-3 mb-14 rounded-lg  justify-center text-center items-center"
     >
       {adminButtons ? (
-        <Link to={`/profile/${id}`}>
+        <Link to={`/perro/${id}`}>
           {/* <img
             ref={imageRef}
             alt="Foto de tu perrito"

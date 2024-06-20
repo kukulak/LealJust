@@ -181,9 +181,9 @@ export default HumanProfile;
 
 export async function loader({ request, params }) {
   const humanoId = params.id;
-  // if (humanoId === "undefined") {
-  //   return redirect("/login");
-  // }
+  if (humanoId === "undefined") {
+    return redirect("/login");
+  }
   const humano = await getUser(humanoId);
   // const user = await getUserFromSession(request)
   const user = await requireUserSession(request);
