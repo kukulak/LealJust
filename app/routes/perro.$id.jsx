@@ -1,16 +1,16 @@
-import { QRCode } from "react-qrcode-logo";
-import Seccion from "../components/Seccion";
-import Modal from "../components/Modal";
-import UrlCreator from "../util/UrlCreator";
-import { useEffect, useState } from "react";
+// import { QRCode } from "react-qrcode-logo";
+// import Seccion from "../components/Seccion";
+// import Modal from "../components/Modal";
+// import UrlCreator from "../util/UrlCreator";
+// import { useEffect, useState } from "react";
 import { getCupones } from "../data/cupon.server";
 
-import Carrusel from "../components/Carrusel";
+// import Carrusel from "../components/Carrusel";
 import ImageFitFill from "../components/ImageFitFill";
 import {
-  Form,
+  // Form,
   useLoaderData,
-  useActionData,
+  // useActionData,
   useNavigate,
   Link,
 } from "@remix-run/react";
