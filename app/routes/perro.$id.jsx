@@ -21,18 +21,18 @@ import { upsertUsed } from "../data/used.server";
 import { getUserFromSession, updatePuntos } from "../data/auth.server";
 
 const Perro = () => {
-  // const {
-  //   // cuponesEstetica,
-  //   // cuponesGuarderia,
-  //   // cuponesHotel,
-  //   // cuponesAmigos,
-  //   // cuponesDinamicas,
-  //   // cuponesEspeciales,
-  //   peludo,
-  //   user,
-  // } = useLoaderData();
+  const {
+    // cuponesEstetica,
+    // cuponesGuarderia,
+    // cuponesHotel,
+    // cuponesAmigos,
+    // cuponesDinamicas,
+    // cuponesEspeciales,
+    peludo,
+    user,
+  } = useLoaderData();
   //
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // const actionClose = useActionData();
 
@@ -194,7 +194,7 @@ const Perro = () => {
                   Invitar Amigos{" "}
                 </Link>
               )}
-              <QRCode
+              {/* <QRCode
                 size="120"
                 removeQrCodeBehindLogo="true"
                 logoImage="/logo/lo-vert-JustLikeHome-small-black.png"
@@ -211,7 +211,7 @@ const Perro = () => {
                   [5, 5, 5, 5], // top/right eye
                   [5, 5, 5, 5], // bottom/left
                 ]}
-              />
+              /> */}
             </div>
           </div>
         </div>
