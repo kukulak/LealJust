@@ -20,16 +20,6 @@ import { upsertUsed } from "../data/used.server";
 
 import { getUserFromSession, updatePuntos } from "../data/auth.server";
 
-// const largeProps = {
-//   zIndex: 100,
-//   force: 0.8,
-//   duration: 2200,
-//   particleCount: 100,
-//   width: 1600,
-//   height: "200vh",
-//   colors: ["#041E43", "#1471BF", "#5BB4DC", "#FC027B", "#66D805"],
-// };
-
 const Perro = () => {
   const {
     cuponesEstetica,
@@ -42,69 +32,53 @@ const Perro = () => {
     user,
   } = useLoaderData();
 
-  const navigate = useNavigate();
-  // const userId = useActionData()
+  // const navigate = useNavigate();
 
-  // const { clienteId, changeClientId } = useOutletContext();
+  // const actionClose = useActionData();
 
-  // const [isExploding, setIsExploding] = useState(false);
+  // const url = UrlCreator(peludo.id);
 
-  // const fetcher = useFetcher();
-  // const handleVisit = async (couponId) => {
-  //   // closeHandler()
-  //   fetcher.submit(
-  //     { clienteId, couponId },
-  //     { method: "post", action: "/registrar-visita" }, // Endpoint al que se enviará la solicitud
-  //   );
-  // };
-  const actionClose = useActionData();
+  // const [estado, setEstado] = useState("");
 
-  const url = UrlCreator(peludo.id);
+  // const [modalData, setModalData] = useState({
+  //   nombre: "nombre",
+  //   formula: "formula",
+  //   descripcion: "descripcion",
+  //   cuponId: "id",
+  // });
 
-  const [estado, setEstado] = useState("");
+  // const [adminButtons, setAdminButtons] = useState(true);
 
-  const [modalData, setModalData] = useState({
-    nombre: "nombre",
-    formula: "formula",
-    descripcion: "descripcion",
-    cuponId: "id",
-  });
+  // useEffect(() => {
+  //   if (user.role !== "ADMIN") {
+  //     setAdminButtons(false);
+  //   }
+  // }, [user]);
 
-  const [adminButtons, setAdminButtons] = useState(true);
+  // useEffect(() => {
+  //   if (actionClose) {
+  //     setEstado(false);
+  //   }
+  // }, [actionClose]);
 
-  useEffect(() => {
-    if (user.role !== "ADMIN") {
-      setAdminButtons(false);
-    }
-  }, [user]);
+  // function closeHandler() {
+  //   setEstado(false);
+  // }
 
-  useEffect(() => {
-    if (actionClose) {
-      setEstado(false);
-    }
-  }, [actionClose]);
+  // function submitHandler() {
+  //   setEstado(false);
+  // }
 
-  function closeHandler() {
-    // console.log('cerrado')
-    // setEstado(actionClose)
-
-    setEstado(false);
-  }
-
-  function submitHandler() {
-    setEstado(false);
-  }
-
-  function openCuponHandler(nombre, descripcion, cuponId, cuponVacio) {
-    setEstado(true);
-    const describe = descripcion;
-    setModalData({ nombre, descripcion, cuponId, cuponVacio });
-    console.log(describe, "modalDATa", cuponId);
-  }
+  // function openCuponHandler(nombre, descripcion, cuponId, cuponVacio) {
+  //   setEstado(true);
+  //   const describe = descripcion;
+  //   setModalData({ nombre, descripcion, cuponId, cuponVacio });
+  //   console.log(describe, "modalDATa", cuponId);
+  // }
 
   return (
     <div className="max-w-[720px]">
-      <Modal estado={estado} onClose={closeHandler}>
+      {/* <Modal estado={estado} onClose={closeHandler}>
         <div className="bg-gray-100 flex flex-col justify-center items-center p-3 rounded-2xl w-full md:w-1/2">
           <div className="rounded-xl p-5  w-[98%] bg-gray-300 ">
             {modalData.cuponVacio && (
@@ -156,7 +130,7 @@ const Perro = () => {
               ))}
           </div>
         </div>
-      </Modal>
+      </Modal> */}
 
       <div className="text-gray-900 mt-10 ">
         <div className="mb-10  flex items-center flex-col">
@@ -168,7 +142,7 @@ const Perro = () => {
           </Link> */}
           <button
             className="text-gray-300 border-2 border-gray-500 px-5 py-3 rounded-md"
-            onClick={() => navigate(-1)}
+            // onClick={() => navigate(-1)}
           >
             Volver
           </button>
@@ -268,7 +242,7 @@ const Perro = () => {
                   Invitar Amigos{" "}
                 </Link>
               )}
-              <QRCode
+              {/* <QRCode
                 size="120"
                 removeQrCodeBehindLogo="true"
                 logoImage="/logo/lo-vert-JustLikeHome-small-black.png"
@@ -285,12 +259,12 @@ const Perro = () => {
                   [5, 5, 5, 5], // top/right eye
                   [5, 5, 5, 5], // bottom/left
                 ]}
-              />
+              /> */}
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col mb-20">
+      {/* <div className="flex flex-col mb-20">
         {cuponesEspeciales.length > 0 && (
           <Seccion
             user={user}
@@ -371,7 +345,7 @@ const Perro = () => {
             )}
           />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
