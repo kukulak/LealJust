@@ -1,5 +1,5 @@
 [build]
-command = "npx prisma generate && npm run build:app"
+command = "npm run build:app"
 publish = "build/client"
 
 [dev]
