@@ -1,85 +1,85 @@
-// import { QRCode } from "react-qrcode-logo";
-// import Seccion from "../components/Seccion";
-// import Modal from "../components/Modal";
-// import UrlCreator from "../util/UrlCreator";
-// import { useEffect, useState } from "react";
-// import { getCupones } from "../data/cupon.server";
+import { QRCode } from "react-qrcode-logo";
+import Seccion from "../components/Seccion";
+import Modal from "../components/Modal";
+import UrlCreator from "../util/UrlCreator";
+import { useEffect, useState } from "react";
+import { getCupones } from "../data/cupon.server";
 
-// // import Carrusel from "../components/Carrusel";
-// import ImageFitFill from "../components/ImageFitFill";
-// import {
-//   Form,
-//   useLoaderData,
-//   useActionData,
-//   useNavigate,
-//   Link,
-// } from "@remix-run/react";
+// import Carrusel from "../components/Carrusel";
+import ImageFitFill from "../components/ImageFitFill";
+import {
+  Form,
+  useLoaderData,
+  useActionData,
+  useNavigate,
+  Link,
+} from "@remix-run/react";
 
-// import { getPeludo } from "../data/peludo.server";
+import { getPeludo } from "../data/peludo.server";
 // import { upsertUsed } from "../data/used.server";
 
+import { getUserFromSession } from "../data/auth.server";
 // import { getUserFromSession, updatePuntos } from "../data/auth.server";
 
 const Perro = () => {
-  // const {
-  //   cuponesEstetica,
-  //   cuponesGuarderia,
-  //   cuponesHotel,
-  //   cuponesAmigos,
-  //   cuponesDinamicas,
-  //   cuponesEspeciales,
-  //   peludo,
-  //   user,
-  // } = useLoaderData();
+  const {
+    cuponesEstetica,
+    cuponesGuarderia,
+    cuponesHotel,
+    cuponesAmigos,
+    cuponesDinamicas,
+    cuponesEspeciales,
+    peludo,
+    user,
+  } = useLoaderData();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const actionClose = useActionData();
+  const actionClose = useActionData();
 
-  // const url = UrlCreator(peludo.id);
+  const url = UrlCreator(peludo.id);
 
-  // const [estado, setEstado] = useState("");
+  const [estado, setEstado] = useState("");
 
-  // const [modalData, setModalData] = useState({
-  //   nombre: "nombre",
-  //   formula: "formula",
-  //   descripcion: "descripcion",
-  //   cuponId: "id",
-  // });
+  const [modalData, setModalData] = useState({
+    nombre: "nombre",
+    formula: "formula",
+    descripcion: "descripcion",
+    cuponId: "id",
+  });
 
-  // const [adminButtons, setAdminButtons] = useState(true);
+  const [adminButtons, setAdminButtons] = useState(true);
 
-  // useEffect(() => {
-  //   if (user.role !== "ADMIN") {
-  //     setAdminButtons(false);
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (user.role !== "ADMIN") {
+      setAdminButtons(false);
+    }
+  }, [user]);
 
-  // useEffect(() => {
-  //   if (actionClose) {
-  //     setEstado(false);
-  //   }
-  // }, [actionClose]);
+  useEffect(() => {
+    if (actionClose) {
+      setEstado(false);
+    }
+  }, [actionClose]);
 
-  // function closeHandler() {
-  //   setEstado(false);
-  // }
+  function closeHandler() {
+    setEstado(false);
+  }
 
-  // function submitHandler() {
-  //   setEstado(false);
-  // }
+  function submitHandler() {
+    setEstado(false);
+  }
 
-  // function openCuponHandler(nombre, descripcion, cuponId, cuponVacio) {
-  //   setEstado(true);
-  //   const describe = descripcion;
-  //   setModalData({ nombre, descripcion, cuponId, cuponVacio });
-  //   console.log(describe, "modalDATa", cuponId);
-  // }
+  function openCuponHandler(nombre, descripcion, cuponId, cuponVacio) {
+    setEstado(true);
+    const describe = descripcion;
+    setModalData({ nombre, descripcion, cuponId, cuponVacio });
+    console.log(describe, "modalDATa", cuponId);
+  }
 
   return (
     <div className="max-w-[720px]">
-      NO RTIENE NADA
-      {/* <Modal estado={estado} onClose={closeHandler}>
+      <Modal estado={estado} onClose={closeHandler}>
         <div className="bg-gray-100 flex flex-col justify-center items-center p-3 rounded-2xl w-full md:w-1/2">
           <div className="rounded-xl p-5  w-[98%] bg-gray-300 ">
             {modalData.cuponVacio && (
@@ -131,7 +131,8 @@ const Perro = () => {
               ))}
           </div>
         </div>
-      </Modal> */}
+      </Modal>
+
       <div className="text-gray-900 mt-10 ">
         <div className="mb-10  flex items-center flex-col">
           {/* <Link
@@ -142,90 +143,37 @@ const Perro = () => {
           </Link> */}
           <button
             className="text-gray-300 border-2 border-gray-500 px-5 py-3 rounded-md"
-            // onClick={() => navigate(-1)}
+            onClick={() => navigate(-1)}
           >
             Volver
           </button>
 
-          {/* {peludo.fotos.map(img => (
-            <img
-              key={img.id}
-              alt="Foto de tu perrito"
-              src={img.url}
-              className=" object-cover max-h-96 z-10 shadow-2xl shadow-black/50 w-11/12 rounded-xl mt-4"
-            />
-          ))} */}
-
-          {/* <Flicking
-            renderOnlyVisible={true}
-            align="prev"
-            circular={true}
-            onMoveEnd={e => {
-              console.log(e)
-            }}
-          > */}
-          {/* {peludo.fotos.map(({ img, index }) => (
-              <img src={img} alt={img} key={index + img} />
-            ))} */}
-          {/* <div className="w-full h-52 bg-gray-800"> UNO </div>
-            <div className="w-full h-52 bg-gray-900"> DOS </div>
-            <div className="w-full h-52 bg-gray-950"> TRES </div> */}
-          {/* </Flicking> */}
-
-          {/* <CarouselProvider
-            naturalSlideWidth={100}
-            naturalSlideHeight={125}
-            totalSlides={3}
-          >
-            <Slider>
-              {peludo.fotos.map(({ url, index }) => (
-                <Slide index={index} key={index + url}>
-                  <img src={url} alt={url} />
-                </Slide>
-              ))}
-            </Slider>
-            <ButtonBack>Back</ButtonBack>
-            <ButtonNext>Next</ButtonNext>
-          </CarouselProvider> */}
-
-          {/* <Carrusel images={peludo.fotos} /> */}
-
-          {/* <Slider {...settings}>
-            {peludo.fotos.map((foto, index) => (
-              <div key={index}>
-                <img src={foto.url} alt={`peludo-${index}`} />
-              </div>
-            ))}
-          </Slider> */}
-          {/* 
-          {console.log("TODAS LAS FOTOS", peludo.fotos)} */}
-
-          {/* <ImageFitFill src={peludo.foto} alt="Foto de tu perrito" /> */}
+          <ImageFitFill src={peludo.foto} alt="Foto de tu perrito" />
 
           <div className="pt-6 -mt-1 bg-gray-200 w-10/12  py-3 pl-4 pr-2 rounded-b-lg">
             {" "}
             <p className="text-center leading-none text-3xl font-thin -mt-4">
               ^
             </p>
-            {/* <p className=" first-letter:uppercase text-3xl">{peludo.nombre}</p> */}
-            {/* <p className="first-letter:uppercase"> {peludo.raza} </p> */}
+            <p className=" first-letter:uppercase text-3xl">{peludo.nombre}</p>
+            <p className="first-letter:uppercase"> {peludo.raza} </p>
             <div className="  my-5">
-              {/* <p className=" text-xs text-gray-700"> Activo desde</p> */}
-              {/* <p className="text-xl"> {peludo.nacimiento} </p> */}
+              <p className=" text-xs text-gray-700"> Activo desde</p>
+              <p className="text-xl"> {peludo.nacimiento} </p>
             </div>
             <div className="my-5">
               <p className=" text-xs text-gray-700"> Amigos</p>
               <p className="text-xl"> 10</p>
             </div>
-            {/* {peludo.instagram && (
+            {peludo.instagram && (
               <div className="my-5">
                 <p className=" text-xs text-gray-700"> instagram</p>
 
                 <p className=" text-xl text-gray-700"> {peludo.instagram} </p>
               </div>
-            )} */}
+            )}
             <div className=" -mt-16 flex items-end justify-between">
-              {/* {user.role === "ADMIN" ? (
+              {user.role === "ADMIN" ? (
                 <Link
                   className=" px-3 py-2 rounded-xl bg-[#F9AC19] text-sm"
                   to={`/editPeludo/${peludo.id}`}
@@ -241,8 +189,8 @@ const Perro = () => {
                   {" "}
                   Invitar Amigos{" "}
                 </Link>
-              )} */}
-              {/* <QRCode
+              )}
+              <QRCode
                 size="120"
                 removeQrCodeBehindLogo="true"
                 logoImage="/logo/lo-vert-JustLikeHome-small-black.png"
@@ -259,12 +207,12 @@ const Perro = () => {
                   [5, 5, 5, 5], // top/right eye
                   [5, 5, 5, 5], // bottom/left
                 ]}
-              /> */}
+              />
             </div>
           </div>
         </div>
       </div>
-      {/* <div className="flex flex-col mb-20">
+      <div className="flex flex-col mb-20">
         {cuponesEspeciales.length > 0 && (
           <Seccion
             user={user}
@@ -345,36 +293,36 @@ const Perro = () => {
             )}
           />
         )}
-      </div> */}
+      </div>
     </div>
   );
 };
 
 export default Perro;
 
-// export async function loader({ params, request }) {
-//   const peludoId = params.id;
-//   const user = await getUserFromSession(request);
-//   const cuponesEstetica = await getCupones("Estética", peludoId);
-//   const cuponesGuarderia = await getCupones("Guardería", peludoId);
-//   const cuponesHotel = await getCupones("Hotel", peludoId);
-//   const cuponesAmigos = await getCupones("Amigos", peludoId);
-//   const cuponesDinamicas = await getCupones("Dinámicas", peludoId);
-//   const cuponesEspeciales = await getCupones("Especiales", peludoId);
+export async function loader({ params, request }) {
+  const peludoId = params.id;
+  const user = await getUserFromSession(request);
+  const cuponesEstetica = await getCupones("Estética", peludoId);
+  const cuponesGuarderia = await getCupones("Guardería", peludoId);
+  const cuponesHotel = await getCupones("Hotel", peludoId);
+  const cuponesAmigos = await getCupones("Amigos", peludoId);
+  const cuponesDinamicas = await getCupones("Dinámicas", peludoId);
+  const cuponesEspeciales = await getCupones("Especiales", peludoId);
 
-//   const peludo = await getPeludo(peludoId);
-//   // console.log(cuponesGuarderia, "CUPONESGUARDERIA");
-//   return {
-//     cuponesEstetica,
-//     cuponesGuarderia,
-//     cuponesHotel,
-//     cuponesAmigos,
-//     cuponesDinamicas,
-//     cuponesEspeciales,
-//     peludo,
-//     user,
-//   };
-// }
+  const peludo = await getPeludo(peludoId);
+  // console.log(cuponesGuarderia, "CUPONESGUARDERIA");
+  return {
+    cuponesEstetica,
+    cuponesGuarderia,
+    cuponesHotel,
+    cuponesAmigos,
+    cuponesDinamicas,
+    cuponesEspeciales,
+    peludo,
+    user,
+  };
+}
 
 // export async function action({ request }) {
 //   const formData = await request.formData();
