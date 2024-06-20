@@ -22,21 +22,21 @@ import { getUserFromSession, updatePuntos } from "../data/auth.server";
 
 const Perro = () => {
   const {
-    cuponesEstetica,
-    cuponesGuarderia,
-    cuponesHotel,
-    cuponesAmigos,
-    cuponesDinamicas,
-    cuponesEspeciales,
+    // cuponesEstetica,
+    // cuponesGuarderia,
+    // cuponesHotel,
+    // cuponesAmigos,
+    // cuponesDinamicas,
+    // cuponesEspeciales,
     peludo,
     user,
   } = useLoaderData();
   //
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // const actionClose = useActionData();
 
-  const url = UrlCreator(peludo.id);
+  // const url = UrlCreator(peludo.id);
 
   const [estado, setEstado] = useState("");
 
