@@ -104,7 +104,7 @@ const Profile = () => {
 
   return (
     <div className="max-w-[720px]">
-      {/* <Modal estado={estado} onClose={closeHandler}>
+      <Modal estado={estado} onClose={closeHandler}>
         <div className="bg-gray-100 flex flex-col justify-center items-center p-3 rounded-2xl w-full md:w-1/2">
           <div className="rounded-xl p-5  w-[98%] bg-gray-300 ">
             {modalData.cuponVacio && (
@@ -156,7 +156,7 @@ const Profile = () => {
               ))}
           </div>
         </div>
-      </Modal> */}
+      </Modal>
 
       <div className="text-gray-900 mt-10 ">
         <div className="mb-10  flex items-center flex-col">
@@ -168,7 +168,7 @@ const Profile = () => {
           </Link> */}
           <button
             className="text-gray-300 border-2 border-gray-500 px-5 py-3 rounded-md"
-            onClick={() => navigate(-1)}
+            // onClick={() => navigate(-1)}
           >
             Volver
           </button>
@@ -268,7 +268,7 @@ const Profile = () => {
                   Invitar Amigos{" "}
                 </Link>
               )}
-              {/* <QRCode
+              <QRCode
                 size="120"
                 removeQrCodeBehindLogo="true"
                 logoImage="/logo/lo-vert-JustLikeHome-small-black.png"
@@ -285,12 +285,12 @@ const Profile = () => {
                   [5, 5, 5, 5], // top/right eye
                   [5, 5, 5, 5], // bottom/left
                 ]}
-              /> */}
+              />
             </div>
           </div>
         </div>
       </div>
-      {/* <div className="flex flex-col mb-20">
+      <div className="flex flex-col mb-20">
         {cuponesEspeciales.length > 0 && (
           <Seccion
             user={user}
@@ -371,7 +371,7 @@ const Profile = () => {
             )}
           />
         )}
-      </div> */}
+      </div>
     </div>
   );
 };
