@@ -104,7 +104,7 @@ const Profile = () => {
 
   return (
     <div className="max-w-[720px]">
-      <Modal estado={estado} onClose={closeHandler}>
+      {/* <Modal estado={estado} onClose={closeHandler}>
         <div className="bg-gray-100 flex flex-col justify-center items-center p-3 rounded-2xl w-full md:w-1/2">
           <div className="rounded-xl p-5  w-[98%] bg-gray-300 ">
             {modalData.cuponVacio && (
@@ -156,7 +156,7 @@ const Profile = () => {
               ))}
           </div>
         </div>
-      </Modal>
+      </Modal> */}
 
       <div className="text-gray-900 mt-10 ">
         <div className="mb-10  flex items-center flex-col">

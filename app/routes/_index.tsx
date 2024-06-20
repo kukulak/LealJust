@@ -24,15 +24,15 @@ export default function Index() {
 
   const { user, perritos } = useLoaderData();
 
-  // useEffect(() => {
-  //   if (user?.userId) {
-  //     if (user.role === 'ADMIN') {
-  //       navigate(`/homeAdmin`)
-  //     } else if (user.role === 'USER') {
-  //       navigate(`/humanProfile/${user.userId}`)
-  //     }
-  //   }
-  // }, [user, navigate])
+  useEffect(() => {
+    if (user?.userId) {
+      if (user.role === "ADMIN") {
+        navigate(`/homeAdmin`);
+      } else if (user.role === "USER") {
+        navigate(`/`);
+      }
+    }
+  }, [user, navigate]);
 
   return (
     <>

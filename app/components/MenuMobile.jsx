@@ -10,14 +10,14 @@ const MenuMobile = ({ userId, role }) => {
     <section className=" justify-center pointer-events-none z-40 mobile items-end fixed max-w-[700px] w-full h-full flex">
       {/* {role === "ADMIN" ||
         (role === "USER" && ( */}
-      <menu className=" w-11/12 rounded-xl mb-7 justify-evenly pt-2 max-w-full  gap-3  h-10 bg-[#2b323f] flex">
+      <menu className=" w-11/12 rounded-xl mb-7 justify-evenly pt-3 max-w-full  gap-3  h-14 bg-[#2b323f] flex">
         <>
           <NavLink
             className=" mt-1 hover:scale-125 text-xs pointer-events-auto"
             to={`/`}
           >
             {" "}
-            <img className="w-4" src={goHome} alt="go" />
+            <img className="w-6" src={goHome} alt="go" />
           </NavLink>
 
           <NavLink
@@ -25,7 +25,7 @@ const MenuMobile = ({ userId, role }) => {
             to={`/humanProfile/${userId}`}
           >
             {" "}
-            <img className="w-4" src={goSettings} alt="go" />
+            <img className="w-6" src={goSettings} alt="go" />
             {/* {text}{' '} */}
           </NavLink>
 
@@ -35,7 +35,7 @@ const MenuMobile = ({ userId, role }) => {
               to={"/buscarCliente"}
             >
               {" "}
-              <img className="w-4" src={goSearch} alt="go" />
+              <img className="w-6" src={goSearch} alt="go" />
               {/* {text}{' '} */}
             </NavLink>
           )}
@@ -45,7 +45,7 @@ const MenuMobile = ({ userId, role }) => {
             to={"/explorar"}
           >
             {" "}
-            <img className="w-4" src={goProfile} alt="go" />
+            <img className="w-6" src={goProfile} alt="go" />
             {/* {text}{' '} */}
           </NavLink>
         </>
