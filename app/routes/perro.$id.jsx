@@ -15,10 +15,10 @@ import { getCupones } from "../data/cupon.server";
 //   Link,
 // } from "@remix-run/react";
 
-// import { getPeludo } from "../data/peludo.server";
-// import { upsertUsed } from "../data/used.server";
+import { getPeludo } from "../data/peludo.server";
+import { upsertUsed } from "../data/used.server";
 
-// import { getUserFromSession, updatePuntos } from "../data/auth.server";
+import { getUserFromSession, updatePuntos } from "../data/auth.server";
 
 const Perro = () => {
   // const {
