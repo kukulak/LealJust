@@ -69,12 +69,12 @@ const Perro = () => {
   //   setEstado(false);
   // }
 
-  function openCuponHandler(nombre, descripcion, cuponId, cuponVacio) {
-    setEstado(true);
-    const describe = descripcion;
-    setModalData({ nombre, descripcion, cuponId, cuponVacio });
-    console.log(describe, "modalDATa", cuponId);
-  }
+  // function openCuponHandler(nombre, descripcion, cuponId, cuponVacio) {
+  //   setEstado(true);
+  //   const describe = descripcion;
+  //   setModalData({ nombre, descripcion, cuponId, cuponVacio });
+  //   console.log(describe, "modalDATa", cuponId);
+  // }
 
   return (
     // <div>
@@ -216,7 +216,7 @@ const Perro = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col mb-20">
+      {/* <div className="flex flex-col mb-20">
         {cuponesEspeciales.length > 0 && (
           <Seccion
             user={user}
@@ -297,7 +297,7 @@ const Perro = () => {
             )}
           />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
