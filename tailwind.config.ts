@@ -63,5 +63,9 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("tailwindcss"),
+    require("autoprefixer"),
+    // Otros plugins que puedas necesitar
+  ],
 } satisfies Config;
