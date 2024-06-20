@@ -1,19 +1,19 @@
-import { getAllPeludos } from '../data/peludo.server'
-import { Link, redirect, useLoaderData } from '@remix-run/react'
-import PeludoCard from '../components/PeludoCard'
-// getUserFromSession,
-import { requireUserSession } from '../data/auth.server'
-import { useEffect, useState } from 'react'
+import { getAllPeludos } from "../data/peludo.server";
+import { Link, redirect, useLoaderData } from "@remix-run/react";
+import PeludoCard from "../components/PeludoCard";
+
+import { requireUserSession } from "../data/auth.server";
+import { useEffect, useState } from "react";
 
 const Explorar = () => {
-  const { user, allPeludos } = useLoaderData()
-  const [adminButtons, setAdminButtons] = useState(true)
-  // const { userRole } = useOutletContext()
+  const { user, allPeludos } = useLoaderData();
+  const [adminButtons, setAdminButtons] = useState(true);
+
   useEffect(() => {
-    if (user.role !== 'ADMIN') {
-      setAdminButtons(false)
+    if (user.role !== "ADMIN") {
+      setAdminButtons(false);
     }
-  }, [user])
+  }, [user]);
 
   return (
     <>
@@ -26,15 +26,15 @@ const Explorar = () => {
           abiertamente están en esta lista.
         </p>
         <Link className=" underline" to="/aviso_de_privacidad">
-          {' '}
-          Mira el aviso de privacidad{' '}
+          {" "}
+          Mira el aviso de privacidad{" "}
         </Link>
       </div>
       <div className="mt-28  pb-24 flex flex-col justify-center items-center content-center w-full">
         <section className="pt-5 w-10/12 flex gap-y-16 gap-x-3 gap flex-wrap  justify-center max-w-[750px] ">
           {allPeludos &&
             allPeludos.map(
-              peludo =>
+              (peludo) =>
                 peludo.instagram && (
                   <PeludoCard
                     id={peludo.id}
@@ -46,7 +46,7 @@ const Explorar = () => {
                     adminButtons={adminButtons}
                     role={user.role}
                   />
-                )
+                ),
             )}
         </section>
 
@@ -70,15 +70,15 @@ const Explorar = () => {
         </section> */}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Explorar
+export default Explorar;
 
 export async function loader({ request }) {
-  const allPeludos = await getAllPeludos()
+  const allPeludos = await getAllPeludos();
   // const user = await getUserFromSession(request)
-  const user = await requireUserSession(request)
+  const user = await requireUserSession(request);
 
-  return { allPeludos, user }
+  return { allPeludos, user };
 }

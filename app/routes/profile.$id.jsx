@@ -10,9 +10,7 @@ import Carrusel from "../components/Carrusel";
 import {
   Form,
   useLoaderData,
-  useFetcher,
   useActionData,
-  useOutletContext,
   useNavigate,
   Link,
 } from "@remix-run/react";
@@ -21,21 +19,19 @@ import { getPeludo } from "../data/peludo.server";
 import { upsertUsed } from "../data/used.server";
 
 import { getUserFromSession, updatePuntos } from "../data/auth.server";
-import ImageFitFill from "../components/ImageFitFill";
+// import ImageFitFill from "../components/ImageFitFill";
 
-const largeProps = {
-  zIndex: 100,
-  force: 0.8,
-  duration: 2200,
-  particleCount: 100,
-  width: 1600,
-  height: "200vh",
-  colors: ["#041E43", "#1471BF", "#5BB4DC", "#FC027B", "#66D805"],
-};
+// const largeProps = {
+//   zIndex: 100,
+//   force: 0.8,
+//   duration: 2200,
+//   particleCount: 100,
+//   width: 1600,
+//   height: "200vh",
+//   colors: ["#041E43", "#1471BF", "#5BB4DC", "#FC027B", "#66D805"],
+// };
 
 const Profile = () => {
-  // const url = 'https://github.com/gcoro/react-qrcode-logo'
-
   const {
     cuponesEstetica,
     cuponesGuarderia,
@@ -47,31 +43,21 @@ const Profile = () => {
     user,
   } = useLoaderData();
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-  };
-
   const navigate = useNavigate();
   // const userId = useActionData()
 
-  const { clienteId, changeClientId } = useOutletContext();
+  // const { clienteId, changeClientId } = useOutletContext();
 
-  const [isExploding, setIsExploding] = useState(false);
+  // const [isExploding, setIsExploding] = useState(false);
 
-  const fetcher = useFetcher();
-  const handleVisit = async (couponId) => {
-    // closeHandler()
-    fetcher.submit(
-      { clienteId, couponId },
-      { method: "post", action: "/registrar-visita" }, // Endpoint al que se enviará la solicitud
-    );
-  };
+  // const fetcher = useFetcher();
+  // const handleVisit = async (couponId) => {
+  //   // closeHandler()
+  //   fetcher.submit(
+  //     { clienteId, couponId },
+  //     { method: "post", action: "/registrar-visita" }, // Endpoint al que se enviará la solicitud
+  //   );
+  // };
   const actionClose = useActionData();
 
   const url = UrlCreator(peludo.id);
@@ -84,18 +70,6 @@ const Profile = () => {
     descripcion: "descripcion",
     cuponId: "id",
   });
-
-  // function deleteArtOfDream() {
-  //   const proceed = confirm('Are you totally shure to delete this art?')
-
-  //   if (!proceed) {
-  //     return
-  //   }
-  //   fetcher.submit(null, {
-  //     method: 'delete',
-  //     action: `/dashboard/arts/${modalData.cuponId}`
-  //   })
-  // }
 
   const [adminButtons, setAdminButtons] = useState(true);
 
@@ -131,24 +105,16 @@ const Profile = () => {
 
   return (
     <div className="max-w-[720px]">
-      {/* {isExploding && <ConfettiExplosion {...largeProps} />} */}
       <Modal estado={estado} onClose={closeHandler}>
         <div className="bg-gray-100 flex flex-col justify-center items-center p-3 rounded-2xl w-full md:w-1/2">
           <div className="rounded-xl p-5  w-[98%] bg-gray-300 ">
             {modalData.cuponVacio && (
               <div> {modalData.cuponVacio} mas para activar el cupon</div>
             )}
-            {/* <p>Descuento de </p>{' '} */}
             <span className="text-xl">{modalData.nombre}</span>
             <p className="text-sm"> {modalData?.descripcion} </p>
-            {/* <p className=" text-sm text-gray-500 text-right ">Cupón #1</p> */}
           </div>
-          {/* <div className="rounded-xl p-5  w-[98%] flex flex-col">
-            <p className="text-sm">Precio después del descuento</p>
-            <p className="text-md text-gray-400 mt-2">
-              $320 - 30% = $224 {modalData.formula}
-            </p>
-          </div> */}
+
           <div className="flex mt-5 justify-evenly w-full">
             <button
               onClick={closeHandler}
@@ -166,7 +132,6 @@ const Profile = () => {
                     value={modalData.cuponId}
                   />
                   <button
-                    // onClick={() => handleVisit(modalData.cuponId)}
                     type="submit"
                     className=" border-yellow-400 border-2 p-2 px-5 hover:bg-yellow-400 rounded-lg"
                   >
@@ -440,7 +405,7 @@ export async function loader({ params, request }) {
 
 export async function action({ request }) {
   const formData = await request.formData();
-  const { userId } = getUserFromSession(request);
+  // const { userId } = getUserFromSession(request);
   const cuponData = Object.fromEntries(formData);
   const cuponId = cuponData.cuponId;
   const peludoId = cuponData.peludoId;

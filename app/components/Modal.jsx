@@ -1,24 +1,30 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from "react";
 
 // import { blockScroll, allowScroll } from useScrollBlock
-import useScrollBlock from '../util/useScrollBlock'
+import useScrollBlock from "../util/useScrollBlock";
+import PropTypes from "prop-types";
 
 function Modal({ children, onClose, estado }) {
-  const [blockScroll, allowScroll] = useScrollBlock()
-  const dialog = useRef()
+  Modal.propTypes = {
+    children: PropTypes.string.isRequired,
+    onClose: PropTypes.string.isRequired,
+    estado: PropTypes.string.isRequired,
+  };
+  const [blockScroll, allowScroll] = useScrollBlock();
+  const dialog = useRef();
 
   useEffect(() => {
     if (estado) {
       // console.log('abierto')
       // dialog.current.close()
-      blockScroll()
+      blockScroll();
     } else {
       // console.log('cerrado')
-      allowScroll()
+      allowScroll();
     }
-  }, [allowScroll, blockScroll, estado])
+  }, [allowScroll, blockScroll, estado]);
 
-  if (!estado) return null
+  if (!estado) return null;
 
   return (
     <div
@@ -29,12 +35,12 @@ function Modal({ children, onClose, estado }) {
         ref={dialog}
         className=" w-10/12 artmodal bg-grey flex flex-row flex-wrap gap-5 bg-transparent justify-items-start mt-0 pt-5 justify-center"
         open
-        onClick={event => event.stopPropagation()}
+        onClick={(event) => event.stopPropagation()}
       >
         {children}
       </dialog>
     </div>
-  )
+  );
 }
 
-export default Modal
+export default Modal;

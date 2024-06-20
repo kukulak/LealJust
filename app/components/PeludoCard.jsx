@@ -1,10 +1,10 @@
-import { Link } from '@remix-run/react'
-import { gsap } from 'gsap/dist/gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import { useRef } from 'react'
+import { Link } from "@remix-run/react";
+import { gsap } from "gsap/dist/gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useRef } from "react";
 
-import { useGSAP } from '@gsap/react'
-import ImgPeludoCard from './ImgPeludoCard'
+import { useGSAP } from "@gsap/react";
+import ImgPeludoCard from "./ImgPeludoCard";
 
 const PeludoCard = ({
   id,
@@ -13,31 +13,8 @@ const PeludoCard = ({
   instagram,
   foto,
   adminButtons,
-  role
+  role,
 }) => {
-  gsap.registerPlugin(useGSAP, ScrollTrigger)
-  const imageRef = useRef()
-  const container = useRef()
-  // let fotos = gsap.utils.toArray(".imageRotate");
-  // useGSAP(
-  //   () => {
-  //     gsap.from(container.current, {
-  //       scale: 1.151,
-  //       // rotation: 10,
-  //       ease: 'expo.out',
-  //       duration: 3,
-  //       scrollTrigger: {
-  //         trigger: container.current,
-  //         start: 'clamp(center center)',
-  //         end: 'clamp(200px  top)',
-  //         // markers: true,
-  //         // toggleActions: 'restart pause reverse pause'
-  //         scrub: true
-  //       }
-  //     })
-  //   },
-  //   { scope: container }
-  // )
   return (
     <div
       // ref={container}
@@ -74,9 +51,9 @@ const PeludoCard = ({
         <button className="text-sm">@{instagram.slice(0, 8)}... </button>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default PeludoCard
+export default PeludoCard;
 
 // #e5e7eb0d
