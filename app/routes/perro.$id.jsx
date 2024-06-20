@@ -21,16 +21,16 @@ import { upsertUsed } from "../data/used.server";
 import { getUserFromSession, updatePuntos } from "../data/auth.server";
 
 const Perro = () => {
-  const {
-    // cuponesEstetica,
-    // cuponesGuarderia,
-    // cuponesHotel,
-    // cuponesAmigos,
-    // cuponesDinamicas,
-    // cuponesEspeciales,
-    peludo,
-    user,
-  } = useLoaderData();
+  // const {
+  //   // cuponesEstetica,
+  //   // cuponesGuarderia,
+  //   // cuponesHotel,
+  //   // cuponesAmigos,
+  //   // cuponesDinamicas,
+  //   // cuponesEspeciales,
+  //   peludo,
+  //   user,
+  // } = useLoaderData();
   //
   // const navigate = useNavigate();
 
@@ -38,14 +38,14 @@ const Perro = () => {
 
   // const url = UrlCreator(peludo.id);
 
-  const [estado, setEstado] = useState("");
+  // const [estado, setEstado] = useState("");
 
-  const [modalData, setModalData] = useState({
-    nombre: "nombre",
-    formula: "formula",
-    descripcion: "descripcion",
-    cuponId: "id",
-  });
+  // const [modalData, setModalData] = useState({
+  //   nombre: "nombre",
+  //   formula: "formula",
+  //   descripcion: "descripcion",
+  //   cuponId: "id",
+  // });
 
   // const [adminButtons, setAdminButtons] = useState(true);
 
