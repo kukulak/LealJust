@@ -7,13 +7,13 @@ import { getCupones } from "../data/cupon.server";
 
 // import Carrusel from "../components/Carrusel";
 // import ImageFitFill from "../components/ImageFitFill";
-// import {
-//   Form,
-//   useLoaderData,
-//   useActionData,
-//   useNavigate,
-//   Link,
-// } from "@remix-run/react";
+import {
+  Form,
+  useLoaderData,
+  useActionData,
+  useNavigate,
+  Link,
+} from "@remix-run/react";
 
 import { getPeludo } from "../data/peludo.server";
 import { upsertUsed } from "../data/used.server";
@@ -21,16 +21,16 @@ import { upsertUsed } from "../data/used.server";
 import { getUserFromSession, updatePuntos } from "../data/auth.server";
 
 const Perro = () => {
-  // const {
-  //   cuponesEstetica,
-  //   cuponesGuarderia,
-  //   cuponesHotel,
-  //   cuponesAmigos,
-  //   cuponesDinamicas,
-  //   cuponesEspeciales,
-  //   peludo,
-  //   user,
-  // } = useLoaderData();
+  const {
+    cuponesEstetica,
+    cuponesGuarderia,
+    cuponesHotel,
+    cuponesAmigos,
+    cuponesDinamicas,
+    cuponesEspeciales,
+    peludo,
+    user,
+  } = useLoaderData();
 
   // const navigate = useNavigate();
 
@@ -77,6 +77,11 @@ const Perro = () => {
   // }
 
   return (
+    <div>
+      COMO ASI?{user.role}
+      <div>COMO ASI?</div> <div>COMO ASI?</div> <div>COMO ASI?</div>{" "}
+      <div>COMO ASI?</div>
+    </div>
     // <div className="max-w-[720px]">
     //   <Modal estado={estado} onClose={closeHandler}>
     //     <div className="bg-gray-100 flex flex-col justify-center items-center p-3 rounded-2xl w-full md:w-1/2">
@@ -294,12 +299,6 @@ const Perro = () => {
     //     )}
     //   </div>
     // </div>
-
-    <div>
-      COMO ASI?
-      <div>COMO ASI?</div> <div>COMO ASI?</div> <div>COMO ASI?</div>{" "}
-      <div>COMO ASI?</div>
-    </div>
   );
 };
 
