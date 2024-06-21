@@ -1,9 +1,9 @@
 import { Form, useNavigation, redirect, useLoaderData } from "@remix-run/react";
 
-import Compressor from "compressorjs";
+// import Compressor from "compressorjs";
 
 import { deletePeludo, getPeludo, updatePeludo } from "../data/peludo.server";
-import { ImageUploader } from "../components/ImageUploader";
+// import { ImageUploader } from "../components/ImageUploader";
 import { useState } from "react";
 
 const EditPeludo = () => {
