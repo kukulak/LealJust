@@ -3,7 +3,7 @@ import { Form, useNavigation, redirect, useLoaderData } from "@remix-run/react";
 // import Compressor from "compressorjs";
 
 import { deletePeludo, getPeludo, updatePeludo } from "../data/peludo.server";
-// import { ImageUploader } from "../components/ImageUploader";
+import { ImageUploader } from "../components/ImageUploader";
 import { useState } from "react";
 
 const EditPeludo = () => {
@@ -21,60 +21,61 @@ const EditPeludo = () => {
     foto: peludo.foto,
   };
 
-  // async function HandleFileUpload(file) {
-  //   // Comprimir la imagen utilizando compressor.js
+  async function HandleFileUpload(file) {
+    // Comprimir la imagen utilizando compressor.js
 
-  //   const compressedImage = await new Promise((resolve, reject) => {
-  //     new Compressor(file, {
-  //       quality: 0.6, // Ajusta la calidad de la compresión (0.1 - 1.0)
-  //       maxWidth: 800, // Establece el ancho máximo de la imagen
-  //       success(result) {
-  //         resolve(result);
-  //       },
-  //       error(err) {
-  //         reject(err);
-  //       },
-  //     });
-  //   });
+    // const compressedImage = await new Promise((resolve, reject) => {
+    //   new Compressor(file, {
+    //     quality: 0.6, // Ajusta la calidad de la compresión (0.1 - 1.0)
+    //     maxWidth: 800, // Establece el ancho máximo de la imagen
+    //     success(result) {
+    //       resolve(result);
+    //     },
+    //     error(err) {
+    //       reject(err);
+    //     },
+    //   });
+    // });
 
-  //   let inputFormData = new FormData();
-  //   inputFormData.append("dream-pic", compressedImage);
-  //   // const imageUrl = await uploadImage(file)
-  //   const response = await fetch("/images", {
-  //     method: "POST",
-  //     body: inputFormData,
-  //   });
+    let inputFormData = new FormData();
+    inputFormData.append("dream-pic", file);
+    // inputFormData.append("dream-pic", compressedImage);
+    // const imageUrl = await uploadImage(file)
+    const response = await fetch("/images", {
+      method: "POST",
+      body: inputFormData,
+    });
 
-  //   if (typeof document === "undefined") {
-  //     console.log("running in a server environment");
-  //   } else {
-  //     console.log("running in a browser environment");
-  //   }
+    if (typeof document === "undefined") {
+      console.log("running in a server environment");
+    } else {
+      console.log("running in a browser environment");
+    }
 
-  //   console.log("HANDELING", inputFormData.getAll("dream-pic"));
+    console.log("HANDELING", inputFormData.getAll("dream-pic"));
 
-  //   const { imageUrl } = await response.json();
+    const { imageUrl } = await response.json();
 
-  //   // const data = await response.json()
-  //   // const imageUrl = data.imageUrl
-  //   // const imageUrl = await response.text()
-  //   // Aquí obtendrás la URL de la imagen
+    // const data = await response.json()
+    // const imageUrl = data.imageUrl
+    // const imageUrl = await response.text()
+    // Aquí obtendrás la URL de la imagen
 
-  //   console.log("IMAGEURL in HANDLER", imageUrl);
+    console.log("IMAGEURL in HANDLER", imageUrl);
 
-  //   setFormData({
-  //     ...formData,
-  //     peludoPicture: imageUrl,
-  //   });
-  // }
+    setFormData({
+      ...formData,
+      peludoPicture: imageUrl,
+    });
+  }
 
   return (
     <div className=" max-w-[700px]  w-full items-center flex flex-col gap-0">
-      {/* <ImageUploader
+      <ImageUploader
         onChange={HandleFileUpload}
         imageUrl={formData.peludoPicture}
         // existedImage={defaultValues.foto}
-      /> */}
+      />
       HOLA QUIERO EDITAR AL OERRI
       <Form
         method="patch"
