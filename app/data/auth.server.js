@@ -120,7 +120,7 @@ export async function signup({
   await sendEmail({
     to: email,
     subject: "Activa tu cuenta",
-    text: "Activa tu cuenta haciendo clic en el siguiente enlace:",
+    text: "Da clic en el siguiente enlace para activar tu cuenta: ",
     link: activationLink,
     password: password,
   });
