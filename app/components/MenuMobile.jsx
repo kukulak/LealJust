@@ -10,7 +10,7 @@ const MenuMobile = ({ userId, role }) => {
     <section className=" justify-center pointer-events-none z-40 mobile items-end fixed max-w-[700px] w-full h-full flex">
       {/* {role === "ADMIN" ||
         (role === "USER" && ( */}
-      <menu className=" w-11/12 rounded-xl mb-7 justify-evenly pt-3 max-w-full  gap-3  h-14 bg-[#2b323f] flex">
+      <menu className=" w-11/12 rounded-xl rounded-br-none rounded-bl-none md:rounded-br-xl md:rounded-bl-xl  md:mb-7 mb-0 justify-evenly pt-3 max-w-full  gap-3  h-14 bg-[#2b323f] flex">
         <>
           <NavLink
             className=" mt-1 hover:scale-125 text-xs pointer-events-auto"

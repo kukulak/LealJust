@@ -10,7 +10,7 @@ import ImageFitFill from "../components/ImageFitFill";
 import {
   Form,
   useLoaderData,
-  // useActionData,
+  useActionData,
   useNavigate,
   Link,
 } from "@remix-run/react";
@@ -34,7 +34,7 @@ const Perro = () => {
   //
   const navigate = useNavigate();
 
-  // const actionClose = useActionData();
+  const actionClose = useActionData();
 
   // const url = UrlCreator(peludo.id);
 
@@ -49,17 +49,17 @@ const Perro = () => {
 
   const [adminButtons, setAdminButtons] = useState(true);
 
-  // useEffect(() => {
-  //   if (user.role !== "ADMIN") {
-  //     setAdminButtons(false);
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (user.role !== "ADMIN") {
+      setAdminButtons(false);
+    }
+  }, [user]);
 
-  // useEffect(() => {
-  //   if (actionClose) {
-  //     setEstado(false);
-  //   }
-  // }, [actionClose]);
+  useEffect(() => {
+    if (actionClose) {
+      setEstado(false);
+    }
+  }, [actionClose]);
 
   function closeHandler() {
     setEstado(false);
