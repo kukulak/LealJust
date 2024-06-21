@@ -70,11 +70,11 @@ const EditPeludo = () => {
 
   return (
     <div className=" max-w-[700px]  w-full items-center flex flex-col gap-0">
-      <ImageUploader
+      {/* <ImageUploader
         onChange={HandleFileUpload}
         imageUrl={formData.peludoPicture}
         // existedImage={defaultValues.foto}
-      />
+      /> */}
       <Form
         method="patch"
         // method={peludoData ? 'patch' : 'post'}
@@ -185,7 +185,7 @@ export async function action({ request, params }) {
   if (request.method === "PATCH") {
     console.log("editTime", formData);
     await updatePeludo(peludoId, userData, file);
-    return redirect(`/profile/${peludoId}`);
+    return redirect(`/perro/${peludoId}`);
   } else if (request.method === "DELETE") {
     await deletePeludo(peludoId);
     return redirect("/");
