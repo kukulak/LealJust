@@ -75,7 +75,8 @@ const EditPeludo = () => {
         imageUrl={formData.peludoPicture}
         // existedImage={defaultValues.foto}
       /> */}
-      <Form
+      HOLA QUIERO EDITAR AL OERRI
+      {/* <Form
         method="patch"
         // method={peludoData ? 'patch' : 'post'}
         className=" mt-0   w-10/12 flex flex-col gap-3 text-gray-900"
@@ -142,12 +143,12 @@ const EditPeludo = () => {
             name="instagram"
             id="instagram"
             defaultValue={defaultValues.instagram}
-          />
-          {/* <label className=" text-gray-100" htmlFor="foto">
+          /> */}
+      {/* <label className=" text-gray-100" htmlFor="foto">
         Foto
       </label>
       <input className="h-10 p-0" type="file" name="foto" id="foto" /> */}
-        </div>
+      {/* </div>
         <div className="flex justify-center gap-5 flex-wrap align-baseline mb-20">
           <button
             className="  self-center border-2 border-gray-600 rounded-lg text-lg text-gray-100 text-center py-3  px-5 mt-3 mb-10 "
@@ -159,7 +160,7 @@ const EditPeludo = () => {
             {isSubmitting ? "En ello..." : "Actualizar"}
           </button>
         </div>
-      </Form>
+      </Form> */}
     </div>
   );
 };
