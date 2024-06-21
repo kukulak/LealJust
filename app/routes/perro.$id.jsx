@@ -4,7 +4,8 @@ import Modal from "../components/Modal";
 import UrlCreator from "../util/UrlCreator";
 import { useEffect, useState } from "react";
 import { getCupones } from "../data/cupon.server";
-
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import Carrusel from "../components/Carrusel";
 import ImageFitFill from "../components/ImageFitFill";
 import {
@@ -33,8 +34,15 @@ const Perro = () => {
   } = useLoaderData();
   //
   const navigate = useNavigate();
-
   const actionClose = useActionData();
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()]);
+
+  useEffect(() => {
+    if (emblaApi) {
+      console.log(emblaApi.slideNodes()); // Access API
+    }
+  }, [emblaApi]);
 
   // const url = "URLFORQR";
   // const url = UrlCreator(peludo.id);
@@ -76,6 +84,39 @@ const Perro = () => {
     setModalData({ nombre, descripcion, cuponId, cuponVacio });
     console.log(describe, "modalDATa", cuponId);
   }
+
+  const [getImages, setImages] = useState(peludo.fotos);
+  // const imagenes =
+
+  const images = [
+    {
+      original: "https://picsum.photos/id/1018/1000/600/",
+      thumbnail: "https://picsum.photos/id/1018/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1015/1000/600/",
+      thumbnail: "https://picsum.photos/id/1015/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1019/1000/600/",
+      thumbnail: "https://picsum.photos/id/1019/250/150/",
+    },
+  ];
+
+  useEffect(() => {
+    let momentImages = peludo.fotos;
+    // peludo.fotos.map(({ url }) => (momentImages = { original: url }));
+    setImages(momentImages);
+    console.log("IMAGENES dEFFECT PERRO", momentImages);
+  }, [peludo.fotos]);
+
+  console.log("IMAGENES de PERRO", getImages, peludo.fotos);
+  // [
+  //   {
+  //     thumbnail: 'imagen',
+  //     original: 'imagen'},
+  //   }
+  // ]
 
   return (
     // <div>
@@ -154,7 +195,29 @@ const Perro = () => {
           </button>
 
           {/* <ImageFitFill src={peludo.foto} alt="Foto de tu perrito" /> */}
-          <Carrusel images={peludo.fotos} />
+          {/* <div className="embla" ref={emblaRef}>
+            <div className="embla__container">
+              <div className="embla__slide"> uno </div>
+              <div className="embla__slide"> dos </div>
+              <div className="embla__slide"> tres </div>
+            </div>
+          </div> */}
+
+          <div className="embla" ref={emblaRef}>
+            <div className="embla__container">
+              {peludo.fotos.map((foto) => (
+                <img
+                  className="embla__slide"
+                  src={foto.url}
+                  key={foto.id}
+                  alt="foto de tu perrito"
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* <ImageGallery items={images} /> */}
+          {/* <Carrusel images={peludo.fotos} /> */}
 
           <div className="pt-6 -mt-1 bg-gray-200 w-10/12  py-3 pl-4 pr-2 rounded-b-lg">
             {" "}
