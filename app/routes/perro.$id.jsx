@@ -1,11 +1,11 @@
-import { QRCode } from "react-qrcode-logo";
+// import { QRCode } from "react-qrcode-logo";
 import Seccion from "../components/Seccion";
 import Modal from "../components/Modal";
-// import UrlCreator from "../util/UrlCreator";
+import UrlCreator from "../util/UrlCreator";
 import { useEffect, useState } from "react";
 import { getCupones } from "../data/cupon.server";
 
-// import Carrusel from "../components/Carrusel";
+import Carrusel from "../components/Carrusel";
 import ImageFitFill from "../components/ImageFitFill";
 import {
   Form,
@@ -36,7 +36,7 @@ const Perro = () => {
 
   const actionClose = useActionData();
 
-  const url = "URLFORQR";
+  // const url = "URLFORQR";
   // const url = UrlCreator(peludo.id);
 
   const [estado, setEstado] = useState("");
@@ -153,7 +153,8 @@ const Perro = () => {
             Volver
           </button>
 
-          <ImageFitFill src={peludo.foto} alt="Foto de tu perrito" />
+          {/* <ImageFitFill src={peludo.foto} alt="Foto de tu perrito" /> */}
+          <Carrusel images={peludo.fotos} />
 
           <div className="pt-6 -mt-1 bg-gray-200 w-10/12  py-3 pl-4 pr-2 rounded-b-lg">
             {" "}
@@ -195,7 +196,7 @@ const Perro = () => {
                   Invitar Amigos{" "}
                 </Link>
               )}
-              <QRCode
+              {/* <QRCode
                 size="120"
                 removeQrCodeBehindLogo="true"
                 logoImage="/logo/lo-vert-JustLikeHome-small-black.png"
@@ -212,7 +213,7 @@ const Perro = () => {
                   [5, 5, 5, 5], // top/right eye
                   [5, 5, 5, 5], // bottom/left
                 ]}
-              />
+              /> */}
             </div>
           </div>
         </div>
