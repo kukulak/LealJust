@@ -1,7 +1,7 @@
-// import { QRCode } from "react-qrcode-logo";
+import { QRCode } from "react-qrcode-logo";
 import Seccion from "../components/Seccion";
 import Modal from "../components/Modal";
-// import UrlCreator from "../util/UrlCreator";
+import UrlCreator from "../util/UrlCreator";
 import { useEffect, useState } from "react";
 import { getCupones } from "../data/cupon.server";
 
@@ -36,7 +36,7 @@ const Perro = () => {
 
   const actionClose = useActionData();
 
-  // const url = UrlCreator(peludo.id);
+  const url = UrlCreator(peludo.id);
 
   const [estado, setEstado] = useState("");
 
@@ -194,7 +194,7 @@ const Perro = () => {
                   Invitar Amigos{" "}
                 </Link>
               )}
-              {/* <QRCode
+              <QRCode
                 size="120"
                 removeQrCodeBehindLogo="true"
                 logoImage="/logo/lo-vert-JustLikeHome-small-black.png"
@@ -211,7 +211,7 @@ const Perro = () => {
                   [5, 5, 5, 5], // top/right eye
                   [5, 5, 5, 5], // bottom/left
                 ]}
-              /> */}
+              />
             </div>
           </div>
         </div>

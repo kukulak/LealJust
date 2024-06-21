@@ -67,7 +67,7 @@ export default function Index() {
                 <div className="flex ">
                   {perritos.map((perrito) => (
                     <Link
-                      to={`profile/${perrito.id}`}
+                      to={`perro/${perrito.id}`}
                       key={perrito.id}
                       className="w-30 h-30 rounded-full overflow-hidden"
                     >
