@@ -1,5 +1,13 @@
 import { Form, useNavigation, redirect, useLoaderData } from "@remix-run/react";
+//
+import imageCompression from "browser-image-compression";
 
+// import imagemin from "imagemin";
+// import imageminJpegtran from "imagemin-jpegtran";
+// import imageminMozjpeg from "imagemin-mozjpeg";
+// import imageminPngquant from "imagemin-pngquant";
+// import imageminGifsicle from "imagemin-gifsicle";
+// import fetch from "node-fetch";
 // import Compressor from "compressorjs";
 
 import { deletePeludo, getPeludo, updatePeludo } from "../data/peludo.server";
@@ -22,51 +30,45 @@ const EditPeludo = () => {
   };
 
   async function HandleFileUpload(file) {
-    // Comprimir la imagen utilizando compressor.js
+    try {
+      // Opciones de compresión
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 800,
+        useWebWorker: true,
+      };
 
-    // const compressedImage = await new Promise((resolve, reject) => {
-    //   new Compressor(file, {
-    //     quality: 0.6, // Ajusta la calidad de la compresión (0.1 - 1.0)
-    //     maxWidth: 800, // Establece el ancho máximo de la imagen
-    //     success(result) {
-    //       resolve(result);
-    //     },
-    //     error(err) {
-    //       reject(err);
-    //     },
-    //   });
-    // });
+      // Comprimir la imagen utilizando browser-image-compression
+      const compressedFile = await imageCompression(file, options);
 
-    let inputFormData = new FormData();
-    inputFormData.append("dream-pic", file);
-    // inputFormData.append("dream-pic", compressedImage);
-    // const imageUrl = await uploadImage(file)
-    const response = await fetch("/images", {
-      method: "POST",
-      body: inputFormData,
-    });
+      // Crear un FormData y agregar la imagen comprimida
+      let inputFormData = new FormData();
+      inputFormData.append("dream-pic", compressedFile, file.name);
 
-    if (typeof document === "undefined") {
-      console.log("running in a server environment");
-    } else {
-      console.log("running in a browser environment");
+      // Enviar la imagen comprimida al servidor
+      const response = await fetch("/images", {
+        method: "POST",
+        body: inputFormData,
+      });
+
+      if (typeof document === "undefined") {
+        console.log("running in a server environment");
+      } else {
+        console.log("running in a browser environment");
+      }
+
+      // Manejar la respuesta del servidor
+      const { imageUrl } = await response.json();
+      console.log("IMAGEURL in HANDLER", imageUrl);
+
+      // Actualizar el estado con la URL de la imagen
+      setFormData({
+        ...formData,
+        peludoPicture: imageUrl,
+      });
+    } catch (error) {
+      console.error("Error during image compression or upload:", error);
     }
-
-    console.log("HANDELING", inputFormData.getAll("dream-pic"));
-
-    const { imageUrl } = await response.json();
-
-    // const data = await response.json()
-    // const imageUrl = data.imageUrl
-    // const imageUrl = await response.text()
-    // Aquí obtendrás la URL de la imagen
-
-    console.log("IMAGEURL in HANDLER", imageUrl);
-
-    setFormData({
-      ...formData,
-      peludoPicture: imageUrl,
-    });
   }
 
   return (
@@ -76,7 +78,7 @@ const EditPeludo = () => {
         imageUrl={formData.peludoPicture}
         // existedImage={defaultValues.foto}
       />
-      HOLA QUIERO EDITAR AL OERRI
+
       <Form
         method="patch"
         // method={peludoData ? 'patch' : 'post'}

@@ -1,38 +1,38 @@
-import { useRef, useState } from 'react'
+import { useRef, useState } from "react";
 
 export const ImageUploader = ({ onChange, imageUrl, existedImage }) => {
-  const [draggingOver, setDraggingOver] = useState(false)
-  const fileInputRef = useRef(null)
-  const dropRef = useRef(null)
+  const [draggingOver, setDraggingOver] = useState(false);
+  const fileInputRef = useRef(null);
+  const dropRef = useRef(null);
 
   // 1
-  const preventDefaults = e => {
-    e.preventDefault()
-    e.stopPropagation()
-  }
+  const preventDefaults = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
   // 2
-  const handleDrop = e => {
-    preventDefaults(e)
+  const handleDrop = (e) => {
+    preventDefaults(e);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      onChange(e.dataTransfer.files[0])
-      e.dataTransfer.clearData()
+      onChange(e.dataTransfer.files[0]);
+      e.dataTransfer.clearData();
     }
-  }
+  };
 
   // 3
-  const handleChange = event => {
-    console.log(event.currentTarget.files[0], 'WHAT IS THIS')
-    console.log(event.currentTarget.files, 'ENTERING')
+  const handleChange = (event) => {
+    console.log(event.currentTarget.files[0], "WHAT IS THIS");
+    console.log(event.currentTarget.files, "ENTERING");
     ////////////
     if (event.currentTarget.files && event.currentTarget.files[0]) {
-      onChange(event.currentTarget.files[0])
+      onChange(event.currentTarget.files[0]);
     }
     ////////////
     // if (event.currentTarget.files && event.currentTarget.files[0]) {
     //   onChange(blober)
     // }
-  }
+  };
 
   // 4
   return (
@@ -40,16 +40,16 @@ export const ImageUploader = ({ onChange, imageUrl, existedImage }) => {
       ref={dropRef}
       className={`${
         draggingOver
-          ? 'border-4 border-dashed border-yellow-300 border-rounded mt-20'
-          : ''
+          ? "border-4 border-dashed border-yellow-300 border-rounded mt-20"
+          : ""
       } group w-10/12 relative mt-20 flex justify-center items-center bg-gray-950 transition duration-300 ease-in-out hover:bg-gray-900 cursor-pointer hover:bg-opacity-20 h-60 min-h-[20rem] hover:border-gray-900 hover:border-[1px] border-[1px] border-gray-950 `}
       style={{
-        backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
         ...(imageUrl
           ? { backgroundImage: `url(${imageUrl})` }
-          : { backgroundImage: `url(${existedImage})` })
+          : { backgroundImage: `url(${existedImage})` }),
       }}
       onDragEnter={() => setDraggingOver(true)}
       onDragLeave={() => setDraggingOver(false)}
@@ -80,5 +80,5 @@ export const ImageUploader = ({ onChange, imageUrl, existedImage }) => {
         className="hidden"
       />
     </div>
-  )
-}
+  );
+};
