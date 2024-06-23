@@ -1,28 +1,28 @@
-import { Form, useNavigation } from '@remix-run/react'
-import { useState } from 'react'
+import { Form, useNavigation } from "@remix-run/react";
+import { useState } from "react";
 
 const BusquedaForm = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
-  const isSubmitting = navigation.state !== 'idle'
+  const isSubmitting = navigation.state !== "idle";
 
-  const [changeValuePromocion, setChangeValuePromocion] = useState('')
-  const [changeValue, setChangeValue] = useState('')
-  const [activar, setActivar] = useState(false)
+  const [changeValuePromocion, setChangeValuePromocion] = useState("");
+  const [changeValue, setChangeValue] = useState("");
+  const [activar, setActivar] = useState(false);
 
-  const handleChangePromocion = event => {
-    let index = event.target.selectedIndex
-    setChangeValuePromocion(event.target.options[index].value)
-  }
+  const handleChangePromocion = (event) => {
+    let index = event.target.selectedIndex;
+    setChangeValuePromocion(event.target.options[index].value);
+  };
 
-  const handleChange = event => {
-    let index = event.target.selectedIndex
-    setChangeValue(event.target.options[index].value)
-  }
+  const handleChange = (event) => {
+    let index = event.target.selectedIndex;
+    setChangeValue(event.target.options[index].value);
+  };
 
   const handleActivar = () => {
-    setActivar(!activar)
-  }
+    setActivar(!activar);
+  };
 
   return (
     <Form
@@ -48,7 +48,7 @@ const BusquedaForm = () => {
         <>
           <div className="Nombre ">
             <label className=" text-gray-100" htmlFor="nombre">
-              {' '}
+              {" "}
               Nombre del {changeValuePromocion}
             </label>
             <input
@@ -62,13 +62,13 @@ const BusquedaForm = () => {
             {isSubmitting ? (
               <div className="text-sm">Buscando...</div>
             ) : (
-              'Buscar'
+              "Buscar"
             )}
           </button>
         </>
       )}
     </Form>
-  )
-}
+  );
+};
 
-export default BusquedaForm
+export default BusquedaForm;

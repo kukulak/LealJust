@@ -71,7 +71,7 @@ const HumanProfile = () => {
                 <Link
                   style={{ zIndex: index + 10 }}
                   key={peludo.id}
-                  to={`/profile/${peludo.id}`}
+                  to={`/perro/${peludo.id}`}
                   className=" hover:z-40 rounded-full flex w-[60px] h-[60px] md:w-[80px] md:h-[80px] bg-gray-500 overflow-hidden mt-4 z-10 shadow-black/50 shadow-2xl -mr-7"
                   onClick={changeContext}
                 >

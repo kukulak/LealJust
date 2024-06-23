@@ -1,4 +1,10 @@
-import { Form, useNavigation, redirect, useLoaderData } from "@remix-run/react";
+import {
+  Form,
+  useNavigation,
+  useNavigate,
+  redirect,
+  useLoaderData,
+} from "@remix-run/react";
 //
 import imageCompression from "browser-image-compression";
 
@@ -16,6 +22,7 @@ import { useState } from "react";
 
 const EditPeludo = () => {
   const navigation = useNavigation();
+  const navigate = useNavigate();
   const peludo = useLoaderData();
   const [formData, setFormData] = useState({});
 
@@ -36,6 +43,7 @@ const EditPeludo = () => {
         maxSizeMB: 1,
         maxWidthOrHeight: 800,
         useWebWorker: true,
+        initialQuality: 0.8,
       };
 
       // Comprimir la imagen utilizando browser-image-compression
@@ -76,7 +84,7 @@ const EditPeludo = () => {
       <ImageUploader
         onChange={HandleFileUpload}
         imageUrl={formData.peludoPicture}
-        // existedImage={defaultValues.foto}
+        existedImage={defaultValues.foto}
       />
 
       <Form
@@ -180,11 +188,14 @@ export async function loader({ request, params }) {
 // action
 export async function action({ request, params }) {
   const peludoId = params.id;
+  const peludo = await getPeludo(peludoId);
 
   const formData = await request.formData();
   const userData = Object.fromEntries(formData);
-
-  const file = await formData.get("imageUrl");
+  let file = "";
+  if (peludo.foto !== userData.foto) {
+    file = await formData.get("imageUrl");
+  }
 
   if (request.method === "PATCH") {
     console.log("editTime", formData);

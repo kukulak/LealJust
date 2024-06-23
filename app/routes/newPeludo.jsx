@@ -65,6 +65,38 @@ const CreatePeludo = () => {
     });
   }
 
+  // async function HandleQrUpload(file) {
+  //   try {
+  //     // Crear un FormData y agregar la imagen comprimida
+  //     let inputFormData = new FormData();
+  //     inputFormData.append("dream-pic", file, file.name);
+
+  //     // Enviar la imagen comprimida al servidor
+  //     const response = await fetch("/images", {
+  //       method: "POST",
+  //       body: inputFormData,
+  //     });
+
+  //     if (typeof document === "undefined") {
+  //       console.log("running in a server environment");
+  //     } else {
+  //       console.log("running in a browser environment");
+  //     }
+
+  //     // Manejar la respuesta del servidor
+  //     const { imageUrl } = await response.json();
+  //     console.log("IMAGEURL in HANDLER", imageUrl);
+
+  //     // Actualizar el estado con la URL de la imagen
+  //     setFormData({
+  //       ...formData,
+  //       qrPeludo: imageUrl,
+  //     });
+  //   } catch (error) {
+  //     console.error("Error during image upload:", error);
+  //   }
+  // }
+
   return (
     <div className="  w-full items-center flex flex-col gap-5">
       <ImageUploader

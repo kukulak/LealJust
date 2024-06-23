@@ -1,10 +1,17 @@
-import { prisma } from './database.server'
-import { ObjectId } from 'mongodb'
-import { createFoto } from './foto.server'
+import { prisma } from "./database.server";
+import { ObjectId } from "mongodb";
+import { createFoto } from "./foto.server";
+import { qrCodeCreator } from "./qrCodeCreator";
+import { uploadQr } from "./s3.server";
 
 export async function newPeludo(dataPeludo, userId, file) {
   try {
-    console.log('DATA FROm SERVER', dataPeludo)
+    console.log("DATA FROm SERVER", dataPeludo);
+
+    // que datos va a tener el qr code?
+    // necesita una url
+    // http://lealtad/perro/id
+
     const newPeludo = await prisma.Peludo.create({
       data: {
         nombre: dataPeludo.nombre,
@@ -12,21 +19,26 @@ export async function newPeludo(dataPeludo, userId, file) {
         raza: dataPeludo.raza,
         nacimiento: dataPeludo.nacimiento,
         foto: file,
-        amigos: '',
-        qrCode: '',
-        instagram: dataPeludo.instagram
-      }
-    })
+        amigos: "",
+        qrCode: "",
+        instagram: dataPeludo.instagram,
+      },
+    });
 
-    console.log('NEPEULUDO ID', newPeludo.id)
+    const qrCode = `https://incomparable-snickerdoodle-b2eb5f.netlify.app/perro/${newPeludo.id}`;
+
+    const qrImage = await qrCodeCreator(qrCode);
+    await uploadQr(qrImage);
+
+    console.log("NEPEULUDO ID", newPeludo.id);
 
     if (newPeludo.foto) {
-      createFoto(newPeludo.id, newPeludo.foto)
+      createFoto(newPeludo.id, newPeludo.foto);
     }
-    return newPeludo
+    return newPeludo;
   } catch (error) {
     // throw new Error('Falla en crear perfil para el Peludo', error)
-    throw new Error(error)
+    throw new Error(error);
   }
 }
 
@@ -43,16 +55,16 @@ export async function newPeludo(dataPeludo, userId, file) {
 
 export async function getPeludo(peludoId) {
   if (!ObjectId.isValid(peludoId)) {
-    throw new Error('Invalid Peludo ID')
+    throw new Error("Invalid Peludo ID");
   }
   const peludo = await prisma.Peludo.findUnique({
     where: { id: peludoId },
-    include: { fotos: { orderBy: { id: 'desc' } } }
+    include: { fotos: { orderBy: { id: "desc" } } },
     // include: { fotos: true }
-  })
+  });
 
   if (!peludo) {
-    throw new Error('Peludo not found')
+    throw new Error("Peludo not found");
   }
 
   const data = {
@@ -67,45 +79,45 @@ export async function getPeludo(peludoId) {
     qrCode: peludo.qrCode,
     instagram: peludo.instagram,
     cupones: peludo.cupones,
-    fotos: peludo.fotos
-  }
-  console.log('DATAPELUDOSERVER', data)
-  return data
+    fotos: peludo.fotos,
+  };
+  console.log("DATAPELUDOSERVER", data);
+  return data;
 }
 
 export async function getAllPeludosByUser(humanoId) {
   try {
     const peludos = await prisma.Peludo.findMany({
-      where: { usuarioId: humanoId }
-    })
+      where: { usuarioId: humanoId },
+    });
 
-    return peludos
+    return peludos;
   } catch (error) {
-    console.log('ERROR', error)
+    console.log("ERROR", error);
   }
 }
 
 export async function getAllPeludos(humanoId) {
   try {
     const peludos = await prisma.Peludo.findMany({
-      where: { usuarioId: humanoId }
-    })
+      where: { usuarioId: humanoId },
+    });
 
-    return peludos
+    return peludos;
   } catch (error) {
-    console.log('ERROR', error)
+    console.log("ERROR", error);
   }
 }
 
 export async function getPeludoByName(name) {
   try {
     const peludo = await prisma.Peludo.findMany({
-      where: { nombre: name }
-    })
+      where: { nombre: name },
+    });
 
-    return peludo
+    return peludo;
   } catch (error) {
-    console.log('ERROR', error)
+    console.log("ERROR", error);
   }
 }
 
@@ -113,7 +125,7 @@ export async function getPeludoByName(name) {
 // await updatePeludo(peludoId, userData, file)
 //
 export async function updatePeludo(id, peludoData, file) {
-  console.log('UPDATE peludo', id, peludoData, file)
+  console.log("UPDATE peludo", id, peludoData, file);
   try {
     const updatePeludo = await prisma.Peludo.update({
       where: { id },
@@ -122,28 +134,28 @@ export async function updatePeludo(id, peludoData, file) {
         raza: peludoData.raza,
         nacimiento: peludoData.nacimiento,
         instagram: peludoData.instagram,
-        foto: file
-      }
-    })
-    console.log('UPSATEPELUDO')
-    if (file) {
-      await createFoto(id, file)
+        foto: file,
+      },
+    });
+    console.log("UPSATEPELUDO");
+    if (file.includes("https")) {
+      await createFoto(id, file);
     }
-    console.log('createdFoto')
+    console.log("createdFoto");
 
-    return updatePeludo
+    return updatePeludo;
   } catch (error) {
-    console.log('ERROR', error)
-    throw new Error('Failed to update peludo.')
+    console.log("ERROR", error);
+    throw new Error("Failed to update peludo.");
   }
 }
 
 export async function deletePeludo(id) {
   try {
     await prisma.Peludo.delete({
-      where: { id }
-    })
+      where: { id },
+    });
   } catch (error) {
-    throw new Error('Failed to delete USER')
+    throw new Error("Failed to delete USER");
   }
 }

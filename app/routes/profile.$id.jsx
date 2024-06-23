@@ -42,6 +42,7 @@ const Profile = () => {
     user,
   } = useLoaderData();
 
+  //en for qrcode
   const navigate = useNavigate();
   // const userId = useActionData()
 
@@ -418,3 +419,17 @@ export async function action({ request }) {
   }
   return true;
 }
+
+const styles = {
+  inputWrapper: {
+    margin: "20px 0",
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
+    maxWidth: "300px",
+  },
+  inputBox: {
+    flexGrow: 1,
+    marginRight: 20,
+  },
+};

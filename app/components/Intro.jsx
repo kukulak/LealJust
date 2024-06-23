@@ -1,10 +1,10 @@
-import { Link } from '@remix-run/react'
+import { Link } from "@remix-run/react";
 
-import more from '/img/newUser.png'
-import goBigSearch from '/img/goBigSearch.png'
-import goCupones from '/img/goCupones.png'
-import goCuponesView from '/img/goCuponesView.png'
-import loJLH from '/img/lo-JLH-hrz-big.png'
+import more from "/img/newUser.png";
+import goBigSearch from "/img/goBigSearch.png";
+import goCupones from "/img/goCupones.png";
+import goCuponesView from "/img/goCuponesView.png";
+import loJLH from "/img/lo-JLH-hrz-big.png";
 
 const Intro = ({ user }) => {
   return (
@@ -21,10 +21,10 @@ const Intro = ({ user }) => {
         <p className=""> Hola</p>
         <p className="first-letter:uppercase text-5xl ">{user}</p>
       </div> */}
-      <div className="grid justify-evenly flex-wrap w-full mt-10">
+      <div className="flex justify-evenly flex-wrap w-full mt-10">
         <Link
           className="rounded-br-[2rem]  bg-slate-800 rounded-2xl w-36 h-36 flex-col  flex justify-center items-center  "
-          to={'/auth?mode=signup'}
+          to={"/auth?mode=signup"}
         >
           <img className="w-10 mb-3" src={more} alt="more" />
           <p className="text-center">Nuevo Cliente</p>
@@ -46,7 +46,7 @@ const Intro = ({ user }) => {
           className="mt-14 flex hover:text-gray-600 rounded-xl w-34 h-14  text-gray-200"
           to="/creador"
         >
-          {' '}
+          {" "}
           <img className="w-5 h-5 m-3 mt-[3px]  " src={goCupones} alt="more" />
           Crear ofertas y Promociones
         </Link>
@@ -55,7 +55,7 @@ const Intro = ({ user }) => {
           className="mt-0  flex rounded-xl hover:text-gray-600 w-30 h-14 text-gray-200"
           to="/cuponsList"
         >
-          {' '}
+          {" "}
           <img
             className="w-5 h-5 m-3 mt-[3px] "
             src={goCuponesView}
@@ -65,7 +65,7 @@ const Intro = ({ user }) => {
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Intro
+export default Intro;

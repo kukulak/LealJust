@@ -1,4 +1,4 @@
-import { Form } from '@remix-run/react'
+import { Form } from "@remix-run/react";
 
 const invitar = () => {
   return (
@@ -6,17 +6,17 @@ const invitar = () => {
       <p className="text-2xl w-10/12">Ingresa el whatsapp de tu amigo</p>
       <Form className=" w-10/12 flex flex-col gap-3 text-gray-900">
         <label className=" text-gray-100" htmlFor="number">
-          {' '}
-          WhatsApp{' '}
+          {" "}
+          WhatsApp{" "}
         </label>
         <input className="h-10 p-4" type="number" name="number" />
       </Form>
       <a
         className=" bg-gray-800 w-[150px] self-center text-2xl text-gray-100 text-center p-3 mt-10 mb-20 "
-        href="/profile"
+        href="/"
       >
-        {' '}
-        Invitar{' '}
+        {" "}
+        Invitar{" "}
       </a>
       <div className="flex flex-col items-center gap-5">
         <p className="text-xl w-10/12">
@@ -29,7 +29,7 @@ const invitar = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default invitar
+export default invitar;

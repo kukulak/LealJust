@@ -5,6 +5,9 @@ export const ImageUploader = ({ onChange, imageUrl, existedImage }) => {
   const fileInputRef = useRef(null);
   const dropRef = useRef(null);
 
+  console.log("entering imageUploader");
+  console.log(imageUrl);
+  console.log(existedImage);
   // 1
   const preventDefaults = (e) => {
     e.preventDefault();

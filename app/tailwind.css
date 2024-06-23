@@ -114,5 +114,5 @@ a.active {
   flex: 0 0 100%;
   max-height: 400px;
   min-width: 0;
-  border-radius: 20px;
+  /* border-radius: 20px; */
 }

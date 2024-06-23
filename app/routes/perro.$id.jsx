@@ -188,7 +188,7 @@ const Perro = () => {
             Volver
           </Link> */}
           <button
-            className="text-gray-300 border-2 border-gray-500 px-5 py-3 rounded-md"
+            className="text-gray-300 border-2 border-gray-500 mb-3 px-3 py-1 rounded-md"
             onClick={() => navigate(-1)}
           >
             Volver
@@ -203,7 +203,7 @@ const Perro = () => {
             </div>
           </div> */}
 
-          <div className="embla" ref={emblaRef}>
+          <div className="embla rounded-xl" ref={emblaRef}>
             <div className="embla__container">
               {peludo.fotos.map((foto) => (
                 <img
