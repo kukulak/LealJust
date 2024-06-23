@@ -89,6 +89,7 @@ export async function getAllPeludosByUser(humanoId) {
   try {
     const peludos = await prisma.Peludo.findMany({
       where: { usuarioId: humanoId },
+      include: { fotos: { orderBy: { id: "desc" } } },
     });
 
     return peludos;

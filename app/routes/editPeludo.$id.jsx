@@ -172,6 +172,12 @@ const EditPeludo = () => {
           </button>
         </div>
       </Form>
+
+      <Form>
+        <button className=" rounded-lg self-center flex justify-center items-center text-lg text-gray-100 text-center py-3 px-5 border-spacing-1 border-gray-600 border-2 mt-3 mb-10">
+          Borrar
+        </button>
+      </Form>
     </div>
   );
 };
@@ -193,8 +199,10 @@ export async function action({ request, params }) {
   const formData = await request.formData();
   const userData = Object.fromEntries(formData);
   let file = "";
-  if (peludo.foto !== userData.foto) {
+  if (peludo.foto !== userData.imageUrl) {
     file = await formData.get("imageUrl");
+
+    console.log("NO DEBERIAN SER IGUALES", peludo.foto, userData.imageUrl);
   }
 
   if (request.method === "PATCH") {

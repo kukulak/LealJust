@@ -22,7 +22,7 @@ import ProfileForm from "../components/auth/ProfileForm";
 
 const HumanProfile = () => {
   const { humano, peludos, humanoId } = useLoaderData();
-
+  console.log("el humano y sus perros", humano, peludos);
   const { setClienteId } = useOutletContext();
 
   console.log("El ID a usar", humanoId);
@@ -151,8 +151,11 @@ const HumanProfile = () => {
             {peludos.length >= 0 &&
               peludos.map((peludo) => (
                 <PeludoOnHuman
-                  key={peludos.id}
-                  foto={peludo.foto}
+                  key={peludo.id}
+                  // foto={peludo.foto}
+                  foto={
+                    peludo.fotos.length >= 1 ? peludo.fotos[0].url : peludo.foto
+                  }
                   nombre={peludo.nombre}
                   peludoId={peludo.id}
                   onClick={changeContext}
