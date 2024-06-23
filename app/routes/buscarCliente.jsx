@@ -93,7 +93,7 @@ const BuscarCliente = () => {
                   >
                     <img
                       className="w-10 h-10 rounded-full object-fill"
-                      src={peludo.foto}
+                      src={peludo.fotos[0].url}
                       alt="dog"
                     />
                     <p className=" first-letter:uppercase">{peludo.nombre}</p>

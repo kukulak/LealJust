@@ -27,15 +27,20 @@ export async function newPeludo(dataPeludo, userId, file) {
 
     const qrCode = `https://incomparable-snickerdoodle-b2eb5f.netlify.app/perro/${newPeludo.id}`;
 
-    const qrImage = await qrCodeCreator(qrCode);
-    await uploadQr(qrImage);
+    // const qrImage = await qrCodeCreator(qrCode);
+    const qrPath = await uploadQr(qrCode);
+
+    const updatedPeludo = await prisma.Peludo.update({
+      where: { id: newPeludo.id },
+      data: { qrCode: qrPath },
+    });
 
     console.log("NEPEULUDO ID", newPeludo.id);
 
     if (newPeludo.foto) {
       createFoto(newPeludo.id, newPeludo.foto);
     }
-    return newPeludo;
+    return updatedPeludo;
   } catch (error) {
     // throw new Error('Falla en crear perfil para el Peludo', error)
     throw new Error(error);
@@ -102,6 +107,7 @@ export async function getAllPeludos(humanoId) {
   try {
     const peludos = await prisma.Peludo.findMany({
       where: { usuarioId: humanoId },
+      include: { fotos: { orderBy: { id: "desc" } } },
     });
 
     return peludos;
@@ -114,6 +120,7 @@ export async function getPeludoByName(name) {
   try {
     const peludo = await prisma.Peludo.findMany({
       where: { nombre: name },
+      include: { fotos: { orderBy: { id: "desc" } } },
     });
 
     return peludo;

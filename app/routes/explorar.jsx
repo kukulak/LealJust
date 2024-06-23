@@ -18,7 +18,7 @@ const Explorar = () => {
   return (
     <>
       <div className="w-10/12 md:w-8/12 ">
-        <p className="mt-32 text-left text-3xl font-extralight ">
+        <p className="mt-24   text-left text-3xl font-extralight ">
           Conoce a los compañeros de tu peludo, ¡hay que seguirnos entre todos!
         </p>
         <p>
@@ -40,7 +40,11 @@ const Explorar = () => {
                     id={peludo.id}
                     nombre={peludo.nombre}
                     raza={peludo.raza}
-                    foto={peludo.foto}
+                    foto={
+                      peludo.fotos.length >= 1
+                        ? peludo.fotos[0].url
+                        : peludo.foto
+                    }
                     instagram={peludo.instagram}
                     key={peludo.id}
                     adminButtons={adminButtons}

@@ -1,4 +1,5 @@
 import { Upload } from "@aws-sdk/lib-storage";
+import QRCode from "qrcode";
 import {
   S3Client,
   PutObjectCommand,
@@ -67,11 +68,30 @@ export async function uploadImage(request) {
   return file;
 }
 
-export async function uploadQr(img) {
-  uploadHandler(img);
-  const file = img.toString() || "";
+export async function uploadQr(text) {
+  try {
+    // Generar el código QR como buffer
+    const qrBuffer = await QRCode.toBuffer(text, { type: "image/png" });
 
-  console.log("file", file);
+    // Generar un nombre único para el archivo
+    const cuidName = `${createId()}.png`;
 
-  return file;
+    // Crear el comando para subir la imagen al bucket de S3
+    const command = new PutObjectCommand({
+      Bucket: process.env.DREAMS_BUCKET_NAME || "",
+      Key: cuidName,
+      Body: qrBuffer,
+      ContentType: "image/png", // Especificar el tipo de contenido
+    });
+
+    // Enviar el comando para subir la imagen
+    const response = await s3.send(command);
+    console.log("Upload successful", response);
+
+    // Devolver la URL de la imagen subida
+    return `https://${process.env.DREAMS_BUCKET_NAME}.s3.amazonaws.com/${cuidName}`;
+  } catch (err) {
+    console.error("Error uploading QR code", err);
+    throw new Error("Failed to upload QR code");
+  }
 }

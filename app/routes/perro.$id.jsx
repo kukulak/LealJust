@@ -259,6 +259,12 @@ const Perro = () => {
                   Invitar Amigos{" "}
                 </Link>
               )}
+
+              {peludo.qrCode && (
+                <div>
+                  <img className="w-30 h-30" src={peludo.qrCode} alt="qrCode" />
+                </div>
+              )}
               {/* <QRCode
                 size="120"
                 removeQrCodeBehindLogo="true"

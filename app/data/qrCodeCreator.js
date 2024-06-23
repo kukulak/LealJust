@@ -3,7 +3,7 @@ import QRCode from "qrcode";
 export function qrCodeCreator(infoToQr) {
   var opts = {
     errorCorrectionLevel: "H",
-    type: "terminal",
+    type: "image/png",
     quality: 0.7,
     margin: 1,
     color: {
@@ -14,7 +14,7 @@ export function qrCodeCreator(infoToQr) {
 
   // "https://incomparable-snickerdoodle-b2eb5f.netlify.app/perro/664f99f245fc6dd54bb5c011",
 
-  return QRCode.toFile("file.png", infoToQr, opts, function (err, url) {
+  return QRCode.toFileStream("file.png", infoToQr, opts, function (err, url) {
     console.log("FROM QR CREATROR", url);
   });
 
