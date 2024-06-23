@@ -1,28 +1,99 @@
-import { Form, useNavigation } from '@remix-run/react'
-import { useState } from 'react'
+import { Form, useNavigation } from "@remix-run/react";
+import { useState } from "react";
 
 const CuponesForm = ({ categorias, promociones }) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
-  const isSubmitting = navigation.state !== 'idle'
+  // const defaultValues = cuponData
+  //   ? {
+  //       nombre: cuponData.nombre,
+  //       oferta: cuponData.oferta,
+  //       descripcion: cuponData.descripcion,
+  //       fecha: cuponData.fecha,
+  //       categoria: cuponData.categoria,
+  //       servicio: cuponData.servicio,
+  //       visitsRequired: cuponData.visitsRequired,
+  //       activo: cuponData.activo,
+  //       formulaData: cuponData.formulaData,
+  //     }
+  //   : {
+  //       nombre: "",
+  //       descripcion: "",
+  //       fecha: "",
+  //       categoria: "",
+  //       servicio: "",
+  //       activo: "",
+  //       oferta: "",
+  //       visitsRequired: 1,
+  //     };
 
-  const [changeValuePromocion, setChangeValuePromocion] = useState('')
-  const [changeValue, setChangeValue] = useState('')
-  const [activar, setActivar] = useState(false)
+  const isSubmitting = navigation.state !== "idle";
 
-  const handleChangePromocion = event => {
-    let index = event.target.selectedIndex
-    setChangeValuePromocion(event.target.options[index].value)
-  }
+  const [changeValuePromocion, setChangeValuePromocion] = useState("");
+  const [changeValue, setChangeValue] = useState("");
+  const [activar, setActivar] = useState(false);
 
-  const handleChange = event => {
-    let index = event.target.selectedIndex
-    setChangeValue(event.target.options[index].value)
-  }
+  const [dataUno, setDataUno] = useState("");
+  const [dataDos, setDataDos] = useState("");
+  const [getFormulaData, setGetFormulaData] = useState("");
+  const handleFormulaData = (event) => {
+    let uno = dataUno;
+    let dos = dataDos;
+
+    if (event.target.name === "dataUno") {
+      uno = event.target.value;
+      setDataUno(uno);
+    }
+    if (event.target.name === "dataDos") {
+      dos = event.target.value;
+      setDataDos(dos);
+    }
+
+    const signo = " X ";
+
+    const formulaData = uno + signo + dos;
+
+    setGetFormulaData(formulaData);
+
+    console.log("EVENT TARGET", formulaData);
+  };
+
+  // useEffect(() => {
+  //   if (defaultValues.formulaData) {
+  //     if (
+  //       defaultValues.oferta === "bogo" ||
+  //       defaultValues.oferta === "unoporuno"
+  //     ) {
+  //       let d1 = "";
+  //       let d2 = "";
+  //       const formula = defaultValues.formulaData;
+  //       const indeX = formula.indexOf(" X ");
+  //       d1 = formula.slice(0, indeX).trim();
+  //       d2 = formula.slice(indeX + 2, formula.length).trim();
+
+  //       setDataUno(d1);
+  //       setDataDos(d2);
+
+  //       console.log("separar formula data", d1, " X ", d2);
+  //     } else {
+  //       console.log("no separar formula data");
+  //     }
+  //   }
+  // }, [defaultValues.formulaData, defaultValues.oferta, setDataUno, setDataDos]);
+
+  const handleChangePromocion = (event) => {
+    let index = event.target.selectedIndex;
+    setChangeValuePromocion(event.target.options[index].value);
+  };
+
+  const handleChange = (event) => {
+    let index = event.target.selectedIndex;
+    setChangeValue(event.target.options[index].value);
+  };
 
   const handleActivar = () => {
-    setActivar(!activar)
-  }
+    setActivar(!activar);
+  };
 
   return (
     <>
@@ -32,8 +103,8 @@ const CuponesForm = ({ categorias, promociones }) => {
       >
         <div className="Nombre ">
           <label className=" text-gray-100" htmlFor="nombre">
-            {' '}
-            Nombre{' '}
+            {" "}
+            Nombre{" "}
           </label>
           <input
             className="h-10 p-4 w-full"
@@ -44,8 +115,8 @@ const CuponesForm = ({ categorias, promociones }) => {
         </div>
         <div className="Promocion ">
           <label className=" text-gray-100" htmlFor="promocion">
-            {' '}
-            Promoción{' '}
+            {" "}
+            Promoción{" "}
           </label>
 
           <select
@@ -64,9 +135,9 @@ const CuponesForm = ({ categorias, promociones }) => {
             <option value="unoporuno"> # x #</option>
             <option value="bogo"> BOGO</option>
 
-            {promociones.map(promocion => (
+            {promociones.map((promocion) => (
               <option key={promocion.id} value={promocion.nombre}>
-                {' '}
+                {" "}
                 {promocion.nombre}
               </option>
             ))}
@@ -77,50 +148,90 @@ const CuponesForm = ({ categorias, promociones }) => {
 
           {changeValuePromocion && (
             <div className=" bg-gray-600 p-3 flex justify-center">
-              {changeValuePromocion === 'Porcentaje' && (
+              {changeValuePromocion === "Porcentaje" && (
                 <div className="flex  items-center">
                   <div className="text-gray-300">Porcentaje a otorgar </div>
                   <input
                     className="h-10 text-center ml-5 mr-1 p-4 w-[130px] my-1"
                     type="number"
                     max="100"
+                    id="formulaData"
+                    name="formulaData"
                   />
                   <div className="text-gray-300 text-xl">% </div>
                 </div>
               )}
-              {changeValuePromocion === 'dinero' && (
+              {changeValuePromocion === "dinero" && (
                 <div className="flex  items-center">
                   <div className="text-gray-300">Cantidad de Descuento </div>
                   <div className="text-gray-300 text-xl  ml-5 mr-1">$ </div>
                   <input
                     className="h-10 text-center p-4 w-[130px] my-1"
                     type="number"
+                    id="formulaData"
+                    name="formulaData"
                   />
                 </div>
               )}
-              {changeValuePromocion === 'unoporuno' && (
+              {changeValuePromocion === "unoporuno" && (
                 <div className="flex  items-center  ">
                   <div className="text-gray-300 mr-5"> Cuanto por cuanto </div>
-                  <input className="h-10 p-4 w-1/3 my-1" type="text" />
-                  <div className="text-gray-300 text-xl  ml-5 mr-5"> X </div>
+                  <div
+                    onChange={handleFormulaData}
+                    className="flex items-center"
+                  >
+                    <input
+                      name="dataUno"
+                      className="h-10 p-4 w-1/3 my-1"
+                      type="text"
+                    />
+                    <div className="text-gray-300 text-xl  ml-5 mr-5"> X </div>
 
-                  <input className="h-10 p-4 w-1/3 my-1" type="text" />
+                    <input
+                      name="dataDos"
+                      className="h-10 p-4 w-1/3 my-1"
+                      type="text"
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    id="formulaData"
+                    name="formulaData"
+                    hidden
+                    value={getFormulaData}
+                  />
                 </div>
               )}
-              {changeValuePromocion === 'bogo' && (
+              {changeValuePromocion === "bogo" && (
                 <>
-                  <div className="flex flex-col gap-5 w-full ">
+                  <div
+                    onChange={handleFormulaData}
+                    className="flex flex-col gap-5 w-full "
+                  >
                     <div>
                       <div className="text-gray-300">Buy One </div>
-                      <input className="h-10 p-4 w-full my-1" type="text" />
+
+                      <input
+                        name="dataUno"
+                        className="h-10 p-4 w-full my-1"
+                        type="text"
+                      />
                     </div>
                     <div>
                       <div className="text-gray-300 mb-0">Get One </div>
                       <input
+                        name="dataDos"
                         className="h-10 p-4 w-full my-1 mt-0"
                         type="text"
                       />
                     </div>
+                    <input
+                      type="text"
+                      id="formulaData"
+                      name="formulaData"
+                      hidden
+                      value={getFormulaData}
+                    />
                   </div>
                 </>
               )}
@@ -131,8 +242,8 @@ const CuponesForm = ({ categorias, promociones }) => {
         </div>
         <div className="Categoria ">
           <label className=" text-gray-100" htmlFor="categoria">
-            {' '}
-            Categoría{' '}
+            {" "}
+            Categoría{" "}
           </label>
           <select
             className=" p-4 w-full "
@@ -149,9 +260,9 @@ const CuponesForm = ({ categorias, promociones }) => {
             <option value="Hotel"> Hotel</option>
             <option value="Amigos"> Amigos</option>
             <option value="Actividades"> Actividades </option> */}
-            {categorias.map(categoria => (
+            {categorias.map((categoria) => (
               <option key={categoria.id} value={categoria.nombre}>
-                {' '}
+                {" "}
                 {categoria.nombre}
               </option>
             ))}
@@ -161,8 +272,8 @@ const CuponesForm = ({ categorias, promociones }) => {
         </div>
         <div className="etiqueta ">
           <label className=" text-gray-100" htmlFor="servicio">
-            {' '}
-            Servicio{' '}
+            {" "}
+            Servicio{" "}
           </label>
           <input
             id="servicio"
@@ -186,8 +297,8 @@ const CuponesForm = ({ categorias, promociones }) => {
 
         <div className="flex  items-center  ">
           <label htmlFor="visitsRequired" className="text-gray-300 mr-5">
-            {' '}
-            Visitas{' '}
+            {" "}
+            Visitas{" "}
           </label>
           <input
             id="visitsRequired"
@@ -203,8 +314,8 @@ const CuponesForm = ({ categorias, promociones }) => {
 
         <div className="Activar flex align-middle gap-5 ">
           <label className=" text-gray-100" htmlFor="activo">
-            {' '}
-            Activar{' '}
+            {" "}
+            Activar{" "}
           </label>
           <input
             className="w-5 h-5"
@@ -222,11 +333,11 @@ const CuponesForm = ({ categorias, promociones }) => {
           className=" rounded-lg self-center flex justify-center items-center text-2xl text-gray-100 text-center py-4 px-6 border-spacing-1 border-gray-500 border-2 mt-10 mb-20"
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'En ello...' : 'Crear Cupón'}
+          {isSubmitting ? "En ello..." : "Crear Cupón"}
         </button>
       </Form>
     </>
-  )
-}
+  );
+};
 
-export default CuponesForm
+export default CuponesForm;

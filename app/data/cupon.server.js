@@ -1,47 +1,47 @@
-import { prisma } from './database.server'
+import { prisma } from "./database.server";
 
 export async function newCupon(dataCupon, userId) {
   try {
-    console.log('cupon SERVER', dataCupon)
+    console.log("cupon SERVER", dataCupon);
     return await prisma.Cupon.create({
       data: {
+        usuario: { connect: { id: userId || undefined } },
         nombre: dataCupon.nombre,
-        oferta: dataCupon.oferta,
+        formulaData: dataCupon.formulaData,
         categoria: dataCupon.categoria,
+        oferta: dataCupon.oferta,
         servicio: dataCupon.servicio,
         descripcion: dataCupon.descripcion,
-        formulaData: dataCupon.formulaData,
-        usuario: { connect: { id: userId || undefined } },
         visitsRequired: Number(dataCupon.visitsRequired),
         visitsRemaining: Number(dataCupon.visitsRequired),
-        activo: dataCupon.activo === 'on' ? true : false
-      }
-    })
+        activo: dataCupon.activo === "on" ? true : false,
+      },
+    });
   } catch (error) {
     // throw new Error('Falla en crear perfil para el Peludo', error)
-    throw new Error(error)
+    throw new Error(error);
   }
 }
 
 export async function registerVisit(userId, couponId) {
   const coupon = await prisma.Cupon.findUnique({
-    where: { id: couponId }
-  })
+    where: { id: couponId },
+  });
 
   // if (!coupon || coupon.userId !== userId || coupon.active) {
   //   throw new Error('Cupón inválido')
   // }
-  console.log('LLAMADO DE REGITRO DE VISITA')
+  console.log("LLAMADO DE REGITRO DE VISITA");
 
-  const newVisitsRemaining = coupon.visitsRemaining - 1
+  const newVisitsRemaining = coupon.visitsRemaining - 1;
 
   return prisma.Cupon.update({
     where: { id: couponId },
     data: {
       visitsRemaining: newVisitsRemaining,
-      activo: newVisitsRemaining === 0 ? true : coupon.activo
-    }
-  })
+      activo: newVisitsRemaining === 0 ? true : coupon.activo,
+    },
+  });
 }
 
 // export async function getCupones(categoria) {
@@ -62,24 +62,24 @@ export async function getCupones(categoria, peludoId) {
       where: { categoria },
       include: {
         used: {
-          where: { peludoId }
-        }
-      }
-    })
+          where: { peludoId },
+        },
+      },
+    });
 
-    const cuponesActualizados = cupones.filter(cupon => {
-      const usage = cupon.used.find(usage => usage.peludoId === peludoId)
+    const cuponesActualizados = cupones.filter((cupon) => {
+      const usage = cupon.used.find((usage) => usage.peludoId === peludoId);
       return (
         !usage ||
         (cupon.visitsRemaining = cupon.visitsRequired - usage.timesUsed)
-      )
-    })
+      );
+    });
 
     // Filtrar cupones en la aplicación
-    const cuponesFiltrados = cuponesActualizados.filter(cupon => {
-      const usage = cupon.used.find(usage => usage.peludoId === peludoId)
-      return !usage || (usage && usage.timesUsed < cupon.visitsRequired)
-    })
+    const cuponesFiltrados = cuponesActualizados.filter((cupon) => {
+      const usage = cupon.used.find((usage) => usage.peludoId === peludoId);
+      return !usage || (usage && usage.timesUsed < cupon.visitsRequired);
+    });
 
     // // Filtrar cupones en la aplicación
     // const cuponesFiltrados = cupones.filter(cupon => {
@@ -87,10 +87,10 @@ export async function getCupones(categoria, peludoId) {
     //   return !usage || (usage && usage.timesUsed - 1 < cupon.visitsRequired)
     // })
 
-    return cuponesFiltrados
+    return cuponesFiltrados;
     // return cupones
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
@@ -100,12 +100,12 @@ export async function getCuponById(id) {
       where: { id },
       include: {
         _count: {
-          select: { used: true }
-        }
-      }
-    })
+          select: { used: true },
+        },
+      },
+    });
   } catch (error) {
-    throw new Error('Feiled to get cupon')
+    throw new Error("Feiled to get cupon");
   }
 }
 
@@ -116,15 +116,15 @@ export async function getUsedCupones(categoria, peludo) {
         categoria,
         used: {
           some: {
-            peludoId: peludo
-          }
-        }
-      }
-    })
+            peludoId: peludo,
+          },
+        },
+      },
+    });
 
-    return cupones
+    return cupones;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
@@ -135,16 +135,16 @@ export async function getCuponUsageCount() {
         id: true,
         nombre: true, // Suponiendo que los cupones tienen un nombre o alguna otra identificación
         _count: {
-          select: { used: true }
-        }
-      }
-    })
+          select: { used: true },
+        },
+      },
+    });
 
-    return cupones
+    return cupones;
   } catch (error) {
-    console.error('Error fetching cupon usage count:', error)
-    console.log(error)
-    throw new Error('Error fetching cupon usage count')
+    console.error("Error fetching cupon usage count:", error);
+    console.log(error);
+    throw new Error("Error fetching cupon usage count");
   }
 }
 
@@ -152,10 +152,10 @@ export async function getAllCupons() {
   try {
     return await prisma.Cupon.findMany({
       where: {},
-      orderBy: [{ fecha: 'asc' }]
-    })
+      orderBy: [{ fecha: "asc" }],
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
@@ -166,27 +166,27 @@ export async function updateCupon(id, cuponData) {
       data: {
         nombre: cuponData.nombre,
         formulaData: cuponData.formulaData,
-        descripcion: cuponData.descripcion,
         categoria: cuponData.categoria,
         servicio: cuponData.servicio,
-        activo: cuponData.activo ? true : false,
+        descripcion: cuponData.descripcion,
         oferta: cuponData.oferta,
         fecha: cuponData.fecha && new Date(cuponData.fecha),
-        visitsRequired: Number(cuponData.visitsRequired)
-      }
-    })
+        visitsRequired: Number(cuponData.visitsRequired),
+        activo: cuponData.activo ? true : false,
+      },
+    });
   } catch (error) {
-    console.log(error, 'EL ERRROR AL ACTUALIZAR CUPON')
-    throw new Error('Failed to update cupon.')
+    console.log(error, "EL ERRROR AL ACTUALIZAR CUPON");
+    throw new Error("Failed to update cupon.");
   }
 }
 
 export async function deleteCupon(id) {
   try {
     await prisma.Cupon.delete({
-      where: { id }
-    })
+      where: { id },
+    });
   } catch (error) {
-    throw new Error('Failed to delete cupon.')
+    throw new Error("Failed to delete cupon.");
   }
 }

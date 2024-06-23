@@ -173,9 +173,9 @@ const EditPeludo = () => {
         </div>
       </Form>
 
-      <Form>
+      <Form method="delete">
         <button className=" rounded-lg self-center flex justify-center items-center text-lg text-gray-100 text-center py-3 px-5 border-spacing-1 border-gray-600 border-2 mt-3 mb-10">
-          Borrar
+          Borrar Peludo
         </button>
       </Form>
     </div>
