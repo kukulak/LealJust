@@ -1,13 +1,11 @@
-// import { QRCode } from "react-qrcode-logo";
 import Seccion from "../components/Seccion";
 import Modal from "../components/Modal";
-import UrlCreator from "../util/UrlCreator";
+
 import { useEffect, useState } from "react";
 import { getCupones } from "../data/cupon.server";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import Carrusel from "../components/Carrusel";
-import ImageFitFill from "../components/ImageFitFill";
+
 import {
   Form,
   useLoaderData,
@@ -44,9 +42,6 @@ const Perro = () => {
     }
   }, [emblaApi]);
 
-  // const url = "URLFORQR";
-  // const url = UrlCreator(peludo.id);
-
   const [estado, setEstado] = useState("");
 
   const [modalData, setModalData] = useState({
@@ -57,6 +52,21 @@ const Perro = () => {
   });
 
   const [adminButtons, setAdminButtons] = useState(true);
+
+  const [edad, setEdad] = useState(0);
+
+  useEffect(() => {
+    const hoy = new Date();
+    var cumpleanos = new Date(peludo.nacimiento);
+    console.log("EDAD", cumpleanos);
+    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+    var m = hoy.getMonth() - cumpleanos.getMonth();
+
+    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+      edad--;
+    }
+    setEdad(edad);
+  }, [edad, peludo.nacimiento]);
 
   useEffect(() => {
     if (user.role !== "ADMIN") {
@@ -231,8 +241,14 @@ const Perro = () => {
               <p className="text-xl"> {peludo.nacimiento} </p>
             </div>
             <div className="my-5">
-              <p className=" text-xs text-gray-700"> Amigos</p>
-              <p className="text-xl"> 10</p>
+              <div>
+                <p className=" text-xs text-gray-700"> edad</p>
+                <p className="text-xl"> {edad} </p>
+              </div>
+              <div>
+                <p className=" text-xs text-gray-700"> Amigos</p>
+                <p className="text-xl"> {peludo.nacimiento} </p>
+              </div>
             </div>
             {peludo.instagram && (
               <div className="my-5">
@@ -265,24 +281,6 @@ const Perro = () => {
                   <img className="w-30 h-30" src={peludo.qrCode} alt="qrCode" />
                 </div>
               )}
-              {/* <QRCode
-                size="120"
-                removeQrCodeBehindLogo="true"
-                logoImage="/logo/lo-vert-JustLikeHome-small-black.png"
-                logoWidth="30"
-                logoHeight="23"
-                bgColor="#ffffff"
-                ecLevel="H"
-                // value="https://github.com/gcoro/react-qrcode-logo"
-                value={url}
-                qrStyle="dots"
-                logoPadding="5"
-                eyeRadius={[
-                  [5, 5, 5, 5], // top/left eye
-                  [5, 5, 5, 5], // top/right eye
-                  [5, 5, 5, 5], // bottom/left
-                ]}
-              /> */}
             </div>
           </div>
         </div>

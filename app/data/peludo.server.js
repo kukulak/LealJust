@@ -1,7 +1,7 @@
 import { prisma } from "./database.server";
 import { ObjectId } from "mongodb";
 import { createFoto } from "./foto.server";
-import { qrCodeCreator } from "./qrCodeCreator";
+
 import { uploadQr } from "./s3.server";
 
 export async function newPeludo(dataPeludo, userId, file) {
