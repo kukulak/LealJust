@@ -25,15 +25,15 @@ export async function newPeludo(dataPeludo, userId, file) {
       },
     });
 
-    const qrCode = `https://incomparable-snickerdoodle-b2eb5f.netlify.app/perro/${newPeludo.id}`;
+    // const qrCode = `https://incomparable-snickerdoodle-b2eb5f.netlify.app/perro/${newPeludo.id}`;
 
-    // const qrImage = await qrCodeCreator(qrCode);
-    const qrPath = await uploadQr(qrCode);
+    // // const qrImage = await qrCodeCreator(qrCode);
+    // const qrPath = await uploadQr(qrCode);
 
-    const updatedPeludo = await prisma.Peludo.update({
-      where: { id: newPeludo.id },
-      data: { qrCode: qrPath },
-    });
+    // const updatedPeludo = await prisma.Peludo.update({
+    //   where: { id: newPeludo.id },
+    //   data: { qrCode: qrPath },
+    // });
 
     console.log("NEPEULUDO ID", newPeludo.id);
 
