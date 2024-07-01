@@ -6,18 +6,18 @@ import {
   useNavigation,
   useActionData,
   useLoaderData,
-  useMatches
-} from '@remix-run/react'
-import { useEffect, useState } from 'react'
+  useMatches,
+} from "@remix-run/react";
+import { useEffect, useState } from "react";
 
 function ProfileForm(signUp) {
-  const [searchParams] = useSearchParams()
-  const { humano } = useLoaderData()
-  console.log('PROFILE', humano)
-  const navigation = useNavigation()
-  const validationErrors = useActionData()
-  console.log('MODE', searchParams.get('mode'))
-  let authMode = searchParams.get('mode') || 'login'
+  const [searchParams] = useSearchParams();
+  const { humano } = useLoaderData();
+  console.log("PROFILE", humano);
+  const navigation = useNavigation();
+  const validationErrors = useActionData();
+  console.log("MODE", searchParams.get("mode"));
+  let authMode = searchParams.get("mode") || "login";
   // if (signUp) {
   //   authMode = 'signUp'
   // }
@@ -32,18 +32,18 @@ function ProfileForm(signUp) {
     whatsapp: humano.whatsapp,
     colonia: humano.colonia,
     municipio: humano.municipio,
-    role: humano.role
-  }
+    role: humano.role,
+  };
 
-  const [privacy, setPrivacy] = useState(defaultValues.privacy)
+  const [privacy, setPrivacy] = useState(defaultValues.privacy);
 
-  const handlePrivacy = event => {
-    setPrivacy(event.target.checked)
-    console.log('TRUE OR FAKE', event.target.checked)
+  const handlePrivacy = (event) => {
+    setPrivacy(event.target.checked);
+    console.log("TRUE OR FAKE", event.target.checked);
     // setPrivacy(!privacy)
-  }
+  };
 
-  const isSubmitting = navigation.state !== 'idle'
+  const isSubmitting = navigation.state !== "idle";
 
   return (
     <Form method="patch" className="w-full flex justify-center">
@@ -150,21 +150,19 @@ function ProfileForm(signUp) {
 
         {validationErrors && (
           <div>
-            {Object.values(validationErrors).map(error => (
+            {Object.values(validationErrors).map((error) => (
               <p key={error}>{error}</p>
             ))}
           </div>
         )}
         <div className=" bg-gray-800 form-actions text-gray-200 border-2 border-gray-400 p-4 flex justify-center flex-wrap gap-2 items-center rounded-lg mt-5">
-          <button
-          //  disable={isSubmitting}
-          >
-            {isSubmitting ? 'Authenticating...' : 'Actualizar'}
+          <button disabled={isSubmitting}>
+            {isSubmitting ? "Authenticating..." : "Actualizar"}
           </button>
         </div>
       </div>
     </Form>
-  )
+  );
 }
 
-export default ProfileForm
+export default ProfileForm;

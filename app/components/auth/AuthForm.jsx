@@ -150,7 +150,7 @@ function AuthForm(userRole) {
         <div className="text-gray-100 form-actions justify-center flex flex-row flex-wrap gap-2 ">
           <button
             className="p-3 my-7 rounded-lg border-gray-400 border-2"
-            disable={isSubmitting}
+            disabled={isSubmitting}
           >
             {isSubmitting ? "Authenticating..." : submitBtnCaption}
           </button>

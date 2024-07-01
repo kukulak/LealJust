@@ -65,15 +65,12 @@ const Seccion = ({
                 <React.Fragment key={`promo-${index}`}>
                   {visitsRemaining[index] >= 1 &&
                     [...Array(visitsRemaining[index] - 1)].map((visit, i) => {
-                      const isClickable = !firstClickableFound;
-                      if (isClickable) {
-                        firstClickableFound = true;
-                      }
+                      const isFirstSubCoupon = i === 0;
 
                       return (
                         <button
-                          // Solo el primer botón en toda la lista será habilitado
-                          disabled={!isClickable}
+                          // Habilitar solo el primer subcupon si se requieren múltiples visitas
+                          disabled={!isFirstSubCoupon}
                           key={`visit-${index}-${i}`}
                           onClick={() =>
                             onClick(
@@ -83,7 +80,11 @@ const Seccion = ({
                               visitsRemaining[index] - i,
                             )
                           }
-                          className="flex flex-wrap justify-center gap-5"
+                          className={`${
+                            isFirstSubCoupon
+                              ? " border-gray-500 border-opacity-30 border-2 p-1 animate-pulse  "
+                              : ""
+                          }   flex flex-wrap justify-center gap-5`}
                         >
                           <Rewards
                             key={`reward-${index}-${i}`}
@@ -98,8 +99,8 @@ const Seccion = ({
                       );
                     })}
                   <button
-                    // Solo el primer botón en toda la lista será habilitado
-                    disabled={firstClickableFound}
+                    // Habilitar cupones que no requieren más de 1 visita
+                    disabled={visitsRemaining[index] > 1}
                     key={`promo-${index}`}
                     onClick={() =>
                       onClick(promo, descripcion[index], cuponId[index])
@@ -108,8 +109,6 @@ const Seccion = ({
                   >
                     <Rewards promocion={promo} />
                   </button>
-                  {/* Marca el primer botón como habilitado */}
-                  {!firstClickableFound && (firstClickableFound = true)}
                 </React.Fragment>
               ))}
           </div>

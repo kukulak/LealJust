@@ -2,6 +2,8 @@ import Modal from "../components/Modal";
 
 import { useState } from "react";
 
+import masPerro from "/img/masPerro.svg";
+
 import {
   Link,
   redirect,
@@ -75,11 +77,17 @@ const HumanProfile = () => {
                   className=" hover:z-40 rounded-full flex w-[60px] h-[60px] md:w-[80px] md:h-[80px] bg-gray-500 overflow-hidden mt-4 z-10 shadow-black/50 shadow-2xl -mr-7"
                   onClick={changeContext}
                 >
-                  <img
-                    alt="Foto de tu perrito"
-                    src={peludo.foto}
-                    className=" object-cover w-[60px] md:w-[130px]"
-                  />
+                  {peludo.foto ? (
+                    <img
+                      alt="Foto de tu perrito"
+                      src={peludo.foto}
+                      className=" object-cover w-[60px] md:w-[130px]"
+                    />
+                  ) : (
+                    <p className=" self-center text-center text-gray-100 place-self-center w-full">
+                      {peludo.nombre[0].toUpperCase()}
+                    </p>
+                  )}
                 </Link>
               ))}
 
@@ -170,7 +178,8 @@ const HumanProfile = () => {
           >
             <div className=" w-[120px] h-[120px]  bg-gray-400 flex flex-col justify-center items-center ">
               {" "}
-              <p className="text-[100px] -mt-3 ">+</p>
+              {/* <p className="text-[100px] -mt-3 ">+</p> */}
+              <img className="w-16 " alt="agrega un lomito" src={masPerro} />
             </div>
             <p className="text-xl text-gray-400 my-3"> Agregar Lomito</p>
           </Link>

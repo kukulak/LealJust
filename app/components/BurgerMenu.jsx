@@ -25,7 +25,7 @@ const BurgerMenu = ({ userId, userName, role }) => {
   };
 
   return (
-    <div className="fixed w-full z-50">
+    <div className="z-50 fixed w-full ">
       {isOpen ? (
         <button
           className=" text-gray-800 w-full bg-opacity-95  bg-gray-950 h-screen flex flex-col gap-1 justify-start content-start flex-wrap text-left "
@@ -35,7 +35,7 @@ const BurgerMenu = ({ userId, userName, role }) => {
             ref={dialog}
             onClick={(event) => event.stopPropagation()}
             open
-            className="m-0 text-gray-800 p-5  bg-gray-300 h-screen flex flex-col gap-1 justify-starts content-start flex-wrap text-left "
+            className="   m-0 text-gray-800 p-5  bg-gray-300 h-screen flex flex-col gap-1 justify-starts content-start flex-wrap text-left "
           >
             <button
               onClick={manageOpen}
@@ -105,7 +105,7 @@ const BurgerMenu = ({ userId, userName, role }) => {
           </dialog>
         </button>
       ) : (
-        <div className="p-5 h-1 bg-gray-950">
+        <div className="z-40 p-5 h-1 ">
           <button onClick={manageOpen} className=" flex gap-1 flex-col">
             <div className="bg-gray-300 rounded-full h-[2px] w-4"></div>
             <div className="bg-gray-300 rounded-full h-[2px] w-3"></div>

@@ -240,14 +240,14 @@ const Perro = () => {
               <p className=" text-xs text-gray-700"> Activo desde</p>
               <p className="text-xl"> {peludo.nacimiento} </p>
             </div>
-            <div className="my-5">
+            <div className="my-5 flex gap-5">
               <div>
-                <p className=" text-xs text-gray-700"> edad</p>
+                <p className=" text-xs text-gray-700"> Edad</p>
                 <p className="text-xl"> {edad} </p>
               </div>
               <div>
                 <p className=" text-xs text-gray-700"> Amigos</p>
-                <p className="text-xl"> {peludo.nacimiento} </p>
+                <p className="text-xl"> 3 </p>
               </div>
             </div>
             {peludo.instagram && (

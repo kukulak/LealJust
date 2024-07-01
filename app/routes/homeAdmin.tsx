@@ -2,38 +2,38 @@ import type {
   MetaFunction,
   LoaderFunctionArgs,
   LinksFunction,
-  ActionFunctionArgs
-} from '@remix-run/node'
-import Intro from '../components/Intro'
-import { getUserFromSession, requireUserSession } from '~/data/auth.server'
+  ActionFunctionArgs,
+} from "@remix-run/node";
+import Intro from "../components/Intro";
+import { getUserFromSession, requireUserSession } from "~/data/auth.server";
 import {
   redirect,
   useActionData,
   useLoaderData,
-  useNavigate
-} from 'react-router'
+  useNavigate,
+} from "react-router";
 
-import { useEffect } from 'react'
+import { useEffect } from "react";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'Programa de Lealtad Just Like Home' },
-    { name: 'description', content: 'Programa de lealtad' }
-  ]
-}
+    { title: "Programa de Lealtad Just Like Home" },
+    { name: "description", content: "Programa de lealtad" },
+  ];
+};
 
 export default function HomeAdmin() {
-  const navigate = useNavigate()
-  const userId = useActionData()
-  const user = useLoaderData()
+  const navigate = useNavigate();
+  const userId = useActionData();
+  const user = useLoaderData();
 
   useEffect(() => {
-    if (user?.role !== 'ADMIN') {
+    if (user?.role !== "ADMIN") {
       {
-        navigate(`/`)
+        navigate(`/`);
       }
     }
-  }, [user, navigate])
+  }, [user, navigate]);
 
   return (
     <>
@@ -49,27 +49,27 @@ export default function HomeAdmin() {
         <Intro user={user?.userName} />
       </div>
     </>
-  )
+  );
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   // const userId = await requireUserSession(request)
   // const user = useLoaderData()
-  const { userId } = await getUserFromSession(request)
+  const { userId } = await getUserFromSession(request);
   try {
-    if (userId?.role !== 'ADMIN') {
-      console.log('NOESADMIN', userId?.role)
-      return redirect('/')
+    if (userId?.role !== "ADMIN") {
+      console.log("NOESADMIN", userId?.role);
+      return redirect("/");
     }
   } catch (error) {
-    console.log('ERROR ERRRRRROR', error)
+    console.log("ERROR ERRRRRROR", error);
   }
-  console.log('FROM ACTION', userId.userId)
-  return userId
+  console.log("FROM ACTION", userId.userId);
+  return userId;
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const user = await getUserFromSession(request)
+  const user = await getUserFromSession(request);
   // const userId = user.userId
-  return user
+  return user;
 }

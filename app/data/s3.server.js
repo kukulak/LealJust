@@ -4,6 +4,7 @@ import {
   S3Client,
   PutObjectCommand,
   GetObjectCommand,
+  DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 
 import { createId } from "@paralleldrive/cuid2";
@@ -93,5 +94,21 @@ export async function uploadQr(text) {
   } catch (err) {
     console.error("Error uploading QR code", err);
     throw new Error("Failed to upload QR code");
+  }
+}
+
+export async function deleteImage(imageKey) {
+  const command = new DeleteObjectCommand({
+    Bucket: process.env.DREAMS_BUCKET_NAME,
+    Key: imageKey,
+  });
+
+  try {
+    const response = await s3.send(command);
+    console.log("Image deleted successfully:", response);
+    return response;
+  } catch (error) {
+    console.error("Error deleting image:", error);
+    throw new Error("Failed to delete image");
   }
 }

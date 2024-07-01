@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 
-import more from "/img/newUser.png";
-import goBigSearch from "/img/goBigSearch.png";
+import more from "/img/nasHumano.svg";
+import lupa from "/img/lupa.svg";
 import goCupones from "/img/goCupones.png";
 import goCuponesView from "/img/goCuponesView.png";
 import loJLH from "/img/lo-JLH-hrz-big.png";
@@ -35,7 +35,7 @@ const Intro = ({ user }) => {
           className=" bg-slate-800 rounded-2xl rounded-tl-[2rem]  w-36 h-36 flex-col  flex justify-center items-center  "
           to="/buscarCliente"
         >
-          <img className="w-10 mb-3" src={goBigSearch} alt="more" />
+          <img className="w-10 mb-3" src={lupa} alt="more" />
 
           <p className="text-center">Buscar Cliente</p>
         </Link>
