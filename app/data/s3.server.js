@@ -5,6 +5,7 @@ import {
   PutObjectCommand,
   GetObjectCommand,
   DeleteObjectCommand,
+  ListObjectsV2Command,
 } from "@aws-sdk/client-s3";
 
 import { createId } from "@paralleldrive/cuid2";
@@ -98,6 +99,7 @@ export async function uploadQr(text) {
 }
 
 export async function deleteImage(imageKey) {
+  console.log("s3SERVER", imageKey);
   const command = new DeleteObjectCommand({
     Bucket: process.env.DREAMS_BUCKET_NAME,
     Key: imageKey,
@@ -112,3 +114,36 @@ export async function deleteImage(imageKey) {
     throw new Error("Failed to delete image");
   }
 }
+
+// export async function listImages() {
+//   const command = new ListObjectsV2Command({
+//     Bucket: process.env.DREAMS_BUCKET_NAME,
+//   });
+
+//   try {
+//     const response = await s3.send(command);
+//     const images = response.Contents.map((item) => ({
+//       key: item.Key,
+//       url: `https://${process.env.DREAMS_BUCKET_NAME}.s3.amazonaws.com/${item.Key}`,
+//     }));
+//     return images;
+//   } catch (error) {
+//     console.error("Error listing images:", error);
+//     throw new Error("Failed to list images");
+//   }
+// }
+
+// Nueva función para eliminar la referencia de la base de datos
+// export async function deleteImageReference(imageKey) {
+//   try {
+//     const result = await prisma.foto.deleteMany({
+//       where: {
+//         url: `https://${process.env.DREAMS_BUCKET_NAME}.s3.amazonaws.com/${imageKey}`,
+//       },
+//     });
+//     return result;
+//   } catch (error) {
+//     console.error("Error deleting image reference:", error);
+//     throw new Error("Failed to delete image reference");
+//   }
+// }

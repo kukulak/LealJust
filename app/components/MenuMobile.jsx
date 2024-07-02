@@ -18,7 +18,7 @@ const MenuMobile = ({ userId, role }) => {
             to={`/`}
           >
             {" "}
-            <img className="w-8" src={home} alt="go" />
+            <img className="w-7 mt-0.5" src={home} alt="go" />
           </NavLink>
 
           <NavLink
@@ -26,7 +26,7 @@ const MenuMobile = ({ userId, role }) => {
             to={`/humanProfile/${userId}`}
           >
             {" "}
-            <img className="w-10 -mt-0.5" src={humano} alt="go" />
+            <img className="w-7 mt-0.5" src={humano} alt="go" />
             {/* {text}{' '} */}
           </NavLink>
 
@@ -36,7 +36,7 @@ const MenuMobile = ({ userId, role }) => {
               to={"/buscarCliente"}
             >
               {" "}
-              <img className="w-7 mt-1" src={lupa} alt="go" />
+              <img className="w-7 mt-0.5" src={lupa} alt="go" />
               {/* {text}{' '} */}
             </NavLink>
           )}
@@ -46,7 +46,7 @@ const MenuMobile = ({ userId, role }) => {
             to={"/explorar"}
           >
             {" "}
-            <img className="w-8 mb-1 " src={perros} alt="go" />
+            <img className="w-7 mt-1 " src={perros} alt="go" />
             {/* {text}{' '} */}
           </NavLink>
         </>

@@ -123,13 +123,13 @@ const HumanProfile = () => {
             </section>
             <div className="mt-12 ">
               {humano.whatsapp && (
-                <div className="flex gap-5">
+                <div className="flex gap-5 justify-between">
                   <p className="text-sm">Whatsapp:</p>
                   <span> {humano.whatsapp} </span>
                 </div>
               )}
               {humano.colonia && (
-                <div className="flex gap-5">
+                <div className="flex gap-5 justify-between">
                   <p className="text-sm">Colonia: </p>{" "}
                   <span className="first-letter:uppercase">
                     {" "}
@@ -138,7 +138,7 @@ const HumanProfile = () => {
                 </div>
               )}
               {humano.municipio && (
-                <div className="flex gap-5">
+                <div className="flex gap-5 justify-between">
                   <p className="text-sm">Municipio:</p>
                   <span className="first-letter:uppercase">
                     {" "}

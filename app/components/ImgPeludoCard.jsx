@@ -38,7 +38,7 @@ const ImgPeludoCard = ({ foto, role }) => {
           alt="Foto de tu perrito"
           src={foto}
           // src="/img/IMG_0238.png"
-          className=" object-cover rounded-full  flex w-[100px] h-[100px] md:w-[130px] md:h-[130px] bg-gray-500 overflow-hidden self-center -mt-12 scroll-mx-32 z-10 shadow-black/50 shadow-2xl shadow-[0 0 100px 20px #030712] border-gray-300 border-2"
+          className=" object-cover rounded-full  flex w-[100px] h-[100px] md:w-[130px] md:h-[130px] bg-gray-500 overflow-hidden self-center -mt-12 scroll-mx-32 z-10 shadow-black/50 shadow-2xl shadow-[0 0 100px 20px #030712] border-gray-800 border-[0.5px] "
         />
       ) : (
         <img
