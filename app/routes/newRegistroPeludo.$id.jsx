@@ -52,8 +52,6 @@ const CreatePeludo = () => {
     // const imageUrl = await response.text()
     // Aquí obtendrás la URL de la imagen
 
-    console.log("IMAGEURL", imageUrl);
-
     setFormData({
       ...formData,
       peludoPicture: imageUrl,

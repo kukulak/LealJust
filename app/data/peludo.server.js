@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 import { createFoto } from "./foto.server";
 
 import { uploadQr } from "./s3.server";
+import { redirect } from "@remix-run/node";
 
 export async function newPeludo(dataPeludo, userId, file) {
   try {
@@ -69,31 +70,31 @@ export async function getPeludo(peludoId) {
   });
 
   if (!peludo) {
+    redirect("/");
     throw new Error("Peludo not found");
   }
 
   const data = {
     nombre: peludo.nombre,
-    usuario: peludo.usuario,
+    usuarioId: peludo.usuarioId,
     foto: peludo.foto,
     raza: peludo.raza,
     nacimiento: peludo.nacimiento,
     id: peludo.id,
-    likes: peludo.likes,
     amigos: peludo.amigos,
     qrCode: peludo.qrCode,
     instagram: peludo.instagram,
-    cupones: peludo.cupones,
+    used: peludo.used,
     fotos: peludo.fotos,
   };
-  console.log("DATAPELUDOSERVER", data);
+
   return data;
 }
 
 export async function getAllPeludosByUser(humanoId) {
   try {
     const peludos = await prisma.Peludo.findMany({
-      where: { usuarioId: humanoId },
+      where: { usuarioId: humanoId, activo: true },
       include: { fotos: { orderBy: { id: "desc" } } },
     });
 
@@ -158,12 +159,57 @@ export async function updatePeludo(id, peludoData, file) {
   }
 }
 
+// export async function deletePeludo(id) {
+//   try {
+//     await prisma.Peludo.delete({
+//       where: { id },
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     throw new Error("Failed to delete Perro");
+//   }
+// }
+
 export async function deletePeludo(id) {
   try {
-    await prisma.Peludo.delete({
+    // Obtener el peludo y sus cupones usados
+    const peludo = await prisma.peludo.findUnique({
       where: { id },
+      include: { used: true },
     });
+
+    if (peludo) {
+      // Crear un registro en PeludoHistory
+      const peludoHistory = await prisma.peludoHistory.create({
+        data: {
+          peludoId: peludo.id,
+          nombre: peludo.nombre,
+          //used: peludo.used
+          // Puedes agregar otros campos que quieras guardar
+        },
+      });
+
+      // Crear registros en UsedHistory
+      // if (peludo.used.length > 0) {
+      for (const cupon of peludo.used) {
+        await prisma.usedHistory.create({
+          data: {
+            peludoHistoryId: peludoHistory.id,
+            cuponId: cupon.id,
+            // Otros campos de Used que quieras guardar
+          },
+        });
+      }
+      // }
+
+      // Marcar el Peludo como inactivo
+      await prisma.peludo.update({
+        where: { id },
+        data: { activo: false },
+      });
+    }
   } catch (error) {
-    throw new Error("Failed to delete USER");
+    console.log(error);
+    throw new Error("Failed to deactivate Peludo");
   }
 }

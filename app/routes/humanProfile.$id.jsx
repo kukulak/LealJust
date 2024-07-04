@@ -24,14 +24,10 @@ import ProfileForm from "../components/auth/ProfileForm";
 
 const HumanProfile = () => {
   const { humano, peludos, humanoId } = useLoaderData();
-  console.log("el humano y sus perros", humano, peludos);
+
   const { setClienteId } = useOutletContext();
 
-  console.log("El ID a usar", humanoId);
-
   const [estado, setEstado] = useState(false);
-
-  console.log("ESTADO", estado);
 
   function closeHandler() {
     // console.log('cerrado')

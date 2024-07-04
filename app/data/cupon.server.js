@@ -3,6 +3,13 @@ import { prisma } from "./database.server";
 export async function newCupon(dataCupon, userId) {
   try {
     console.log("cupon SERVER", dataCupon);
+    // Convertir las fechas a ISO-8601
+    const inicio = dataCupon.inicio
+      ? new Date(dataCupon.inicio).toISOString()
+      : undefined;
+    const termino = dataCupon.termino
+      ? new Date(dataCupon.termino).toISOString()
+      : undefined;
     return await prisma.Cupon.create({
       data: {
         usuario: { connect: { id: userId || undefined } },
@@ -15,6 +22,8 @@ export async function newCupon(dataCupon, userId) {
         visitsRequired: Number(dataCupon.visitsRequired),
         visitsRemaining: Number(dataCupon.visitsRequired),
         activo: dataCupon.activo === "on" ? true : false,
+        inicio: inicio,
+        termino: termino,
       },
     });
   } catch (error) {
@@ -58,6 +67,9 @@ export async function getCupones(categoria, peludoId) {
     //   where: { categoria, NOT: { used: { some: { peludoId } } } }
     // })
     // Obtener cupones junto con los registros de uso
+
+    const todayDate = new Date();
+
     const cupones = await prisma.cupon.findMany({
       where: { categoria },
       include: {
@@ -67,7 +79,16 @@ export async function getCupones(categoria, peludoId) {
       },
     });
 
-    const cuponesActualizados = cupones.filter((cupon) => {
+    const caducidadCupones = cupones.filter((cupon) => {
+      const iniciaDate = new Date(cupon.inicio);
+      const terminoDate = new Date(cupon.termino);
+      console.log("iniciaDate:", iniciaDate);
+      console.log("terminoDate:", terminoDate);
+      console.log("todayDate:", todayDate);
+      return iniciaDate <= todayDate && terminoDate >= todayDate;
+    });
+
+    const cuponesActualizados = caducidadCupones.filter((cupon) => {
       const usage = cupon.used.find((usage) => usage.peludoId === peludoId);
       return (
         !usage ||
@@ -161,6 +182,12 @@ export async function getAllCupons() {
 
 export async function updateCupon(id, cuponData) {
   try {
+    const inicio = cuponData.inicio
+      ? new Date(cuponData.inicio).toISOString()
+      : undefined;
+    const termino = cuponData.termino
+      ? new Date(cuponData.termino).toISOString()
+      : undefined;
     await prisma.Cupon.update({
       where: { id },
       data: {
@@ -173,6 +200,8 @@ export async function updateCupon(id, cuponData) {
         fecha: cuponData.fecha && new Date(cuponData.fecha),
         visitsRequired: Number(cuponData.visitsRequired),
         activo: cuponData.activo ? true : false,
+        inicio: inicio,
+        termino: termino,
       },
     });
   } catch (error) {

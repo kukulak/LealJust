@@ -295,6 +295,33 @@ const CuponesForm = ({ categorias, promociones }) => {
           />
         </div>
 
+        <div className="caduca flex flex-row my-5 gap-5">
+          <div className="flex w-6/12 flex-col">
+            <label className="text-gray-300" htmlFor="inicio">
+              {" "}
+              Inicio
+            </label>
+            <input
+              className="w-full p-3"
+              id="inicio"
+              name="inicio"
+              type="date"
+            />
+          </div>
+          <div className="flex w-6/12 flex-col">
+            <label className="text-gray-300" htmlFor="termina">
+              {" "}
+              Termina
+            </label>
+            <input
+              className="p-3 w-full"
+              id="termino"
+              name="termino"
+              type="date"
+            />
+          </div>
+        </div>
+
         <div className="flex  items-center  ">
           <label htmlFor="visitsRequired" className="text-gray-300 mr-5">
             {" "}

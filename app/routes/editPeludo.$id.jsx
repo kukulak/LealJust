@@ -30,11 +30,14 @@ const EditPeludo = () => {
 
   const defaultValues = peludo && {
     nombre: peludo.nombre,
+    usuarioId: peludo.usuarioId,
     raza: peludo.raza,
     nacimiento: peludo.nacimiento,
     instagram: peludo.instagram,
     foto: peludo.foto,
   };
+
+  console.log(defaultValues);
 
   async function HandleFileUpload(file) {
     try {
@@ -67,7 +70,6 @@ const EditPeludo = () => {
 
       // Manejar la respuesta del servidor
       const { imageUrl } = await response.json();
-      console.log("IMAGEURL in HANDLER", imageUrl);
 
       // Actualizar el estado con la URL de la imagen
       setFormData({
@@ -201,8 +203,6 @@ export async function action({ request, params }) {
   let file = "";
   if (peludo.foto !== userData.imageUrl) {
     file = await formData.get("imageUrl");
-
-    console.log("NO DEBERIAN SER IGUALES", peludo.foto, userData.imageUrl);
   }
 
   if (request.method === "PATCH") {
@@ -211,6 +211,6 @@ export async function action({ request, params }) {
     return redirect(`/perro/${peludoId}`);
   } else if (request.method === "DELETE") {
     await deletePeludo(peludoId);
-    return redirect("/");
+    return redirect(`/humanProfile/${peludo.usuarioId}`);
   }
 }

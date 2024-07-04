@@ -44,7 +44,6 @@ export async function getUserFromSession(request) {
   let userId = session.get("userId");
   const userName = session.get("userName");
   const role = session.get("userRole");
-  console.log("getUserFromSession", userId);
   if (!userId) {
     console.log("NO SESSION");
 
@@ -155,7 +154,7 @@ export async function getUser(userId) {
     municipio: existingUser.municipio,
     puntos: existingUser.puntos,
   };
-  console.log("DATA GET USER", { data });
+
   return data;
 }
 

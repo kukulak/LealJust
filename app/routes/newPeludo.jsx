@@ -50,7 +50,6 @@ const CreatePeludo = () => {
 
       // Manejar la respuesta del servidor
       const { imageUrl } = await response.json();
-      console.log("IMAGEURL in HANDLER", imageUrl);
 
       // Actualizar el estado con la URL de la imagen
       setFormData({

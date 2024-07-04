@@ -29,6 +29,7 @@ model User {
   ofertas       Oferta[]
   etiquetas     Etiqueta[]
   categorias    Categoria[]
+  CategoriaPaquetes CategoriaPaquetes[]
   formulas      Formula[]
   puntos        String? @default("0")
   isActive         Boolean  @default(false)
@@ -58,7 +59,64 @@ model Peludo {
   instagram     String?
   used          Used[]
   fotos         Foto[]
+  activo        Boolean?   @default(true)
+  paquetes     Paquete[]
+  // @@map("peludos")
 }
+
+model Paquete {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  categoria  String
+  cantidad   Int
+  usados     Int       @default(0)
+  peludoId   String    @db.ObjectId
+  peludo     Peludo    @relation(fields: [peludoId], references: [id])
+}
+
+
+model CategoriaPaquetes{
+  id            String @id  @default(auto()) @map("_id") @db.ObjectId
+  fecha         DateTime @default(now())
+  nombre        String
+  usuario       User @relation(fields: [usuarioId], references: [id])
+  usuarioId     String @db.ObjectId
+}
+
+
+
+
+
+model PeludoHistory {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  peludoId     String
+  nombre       String
+  fechaBaja    DateTime  @default(now())
+  cuponesUsados UsedHistory[]
+  //  @@map("peludo_histories")
+}
+
+model Used {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  peludo        Peludo @relation(fields: [peludoId], references: [id])
+  peludoId      String @db.ObjectId
+  cupon         Cupon @relation(fields: [cuponId], references: [id])
+  cuponId       String @db.ObjectId
+  timesUsed     Int?   @default(0) 
+  @@unique([peludoId, cuponId]) // Definición de la clave compuesta
+  //  @@map("used")
+}
+
+model UsedHistory {
+  id              String       @id @default(auto()) @map("_id") @db.ObjectId
+  peludoHistoryId String @db.ObjectId
+  // Otros campos del modelo Used
+  cuponId         String @db.ObjectId
+  peludoHistory   PeludoHistory @relation(fields: [peludoHistoryId], references: [id])
+  fecha    DateTime @default(now())
+
+  // @@map("used_histories")
+}
+
 
 model Foto {
   id            String @id  @default(auto()) @map("_id") @db.ObjectId
@@ -79,6 +137,8 @@ model Cupon {
   servicio          String
   formulaData       String?
   activo            Boolean
+  inicio            DateTime? @default(now())
+  termino           DateTime?
   visitsRequired    Int?
   visitsRemaining   Int?
   used              Used[]
@@ -127,12 +187,3 @@ model Formula{
 }
 
 
-model Used {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
-  peludo        Peludo @relation(fields: [peludoId], references: [id])
-  peludoId      String @db.ObjectId
-  cupon         Cupon @relation(fields: [cuponId], references: [id])
-  cuponId       String @db.ObjectId
-  timesUsed     Int?   @default(0) 
-  @@unique([peludoId, cuponId]) // Definición de la clave compuesta
-}

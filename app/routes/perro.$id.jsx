@@ -11,13 +11,20 @@ import {
   useLoaderData,
   useActionData,
   useNavigate,
+  useNavigation,
   Link,
+  redirect,
 } from "@remix-run/react";
 
 import { getPeludo } from "../data/peludo.server";
 import { upsertUsed } from "../data/used.server";
 
 import { getUserFromSession, updatePuntos } from "../data/auth.server";
+import {
+  getPaquetesPorPeludo,
+  registerInPaquete,
+} from "../data/paquete.server";
+import DataPaquete from "../components/DataPaquete";
 
 const Perro = () => {
   const {
@@ -29,16 +36,21 @@ const Perro = () => {
     cuponesEspeciales,
     peludo,
     user,
+    paquetes,
   } = useLoaderData();
   //
   const navigate = useNavigate();
   const actionClose = useActionData();
 
+  const navigation = useNavigation();
+
+  const isSubmitting = navigation.state !== "idle";
+
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()]);
 
   useEffect(() => {
     if (emblaApi) {
-      console.log(emblaApi.slideNodes()); // Access API
+      console.log("EMBLE API PARA QUE", emblaApi.slideNodes()); // Access API
     }
   }, [emblaApi]);
 
@@ -58,7 +70,7 @@ const Perro = () => {
   useEffect(() => {
     const hoy = new Date();
     var cumpleanos = new Date(peludo.nacimiento);
-    console.log("EDAD", cumpleanos);
+
     var edad = hoy.getFullYear() - cumpleanos.getFullYear();
     var m = hoy.getMonth() - cumpleanos.getMonth();
 
@@ -117,10 +129,8 @@ const Perro = () => {
     let momentImages = peludo.fotos;
     // peludo.fotos.map(({ url }) => (momentImages = { original: url }));
     setImages(momentImages);
-    console.log("IMAGENES dEFFECT PERRO", momentImages);
   }, [peludo.fotos]);
 
-  console.log("IMAGENES de PERRO", getImages, peludo.fotos);
   // [
   //   {
   //     thumbnail: 'imagen',
@@ -128,12 +138,20 @@ const Perro = () => {
   //   }
   // ]
 
+  const [editando, setEditando] = useState(false);
+  const [paqueteData, setPaqueteData] = useState({
+    id: "",
+    categoria: "",
+    cantidad: "",
+    usados: "",
+  });
+
+  const handleMoreDays = () => {
+    console.log("one more day");
+    navigate(`/crearPaquete/${peludo.id}`);
+  };
+
   return (
-    // <div>
-    //   COMO ASI?{user.role}
-    //   <div>COMO ASI?</div> <div>COMO ASI?</div> <div>COMO ASI?</div>{" "}
-    //   <div>COMO ASI?</div>
-    // </div>
     <div className="max-w-[720px]">
       <Modal estado={estado} onClose={closeHandler}>
         <div className="bg-gray-100 flex flex-col justify-center items-center p-3 rounded-2xl w-full md:w-1/2">
@@ -229,22 +247,101 @@ const Perro = () => {
           {/* <ImageGallery items={images} /> */}
           {/* <Carrusel images={peludo.fotos} /> */}
 
-          <div className="pt-6 -mt-1 bg-gray-200 w-10/12  py-3 pl-4 pr-2 rounded-b-lg">
+          <div className="pt-6 -mt-1 bg-gray-200 w-10/12  pb-6 pl-7 pr-5 rounded-b-lg">
             {" "}
             <p className="text-center leading-none text-3xl font-thin -mt-4">
               ^
             </p>
-            <p className=" first-letter:uppercase text-3xl">{peludo.nombre}</p>
+            <p className="mt-3 first-letter:uppercase text-3xl">
+              {peludo.nombre}
+            </p>
             <p className="first-letter:uppercase"> {peludo.raza} </p>
+            {paquetes && !editando ? (
+              <>
+                <p className="text-xs mt-3"> Paquetes activos </p>{" "}
+                <div className="flex items-center justify-between flex-wrap gap-3">
+                  {paquetes.map((paquete) => (
+                    <DataPaquete
+                      user={user.role}
+                      paquete={paquete}
+                      key={paquete.id}
+                      editando={setEditando}
+                      openPaquete={setPaqueteData}
+                    />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <Form
+                onSubmit={() => setEditando(false)}
+                method="patch"
+                className="mt-5"
+                key={paqueteData.id}
+              >
+                {" "}
+                <div className="w-full bg-gray-800 rounded-lg text-gray-300 p-5 ">
+                  <p>
+                    Registrar días, máximo puedes registrar{" "}
+                    {paqueteData.cantidad - paqueteData.usados}{" "}
+                  </p>
+                  {/* <p className="text-gray-300">Cantidad</p> */}
+                  <input
+                    id="usados"
+                    name="usados"
+                    className="text-gray-800 text-center p-4 w-full my-1 text-2xl"
+                    min="1"
+                    max={paqueteData.cantidad - paqueteData.usados}
+                    type="number"
+                    defaultValue={1}
+                    // defaultValue={defaultValues.cantidad}
+                    required
+                  />
+                </div>
+                <input
+                  type="text"
+                  id="paqueteId"
+                  name="paqueteId"
+                  hidden
+                  value={paqueteData.id}
+                />
+                <div className="flex-wrap text-gray-200 mt-1  mb-2 form-actions flex flex-row justify-between   ">
+                  <Link
+                    onClick={() => setEditando(false)}
+                    className="bg-gray-800 w-[49%]  text-center p-2 rounded-lg"
+                  >
+                    {" "}
+                    Cerrar{" "}
+                  </Link>
+
+                  <button
+                    className="border-gray-300 w-[49%] text-center rounded-lg border bg-darkest py-2 "
+                    // onClick={() => handleShare(true)}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Actualizando..." : "Actualizar"}
+                  </button>
+                </div>
+              </Form>
+            )}
+            {user.role === "ADMIN" && (
+              <button
+                onClick={handleMoreDays}
+                className=" text-xs rounded-lg mt-4  bg-[#F9AC19] px-3 mb-5 py-2"
+              >
+                Agregar Paquete
+              </button>
+            )}
             <div className="  my-5">
               <p className=" text-xs text-gray-700"> Activo desde</p>
               <p className="text-xl"> {peludo.nacimiento} </p>
             </div>
             <div className="my-5 flex gap-5">
-              <div>
-                <p className=" text-xs text-gray-700"> Edad</p>
-                <p className="text-xl"> {edad} </p>
-              </div>
+              {edad > 0 && (
+                <div>
+                  <p className=" text-xs text-gray-700"> Edad</p>
+                  <p className="text-xl"> {edad} </p>
+                </div>
+              )}
               <div>
                 <p className=" text-xs text-gray-700"> Amigos</p>
                 <p className="text-xl"> 3 </p>
@@ -260,7 +357,7 @@ const Perro = () => {
             <div className=" -mt-16 flex items-end justify-between">
               {user.role === "ADMIN" ? (
                 <Link
-                  className=" px-3 py-2 rounded-xl bg-[#F9AC19] text-sm"
+                  className="-ml-2 px-3 py-2 rounded-xl bg-[#F9AC19] text-sm"
                   to={`/editPeludo/${peludo.id}`}
                 >
                   {" "}
@@ -268,7 +365,7 @@ const Perro = () => {
                 </Link>
               ) : (
                 <Link
-                  className=" px-3 py-2 rounded-xl bg-[#F9AC19] text-sm"
+                  className="-ml-2 px-3 py-2 rounded-xl bg-[#F9AC19] text-sm"
                   href="/invitar"
                 >
                   {" "}
@@ -375,6 +472,7 @@ export default Perro;
 
 export async function loader({ params, request }) {
   const peludoId = params.id;
+  const paquetes = await getPaquetesPorPeludo(peludoId);
   const user = await getUserFromSession(request);
   const cuponesEstetica = await getCupones("Estética", peludoId);
   const cuponesGuarderia = await getCupones("Guardería", peludoId);
@@ -394,17 +492,25 @@ export async function loader({ params, request }) {
     cuponesEspeciales,
     peludo,
     user,
+    paquetes,
   };
 }
 
-export async function action({ request }) {
+export async function action({ params, request }) {
   const formData = await request.formData();
   // const { userId } = getUserFromSession(request);
   const cuponData = Object.fromEntries(formData);
+  console.log("CUPON DATA", cuponData);
+  const paqueteId = cuponData.paqueteId;
+  const diasUsados = cuponData.usados;
   const cuponId = cuponData.cuponId;
   const peludoId = cuponData.peludoId;
-  console.log("CUPON ID", cuponId);
-  console.log("PELUDO ID", peludoId);
+  if (paqueteId) {
+    console.log("PAQUETE ID EXISTING", paqueteId);
+    await registerInPaquete(params.id, paqueteId, diasUsados);
+    return true;
+  }
+
   if (cuponId) {
     await updatePuntos(peludoId, 10);
     await upsertUsed(cuponId, peludoId);
