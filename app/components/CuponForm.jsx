@@ -403,14 +403,14 @@ function CuponForm({ categorias, promociones, cuponData }) {
               />
             </div>
             <div className="flex w-6/12 flex-col">
-              <label className="text-gray-300" htmlFor="termina">
+              <label className="text-gray-300" htmlFor="termino">
                 {" "}
                 Termina
               </label>
               <input
                 className="p-3 w-full"
-                id="termina"
-                name="termina"
+                id="termino"
+                name="termino"
                 type="date"
                 required
                 defaultValue={

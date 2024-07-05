@@ -46,7 +46,7 @@ export async function getUserFromSession(request) {
   const role = session.get("userRole");
   if (!userId) {
     console.log("NO SESSION");
-
+    // return redirect("/");
     return (userId = null);
   }
 

@@ -19,7 +19,11 @@ import {
 import { getPeludo } from "../data/peludo.server";
 import { upsertUsed } from "../data/used.server";
 
-import { getUserFromSession, updatePuntos } from "../data/auth.server";
+import {
+  getUserFromSession,
+  requireUserSession,
+  updatePuntos,
+} from "../data/auth.server";
 import {
   getPaquetesPorPeludo,
   registerInPaquete,
@@ -497,6 +501,8 @@ export async function loader({ params, request }) {
 }
 
 export async function action({ params, request }) {
+  await requireUserSession(request);
+  // const user = await requireUserSession(request);
   const formData = await request.formData();
   // const { userId } = getUserFromSession(request);
   const cuponData = Object.fromEntries(formData);
