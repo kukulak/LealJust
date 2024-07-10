@@ -99,7 +99,7 @@ function AuthForm(userRole) {
             />
 
             <label className=" text-gray-100" htmlFor="municipio">
-              Municipio
+              Alcaldía
             </label>
             <input
               className="h-10 p-4"

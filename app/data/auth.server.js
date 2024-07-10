@@ -274,6 +274,23 @@ export async function updatePuntos(peludoId, puntos) {
   }
 }
 
+export async function reducirPuntos(userId, puntos) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+  // const puntosActuales = user.puntos
+  try {
+    const updatePuntos = await prisma.user.update({
+      where: { id: user.id },
+      data: { puntos: (Number(user.puntos) - puntos).toString() },
+    });
+    return updatePuntos;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 // export async function updateUser(id, userData) {
 //   console.log('UPDATE USER', id, userData)
 //   try {

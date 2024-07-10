@@ -1,10 +1,11 @@
 import Modal from "../components/Modal";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import masPerro from "/img/masPerro.svg";
 
 import {
+  Form,
   Link,
   redirect,
   useLoaderData,
@@ -14,6 +15,7 @@ import {
   deleteUser,
   getUser,
   getUserFromSession,
+  reducirPuntos,
   requireUserSession,
   updateUser,
 } from "../data/auth.server";
@@ -21,6 +23,7 @@ import { getAllPeludosByUser } from "../data/peludo.server";
 import PeludoOnHuman from "../components/PeludoOnHuman";
 
 import ProfileForm from "../components/auth/ProfileForm";
+import NumberTicker from "../components/magicui/number-ticker";
 
 const HumanProfile = () => {
   const { humano, peludos, humanoId } = useLoaderData();
@@ -28,6 +31,57 @@ const HumanProfile = () => {
   const { setClienteId } = useOutletContext();
 
   const [estado, setEstado] = useState(false);
+
+  const [hpuntos, setHpuntos] = useState(false);
+
+  const handlePuntos = () => {
+    setHpuntos(!hpuntos);
+    console.log("handlePuntos");
+  };
+
+  const ModalPuntos = ({ puntosActuales }) => {
+    const puntosRef = useRef(10);
+    const [puntos, setPuntos] = useState(puntosActuales);
+    // console.log(typeof puntos);
+    const handleManyPuntos = (event) => {
+      // puntosRef.current.value =
+      setPuntos(event.target.value);
+    };
+
+    return (
+      <Form
+        onSubmit={() => {
+          setHpuntos(!hpuntos);
+        }}
+        method="patch"
+        className="flex flex-col"
+      >
+        {" "}
+        ¿Cuantos puntos reducir?
+        <input
+          onChange={handleManyPuntos}
+          name="quitarPuntos"
+          id="quitarPuntos"
+          max={Number(puntosActuales)}
+          type="number"
+          className="w-1/2 p-3 text-xl"
+          ref={puntosRef}
+          defaultValue={10}
+          value={puntos}
+        />
+        {Number(puntos) <= Number(puntosActuales) && Number(puntos) > 0 ? (
+          <button className="bg-gray-700 w-max  text-gray-100 py-3 px-5 rounded-lg my-3">
+            USAR
+          </button>
+        ) : (
+          <div className="bg-gray-400 w-max  text-gray-100 py-3 px-5 rounded-lg my-3">
+            {" "}
+            USAR{" "}
+          </div>
+        )}
+      </Form>
+    );
+  };
 
   function closeHandler() {
     // console.log('cerrado')
@@ -64,7 +118,7 @@ const HumanProfile = () => {
                 </p>
               )}
             </div>
-            {peludos.length > 0 &&
+            {peludos.length >= 1 &&
               peludos.map((peludo, index) => (
                 <Link
                   style={{ zIndex: index + 10 }}
@@ -73,10 +127,10 @@ const HumanProfile = () => {
                   className=" hover:z-40 rounded-full flex w-[60px] h-[60px] md:w-[80px] md:h-[80px] bg-gray-500 overflow-hidden mt-4 z-10 shadow-black/50 shadow-2xl -mr-7"
                   onClick={changeContext}
                 >
-                  {peludo.foto ? (
+                  {peludo.fotos[1] ? (
                     <img
                       alt="Foto de tu perrito"
-                      src={peludo.foto}
+                      src={peludo.fotos[0].url}
                       className=" object-cover w-[60px] md:w-[130px]"
                     />
                   ) : (
@@ -97,7 +151,7 @@ const HumanProfile = () => {
             </Link>
           </div>
 
-          <div className="  min-w-60  pt-6 -mt-1 bg-gray-200   p-5 rounded-lg">
+          <div className="  min-w-60  pt-6 -mt-1 bg-gray-200 p-5 rounded-lg md:min-w-96">
             {" "}
             <section className="flex flex-col flex-wrap gap-5 justify-between">
               <div>
@@ -111,11 +165,17 @@ const HumanProfile = () => {
                   {new Date(humano.createdAt).toLocaleDateString("es-MX")}
                 </p>
               </div>
-              <div>
-                {" "}
-                <p> Puntos acumulados </p>{" "}
-                <p className="text-2xl font-bold">{humano.puntos}</p>
-              </div>
+
+              {humano.puntos > 0 && (
+                <button className="flex flex-col" onClick={handlePuntos}>
+                  {" "}
+                  <p> Puntos acumulados </p>{" "}
+                  <NumberTicker className="puntosStyle" value={humano.puntos} />
+                  {/* <p className="text-2xl font-bold">{humano.puntos}</p> */}
+                </button>
+              )}
+
+              {hpuntos && <ModalPuntos puntosActuales={humano.puntos} />}
             </section>
             <div className="mt-12 ">
               {humano.whatsapp && (
@@ -135,7 +195,7 @@ const HumanProfile = () => {
               )}
               {humano.municipio && (
                 <div className="flex gap-5 justify-between">
-                  <p className="text-sm">Municipio:</p>
+                  <p className="text-sm">Alcaldía:</p>
                   <span className="first-letter:uppercase">
                     {" "}
                     {humano.municipio}{" "}
@@ -145,14 +205,14 @@ const HumanProfile = () => {
             </div>
             <button
               onClick={openModalHandler}
-              className=" bg-yellow-400 mt-6 w-20 justify-center flex "
+              className=" px-3 py-2 rounded-xl bg-[#F9AC19] text-sm mt-6 w-20 justify-center flex "
             >
-              Editar
+              EDITAR
             </button>
           </div>
 
           <section className="flex flex-wrap gap-5 justify-center">
-            {peludos.length >= 0 &&
+            {peludos.length >= 1 &&
               peludos.map((peludo) => (
                 <PeludoOnHuman
                   key={peludo.id}
@@ -172,7 +232,7 @@ const HumanProfile = () => {
             className=" flex flex-col justify-center items-center mt-10 px-6 py-4"
             onClick={changeContext}
           >
-            <div className=" w-[120px] h-[120px]  bg-gray-400 flex flex-col justify-center items-center ">
+            <div className=" rounded-2xl w-[120px] h-[120px]  bg-gray-400 flex flex-col justify-center items-center ">
               {" "}
               {/* <p className="text-[100px] -mt-3 ">+</p> */}
               <img className="w-16 " alt="agrega un lomito" src={masPerro} />
@@ -219,6 +279,8 @@ export async function action({ request, params }) {
   const formData = await request.formData();
   const userData = Object.fromEntries(formData);
 
+  const quitarPuntos = userData.quitarPuntos;
+
   try {
     if (user.role !== "ADMIN") {
       if (user.userId !== humanoId) {
@@ -228,6 +290,11 @@ export async function action({ request, params }) {
     }
   } catch (error) {
     console.log(error);
+  }
+
+  if (quitarPuntos) {
+    const totalPuntos = await reducirPuntos(humanoId, quitarPuntos);
+    return totalPuntos;
   }
 
   if (request.method === "PATCH") {

@@ -45,7 +45,7 @@ const PeludoCard = ({
           </a>
         </>
       )}
-      <div className="text-lg ">{nombre}</div>
+      <div className="text-lg mt-4 ">{nombre}</div>
       <div className="text-xs font-thin   ">{raza}</div>
       {instagram && (
         <button className="text-sm">@{instagram.slice(0, 8)}... </button>

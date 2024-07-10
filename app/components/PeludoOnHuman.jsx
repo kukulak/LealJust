@@ -28,10 +28,10 @@ const PeludoOnHuman = ({ nombre, peludoId, foto, onClick }) => {
       </Link>
       <Link
         to={`/editPeludo/${peludoId}`}
-        className=" bg-yellow-400 mt-6 w-28 p-2 justify-center flex place-self-center rounded-lg"
+        className=" px-3 py-2 rounded-xl bg-[#F9AC19] text-sm mt-6 w-28 p-2 justify-center flex place-self-center"
         onClick={onClick}
       >
-        Editar
+        EDITAR
       </Link>
     </div>
   );

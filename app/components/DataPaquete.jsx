@@ -20,30 +20,30 @@ const DataPaquete = ({ user, paquete, editando, openPaquete }) => {
   };
 
   return (
-    <div>
-      {openPaquete && (
-        <button
-          onClick={handleEditPaquetes}
-          className="my-3 flex justify-center flex-col items-center"
-          key={paquete.id}
-          disabled={user !== "ADMIN"}
-        >
-          <p className="flex items-baseline justify-center">
-            {/* Quedan{" "} */}
-            <span className=" text-2xl text-gray-900 ">
-              {" "}
-              <NumberTicker value={paquete.cantidad - paquete.usados} />
-            </span>{" "}
-            <span className=" text-base">/ {paquete.cantidad}</span>{" "}
-            {/* días. */}
-          </p>
-          <p className="text-xs">
+    // <div>
+    openPaquete &&
+    paquete.cantidad - paquete.usados > 0 && (
+      <button
+        onClick={handleEditPaquetes}
+        className="my-3 flex justify-center flex-col items-center"
+        key={paquete.id}
+        disabled={user !== "ADMIN"}
+      >
+        <p className="flex items-baseline justify-center">
+          {/* Quedan{" "} */}
+          <span className=" text-2xl text-gray-900 ">
             {" "}
-            <span>{paquete.categoria} </span>
-          </p>
-        </button>
-      )}
-    </div>
+            <NumberTicker value={paquete.cantidad - paquete.usados} />
+          </span>{" "}
+          <span className=" text-base">/ {paquete.cantidad}</span> {/* días. */}
+        </p>
+        <p className="text-xs">
+          {" "}
+          <span>{paquete.categoria} </span>
+        </p>
+      </button>
+    )
+    // </div>
   );
 };
 
