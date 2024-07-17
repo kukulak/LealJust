@@ -1,28 +1,28 @@
-import { Link, json, useLoaderData } from '@remix-run/react'
+import { Link, json, useLoaderData } from "@remix-run/react";
 // import { getTotalUsers } from '../data/auth.server'
 // import { getCuponUsageCount } from '../data/cupon.server'
-import { getAllCupons } from '../data/cupon.server'
-import ListCupons from '../components/ListCupons'
+import { getAllCupons } from "../data/cupon.server";
+import ListCupons from "../components/ListCupons";
 // import getCuponUsageStats from '../data/stats.server'
 
 const CuponsList = () => {
   // const { totalUsers, totalCupon } = useLoaderData()
   // const { cuponsList, stats } = useLoaderData()
-  const totalCupon = useLoaderData()
-  console.log('STATS', totalCupon)
+  const totalCupon = useLoaderData();
+  console.log("STATS", totalCupon);
 
   const groupedCupones = totalCupon.reduce((acc, cupon) => {
     if (!acc[cupon.categoria]) {
-      acc[cupon.categoria] = []
+      acc[cupon.categoria] = [];
     }
-    acc[cupon.categoria].push(cupon)
-    return acc
-  }, {})
+    acc[cupon.categoria].push(cupon);
+    return acc;
+  }, {});
 
   return (
     <div className="mt-10 w-full flex justify-center">
       <div className="w-10/12">
-        <h1 className="text-lg mb-5">Todos los Cupones</h1>
+        <h1 className="text-lg mb-20 ">Todos los Cupones</h1>
         {/* <p>{totalUsers}</p>
       {totalCupon &&
         totalCupon.map(totalC => <p key={totalC.id}> {totalC.nombre} </p>)} 
@@ -40,13 +40,13 @@ const CuponsList = () => {
         <ListCupons cupons={groupedCupones} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CuponsList
+export default CuponsList;
 
 export async function loader() {
-  const cuponsList = await getAllCupons()
+  const cuponsList = await getAllCupons();
   // const stats = await getCuponUsageStats()
   // console.log('stats', stats)
 
@@ -55,7 +55,7 @@ export async function loader() {
   // console.log(totalCupon)
   // return { totalUsers, totalCupon }
   // return json({ stats })
-  return cuponsList
+  return cuponsList;
   // return totalCupon
 
   // return stats

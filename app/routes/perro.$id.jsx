@@ -13,7 +13,6 @@ import {
   useNavigate,
   useNavigation,
   Link,
-  redirect,
 } from "@remix-run/react";
 
 import { getPeludo } from "../data/peludo.server";
@@ -42,8 +41,10 @@ const Perro = () => {
     user,
     paquetes,
   } = useLoaderData();
+
   //
   const navigate = useNavigate();
+
   const actionClose = useActionData();
 
   const navigation = useNavigation();
@@ -85,7 +86,7 @@ const Perro = () => {
   }, [edad, peludo.nacimiento]);
 
   useEffect(() => {
-    if (user.role !== "ADMIN") {
+    if (user?.role !== "ADMIN") {
       setAdminButtons(false);
     }
   }, [user]);
@@ -111,29 +112,29 @@ const Perro = () => {
     console.log(describe, "modalDATa", cuponId);
   }
 
-  const [getImages, setImages] = useState(peludo.fotos);
+  // const [getImages, setImages] = useState(peludo.fotos);
   // const imagenes =
 
-  const images = [
-    {
-      original: "https://picsum.photos/id/1018/1000/600/",
-      thumbnail: "https://picsum.photos/id/1018/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1015/1000/600/",
-      thumbnail: "https://picsum.photos/id/1015/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-  ];
+  // const images = [
+  //   {
+  //     original: "https://picsum.photos/id/1018/1000/600/",
+  //     thumbnail: "https://picsum.photos/id/1018/250/150/",
+  //   },
+  //   {
+  //     original: "https://picsum.photos/id/1015/1000/600/",
+  //     thumbnail: "https://picsum.photos/id/1015/250/150/",
+  //   },
+  //   {
+  //     original: "https://picsum.photos/id/1019/1000/600/",
+  //     thumbnail: "https://picsum.photos/id/1019/250/150/",
+  //   },
+  // ];
 
-  useEffect(() => {
-    let momentImages = peludo.fotos;
-    // peludo.fotos.map(({ url }) => (momentImages = { original: url }));
-    setImages(momentImages);
-  }, [peludo.fotos]);
+  // useEffect(() => {
+  //   let momentImages = peludo.fotos;
+  //   // peludo.fotos.map(({ url }) => (momentImages = { original: url }));
+  //   setImages(momentImages);
+  // }, [peludo.fotos]);
 
   // [
   //   {
@@ -264,15 +265,16 @@ const Perro = () => {
               <>
                 <p className="text-xs mt-3"> Paquetes activos </p>{" "}
                 <div className="flex items-center justify-between flex-wrap gap-3">
-                  {paquetes.map((paquete) => (
-                    <DataPaquete
-                      user={user.role}
-                      paquete={paquete}
-                      key={paquete.id}
-                      editando={setEditando}
-                      openPaquete={setPaqueteData}
-                    />
-                  ))}
+                  {user &&
+                    paquetes.map((paquete) => (
+                      <DataPaquete
+                        user={user.role}
+                        paquete={paquete}
+                        key={paquete.id}
+                        editando={setEditando}
+                        openPaquete={setPaqueteData}
+                      />
+                    ))}
                 </div>
               </>
             ) : (
@@ -327,7 +329,7 @@ const Perro = () => {
                 </div>
               </Form>
             )}
-            {user.role === "ADMIN" && (
+            {user?.role === "ADMIN" && (
               <button
                 onClick={handleMoreDays}
                 className=" text-xs rounded-lg mt-4  bg-[#F9AC19] px-3 mb-5 py-2"
@@ -359,7 +361,7 @@ const Perro = () => {
               </div>
             )}
             <div className=" -mt-16 flex items-end justify-between">
-              {user.role === "ADMIN" ? (
+              {user?.role === "ADMIN" ? (
                 <Link
                   className="-ml-2 px-3 py-2 rounded-xl bg-[#F9AC19] text-sm"
                   to={`/editPeludo/${peludo.id}`}
@@ -386,88 +388,94 @@ const Perro = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col mb-20">
-        {cuponesEspeciales.length > 0 && (
-          <Seccion
-            user={user}
-            promociones={cuponesEspeciales.map((cupon) => cupon.nombre)}
-            descripcion={cuponesEspeciales.map((cupon) => cupon.descripcion)}
-            formula={cuponesEspeciales.map((cupon) => cupon.formula)}
-            cuponId={cuponesEspeciales.map((cupon) => cupon.id)}
-            titulo={cuponesEspeciales[0]?.categoria}
-            onClick={openCuponHandler}
-            visitsRemaining={cuponesEspeciales.map(
-              (cupon) => cupon.visitsRequired,
-            )}
-          />
-        )}
+      {user && (
+        <div className="flex flex-col mb-20">
+          {cuponesEspeciales.length > 0 && (
+            <Seccion
+              user={user}
+              promociones={cuponesEspeciales.map((cupon) => cupon.nombre)}
+              descripcion={cuponesEspeciales.map((cupon) => cupon.descripcion)}
+              formula={cuponesEspeciales.map((cupon) => cupon.formula)}
+              cuponId={cuponesEspeciales.map((cupon) => cupon.id)}
+              titulo={cuponesEspeciales[0]?.categoria}
+              onClick={openCuponHandler}
+              visitsRemaining={cuponesEspeciales.map(
+                (cupon) => cupon.visitsRequired,
+              )}
+            />
+          )}
 
-        {cuponesEstetica.length > 0 && (
-          <Seccion
-            user={user}
-            promociones={cuponesEstetica.map((cupon) => cupon.nombre)}
-            descripcion={cuponesEstetica.map((cupon) => cupon.descripcion)}
-            formula={cuponesEstetica.map((cupon) => cupon.formula)}
-            cuponId={cuponesEstetica.map((cupon) => cupon.id)}
-            titulo={cuponesEstetica[0]?.categoria}
-            onClick={openCuponHandler}
-            visitsRemaining={cuponesEstetica.map(
-              (cupon) => cupon.visitsRequired,
-            )}
-          />
-        )}
-        {cuponesGuarderia.length > 0 && (
-          <Seccion
-            user={user}
-            promociones={cuponesGuarderia.map((cupon) => cupon.nombre)}
-            descripcion={cuponesGuarderia.map((cupon) => cupon.descripcion)}
-            cuponId={cuponesGuarderia.map((cupon) => cupon.id)}
-            titulo={cuponesGuarderia[0]?.categoria}
-            // visitsRemaining={4}
-            visitsRemaining={cuponesGuarderia.map(
-              (cupon) => cupon.visitsRequired,
-            )}
-            onClick={openCuponHandler}
-          />
-        )}
-        {cuponesHotel.length > 0 && (
-          <Seccion
-            user={user}
-            promociones={cuponesHotel.map((nombre) => nombre.nombre)}
-            descripcion={cuponesHotel.map((cupon) => cupon.descripcion)}
-            cuponId={cuponesHotel.map((cupon) => cupon.id)}
-            titulo={cuponesHotel[0]?.categoria}
-            // visitsRemaining={4}
-            visitsRemaining={cuponesHotel.map((cupon) => cupon.visitsRequired)}
-            onClick={openCuponHandler}
-          />
-        )}
-        {cuponesAmigos.length > 0 && (
-          <Seccion
-            user={user}
-            promociones={cuponesAmigos.map((nombre) => nombre.nombre)}
-            descripcion={cuponesAmigos.map((cupon) => cupon.descripcion)}
-            cuponId={cuponesAmigos.map((cupon) => cupon.id)}
-            titulo={cuponesAmigos[0]?.categoria}
-            onClick={openCuponHandler}
-            visitsRemaining={cuponesAmigos.map((cupon) => cupon.visitsRequired)}
-          />
-        )}
+          {cuponesEstetica.length > 0 && (
+            <Seccion
+              user={user}
+              promociones={cuponesEstetica.map((cupon) => cupon.nombre)}
+              descripcion={cuponesEstetica.map((cupon) => cupon.descripcion)}
+              formula={cuponesEstetica.map((cupon) => cupon.formula)}
+              cuponId={cuponesEstetica.map((cupon) => cupon.id)}
+              titulo={cuponesEstetica[0]?.categoria}
+              onClick={openCuponHandler}
+              visitsRemaining={cuponesEstetica.map(
+                (cupon) => cupon.visitsRequired,
+              )}
+            />
+          )}
+          {cuponesGuarderia.length > 0 && (
+            <Seccion
+              user={user}
+              promociones={cuponesGuarderia.map((cupon) => cupon.nombre)}
+              descripcion={cuponesGuarderia.map((cupon) => cupon.descripcion)}
+              cuponId={cuponesGuarderia.map((cupon) => cupon.id)}
+              titulo={cuponesGuarderia[0]?.categoria}
+              // visitsRemaining={4}
+              visitsRemaining={cuponesGuarderia.map(
+                (cupon) => cupon.visitsRequired,
+              )}
+              onClick={openCuponHandler}
+            />
+          )}
+          {cuponesHotel.length > 0 && (
+            <Seccion
+              user={user}
+              promociones={cuponesHotel.map((nombre) => nombre.nombre)}
+              descripcion={cuponesHotel.map((cupon) => cupon.descripcion)}
+              cuponId={cuponesHotel.map((cupon) => cupon.id)}
+              titulo={cuponesHotel[0]?.categoria}
+              // visitsRemaining={4}
+              visitsRemaining={cuponesHotel.map(
+                (cupon) => cupon.visitsRequired,
+              )}
+              onClick={openCuponHandler}
+            />
+          )}
+          {cuponesAmigos.length > 0 && (
+            <Seccion
+              user={user}
+              promociones={cuponesAmigos.map((nombre) => nombre.nombre)}
+              descripcion={cuponesAmigos.map((cupon) => cupon.descripcion)}
+              cuponId={cuponesAmigos.map((cupon) => cupon.id)}
+              titulo={cuponesAmigos[0]?.categoria}
+              onClick={openCuponHandler}
+              visitsRemaining={cuponesAmigos.map(
+                (cupon) => cupon.visitsRequired,
+              )}
+            />
+          )}
 
-        {cuponesDinamicas.length > 0 && (
-          <Seccion
-            user={user}
-            promociones={cuponesDinamicas.map((nombre) => nombre.nombre)}
-            descripcion={cuponesDinamicas.map((cupon) => cupon.descripcion)}
-            cuponId={cuponesDinamicas.map((cupon) => cupon.id)}
-            titulo={cuponesDinamicas[0]?.categoria}
-            onClick={openCuponHandler}
-            visitsRemaining={cuponesDinamicas.map(
-              (cupon) => cupon.visitsRrequired,
-            )}
-          />
-        )}
-      </div>
+          {cuponesDinamicas.length > 0 && (
+            <Seccion
+              user={user}
+              promociones={cuponesDinamicas.map((nombre) => nombre.nombre)}
+              descripcion={cuponesDinamicas.map((cupon) => cupon.descripcion)}
+              cuponId={cuponesDinamicas.map((cupon) => cupon.id)}
+              titulo={cuponesDinamicas[0]?.categoria}
+              onClick={openCuponHandler}
+              visitsRemaining={cuponesDinamicas.map(
+                (cupon) => cupon.visitsRrequired,
+              )}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };
@@ -475,6 +483,8 @@ const Perro = () => {
 export default Perro;
 
 export async function loader({ params, request }) {
+  const userLoaded = await requireUserSession(request);
+
   const peludoId = params.id;
   const paquetes = await getPaquetesPorPeludo(peludoId);
   const user = await getUserFromSession(request);
@@ -497,11 +507,12 @@ export async function loader({ params, request }) {
     peludo,
     user,
     paquetes,
+    userLoaded,
   };
 }
 
 export async function action({ params, request }) {
-  await requireUserSession(request);
+  // await requireUserSession(request);
   // const user = await requireUserSession(request);
   const formData = await request.formData();
   // const { userId } = getUserFromSession(request);

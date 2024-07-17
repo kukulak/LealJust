@@ -161,7 +161,7 @@ function AuthForm(userRole) {
       </Form>
 
       <button
-        className="p-3  mb-20 rounded-lg border-gray-400 border-2"
+        className="p-3  mb-56  rounded-lg border-gray-400 border-2"
         onClick={() => {
           navigate(-1);
         }}

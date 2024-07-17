@@ -236,8 +236,8 @@ const HumanProfile = () => {
               {" "}
               {/* <p className="text-[100px] -mt-3 ">+</p> */}
               <img className="w-16 " alt="agrega un lomito" src={masPerro} />
+              <p className="text-sm text-gray-100 mt-3"> Agregar Lomito</p>
             </div>
-            <p className="text-xl text-gray-400 my-3"> Agregar Lomito</p>
           </Link>
         </div>
       </div>

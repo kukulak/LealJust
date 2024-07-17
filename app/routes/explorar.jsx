@@ -1,5 +1,5 @@
 import { getAllPeludos } from "../data/peludo.server";
-import { Link, redirect, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import PeludoCard from "../components/PeludoCard";
 
 import { requireUserSession } from "../data/auth.server";

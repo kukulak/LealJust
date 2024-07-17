@@ -1,5 +1,5 @@
-import { Form, Link, redirect, useLoaderData } from "@remix-run/react";
-import { useState } from "react";
+import { Link, redirect, useLoaderData } from "@remix-run/react";
+// import { useState } from "react";
 import { requireUserSession } from "../data/auth.server";
 import { newCupon } from "../data/cupon.server";
 import { getCategorias } from "../data/categoria.server";
@@ -52,6 +52,7 @@ export async function action({ request }) {
 }
 
 export async function loader({ request }) {
+  const loadedUser = await requireUserSession(request);
   const categorias = await getCategorias();
   const promociones = await getFormula();
   console.log("promociones", promociones);
@@ -65,5 +66,5 @@ export async function loader({ request }) {
   //   )
   // )
 
-  return { categorias, promociones };
+  return { categorias, promociones, loadedUser };
 }

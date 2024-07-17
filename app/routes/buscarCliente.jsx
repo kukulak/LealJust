@@ -127,13 +127,13 @@ export async function action({ request }) {
   let nombre = {};
   try {
     if (dataSearch.especie === "peludo") {
-      nombre = await getPeludoByName(dataSearch.nombre);
+      nombre = await getPeludoByName(dataSearch.nombre.toLowerCase());
 
       console.log(dataSearch.nombre, nombre);
       console.log(dataSearch.especie, especie);
       return { nombre, especie };
     } else {
-      nombre = await getHumanoByName(dataSearch.nombre);
+      nombre = await getHumanoByName(dataSearch.nombre.toLowerCase());
       console.log(dataSearch.nombre);
       return { nombre, especie };
     }

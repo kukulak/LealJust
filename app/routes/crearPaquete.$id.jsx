@@ -78,7 +78,7 @@ const CrearPaquete = () => {
         </div>
 
         <div className="flex-wrap text-gray-200 mt-16  mb-2 form-actions flex flex-row gap-5 justify-end ">
-          <Link to="/cuponsList" className="bg-gray-800 w-min p-5 rounded-lg">
+          <Link to={`/perro/`} className="bg-gray-800 w-min p-5 rounded-lg">
             {" "}
             Regresar{" "}
           </Link>
