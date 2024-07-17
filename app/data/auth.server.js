@@ -227,7 +227,6 @@ export async function login({ email, password }) {
     error.status = 401;
     throw error;
   }
-  console.log("ERROR -----  HORRROR FROM");
 
   const passwordCorrect = await compare(password, existingUser.password);
 
