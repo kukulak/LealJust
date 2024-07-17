@@ -65,14 +65,18 @@ export async function destroyUserSession(request) {
 }
 
 export async function requireUserSession(request) {
+  // try {
   const userId = await getUserFromSession(request);
-
   if (!userId) {
     throw redirect("/login");
     // throw redirect('/auth?mode=login')
   }
 
   return userId;
+  // } catch (error) {
+  //   console.log("error de user required", error);
+  //   throw new Error("require user FAILED.");
+  // }
 }
 
 export function generateToken() {
