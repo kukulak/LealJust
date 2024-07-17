@@ -82,9 +82,6 @@ export async function getCupones(categoria, peludoId) {
     const caducidadCupones = cupones.filter((cupon) => {
       const iniciaDate = new Date(cupon.inicio);
       const terminoDate = new Date(cupon.termino);
-      console.log("iniciaDate:", iniciaDate);
-      console.log("terminoDate:", terminoDate);
-      console.log("todayDate:", todayDate);
       return iniciaDate <= todayDate && terminoDate >= todayDate;
     });
 
@@ -174,6 +171,11 @@ export async function getAllCupons() {
     return await prisma.Cupon.findMany({
       where: {},
       orderBy: [{ fecha: "asc" }],
+      include: {
+        _count: {
+          select: { used: true },
+        },
+      },
     });
   } catch (error) {
     console.log(error);

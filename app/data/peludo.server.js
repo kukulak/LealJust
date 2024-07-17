@@ -15,7 +15,7 @@ export async function newPeludo(dataPeludo, userId, file) {
 
     const newPeludo = await prisma.Peludo.create({
       data: {
-        nombre: dataPeludo.nombre,
+        nombre: dataPeludo.nombre.toLowerCase(),
         usuario: { connect: { id: userId || undefined } },
         raza: dataPeludo.raza,
         nacimiento: dataPeludo.nacimiento,

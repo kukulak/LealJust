@@ -103,7 +103,7 @@ export async function signup({
 
   const user = await prisma.user.create({
     data: {
-      name: name,
+      name: name.toLowerCase(),
       email: email,
       password: passwordHash,
       whatsapp: whatsapp,

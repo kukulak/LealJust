@@ -1,4 +1,4 @@
-import { prisma } from './database.server'
+import { prisma } from "./database.server";
 
 // export async function createUsed(cuponId, peludoId) {
 //   await prisma.Used.create({
@@ -13,9 +13,9 @@ export async function createUsed(cuponId, peludoId) {
   await prisma.Used.create({
     data: {
       cupon: { connect: { id: cuponId } },
-      peludo: { connect: { id: peludoId } }
-    }
-  })
+      peludo: { connect: { id: peludoId } },
+    },
+  });
 }
 
 export async function upsertUsed(cuponId, peludoId) {
@@ -25,29 +25,29 @@ export async function upsertUsed(cuponId, peludoId) {
       where: {
         peludoId_cuponId: {
           peludoId,
-          cuponId
-        }
+          cuponId,
+        },
       },
       update: {
-        timesUsed: { increment: 1 } // Incrementar timesUsed en 1 si el registro ya existe
+        timesUsed: { increment: 1 }, // Incrementar timesUsed en 1 si el registro ya existe
       },
       create: {
         cupon: { connect: { id: cuponId } },
         peludo: { connect: { id: peludoId } },
-        timesUsed: 1 // Establecer timesUsed en 1 si el registro no existe
-      }
-    })
+        timesUsed: 1, // Establecer timesUsed en 1 si el registro no existe
+      },
+    });
 
-    console.log('Cupón creado o actualizado correctamente')
+    console.log("Cupón creado o actualizado correctamente");
   } catch (error) {
-    console.error('Error al actualizar el uso del cupón:', error)
+    console.error("Error al actualizar el uso del cupón:", error);
   }
 }
 
 export async function getUsedByCupon(cuponId) {
-  await prisma.used.findMany({ where: { id: cuponId } })
+  await prisma.used.findMany({ where: { id: cuponId } });
 }
 
 export async function getUsedByPeludo(peludoId) {
-  await prisma.used.findMany({ where: { id: peludoId } })
+  await prisma.used.findMany({ where: { id: peludoId } });
 }
