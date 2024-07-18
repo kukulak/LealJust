@@ -357,7 +357,14 @@ const Perro = () => {
               <div className="my-5">
                 <p className=" text-xs text-gray-700"> instagram</p>
 
-                <p className=" text-xl text-gray-700"> {peludo.instagram} </p>
+                <a
+                  href={`instagram/${peludo.instagram}`}
+                  className=" text-xl text-gray-700"
+                >
+                  {" "}
+                  {peludo.instagram.slice(0, 9)}
+                  {peludo.instagram.length > 9 && "..."}
+                </a>
               </div>
             )}
             <div className=" -mt-16 flex items-end justify-between">

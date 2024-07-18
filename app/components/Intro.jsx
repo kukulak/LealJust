@@ -48,7 +48,7 @@ const Intro = ({ user }) => {
         >
           {" "}
           <img className="w-5 h-5 m-3 mt-[3px]  " src={goCupones} alt="more" />
-          Crear ofertas y Promociones
+          Crear Ofertas y Promociones
         </Link>
 
         <Link
